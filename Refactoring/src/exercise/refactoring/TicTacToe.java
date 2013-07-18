@@ -6,7 +6,6 @@ public class TicTacToe {
     public static final int SQUARES_PER_SIDE = 10;
     public static final int ZERO_MARK_FOR_COMPUTER = 2;
     public static final int X_MARK_FOR_PLAYER = 1;
-    public static final String CR_CHARACTER = "\n";
     public static final int HORIZONTAL = 0;
     public static final int DIAGONAL_RIGHT = 1;
     public static final int VERTICAL = 2;
@@ -26,7 +25,6 @@ public class TicTacToe {
 
     private static final String DOUBLE_BLANK_SPACE = "  ";
     private static final String SINGLE_BLANK_SPACE = " ";
-    private static final long serialVersionUID = 1L;
     private static final int MAX_DEPTH = 7;
     private static final int NONE = 100;
     private static final int OCCUPIED = 1;
@@ -42,10 +40,6 @@ public class TicTacToe {
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
     private int tempRowForChecks[] = new int[SQUARES_PER_SIDE];
 
-    protected class Player{
-        int winLength;
-        int playerMark;
-    }
     private Player computerPlayer = createComputerPlayer();
     private Player humanPlayer = createHumanPlayer();
     private int[][] marksForChecking = new int[NUMBER_OF_POSSIBLE_CELL_STATES][NUMBER_OF_DIRECTIONS];
@@ -1348,20 +1342,25 @@ public class TicTacToe {
     }
 
     private void incrementWinCountForDirection(int indexOnBoard, int direction){
-        if(indexOnBoard < 100 && indexOnBoard >= 0)
+        if(indexOnBoard < 100 && indexOnBoard >= 0){
             marksForChecking[gameBoard[0][indexOnBoard]][direction]++;
+        }
     }
 
     private boolean playerWon(Player p) {
-        for(int i = 0; i < 4; i++)
-            if(marksForChecking[p.playerMark][i] >= p.winLength)
+        for(int i = 0; i < 4; i++){
+            if(marksForChecking[p.playerMark][i] >= p.winLength){
                 return true;
+            }
+        }
         return false;
     }
 
     private void initializeMarksByPlayerByAxis() {
-        for(int i = 0; i < 3; i++)
-            for(int j = 0; j<4; j++)
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j<4; j++){
                 marksForChecking[i][j] = 0;
+            }
+        }
     }
 }
