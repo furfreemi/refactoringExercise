@@ -4,7 +4,8 @@ import org.junit.Test;
 
 public class TicTacToeTest {
     @Test
-    public void shouldRun(){
+    public void shouldRun(){ // characterization test
         TicTacToe ticTacToe = new TicTacToe();
+//        assertThat(ticTacToe.anyDiagDown4MatchToMark(), is());
     }
 }

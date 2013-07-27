@@ -47,13 +47,15 @@ public class TicTacToe {
     public int makeComputerMove(int x, int y, boolean reporting) {
         int position = 0;
 
-        if (moveNumber == 1)
+        if (moveNumber == 1){
             return makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y);
+        }
 
         position = closeGapInSeries();
         if ((moveNumber == 2) && (position != NONE)) {
-            if (reporting)
+            if (reporting){
                 System.out.println("closeGapInSeries() found " + position);
+            }
             return position;
         }
 
@@ -61,17 +63,19 @@ public class TicTacToe {
             position = blockSeriesOfFourOrMore(ZERO_MARK_FOR_COMPUTER, 0,
                     CHECK_MODE);
             if (position != NONE) {
-                if (reporting)
+                if (reporting){
                     System.out.println("blockSeriesOfFourOrMore() found "
                             + position);
+                }
                 return position;
             }
 
             position = blockSeriesOfFourOrMore(X_MARK_FOR_PLAYER, 0, CHECK_MODE);
             if (position != NONE) {
-                if (reporting)
+                if (reporting) {
                     System.out.println("blockSeriesOfFourOrMore() found "
                             + position);
+                }
                 return position;
             }
         }
