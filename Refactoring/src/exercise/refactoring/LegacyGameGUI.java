@@ -6,7 +6,6 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.lang.Exception;
 
 public class LegacyGameGUI extends Applet implements Runnable {
 	private static final long serialVersionUID = 4873261510528018302L;
@@ -77,9 +76,9 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		} else {
 			for (int r = 0; r < LegacyGame.SQUARES_PER_SIDE; r++) {
 				for (int c = 0; c < LegacyGame.SQUARES_PER_SIDE; c++) {
-					if (game.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE + c] == LegacyGame.X_MARK_FOR_PLAYER)
+					if (game.gameBoard.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE + c] == LegacyGame.X_MARK_FOR_PLAYER)
 						g.drawImage(xMark, c * 30, r * 30 + 40, this);
-					else if (game.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE
+					else if (game.gameBoard.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE
 							+ c] == LegacyGame.ZERO_MARK_FOR_COMPUTER) {
 						if (r * LegacyGame.SQUARES_PER_SIDE + c == game.lastMove)
 							g.drawImage(filledOMark, c * 30, r * 30 + 40, this);
@@ -125,7 +124,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		System.out.println("player x = " + x);
 		System.out.println("player y = " + y);
 
-		if (game.gameBoard[0][playerMove] != LegacyGame.EMPTY
+		if (game.gameBoard.gameBoard[0][playerMove] != LegacyGame.EMPTY
 				|| game.gameState != 0 || game.moveNumber > 49) // polje
 		{
 			return true;
