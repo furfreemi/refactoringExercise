@@ -1121,24 +1121,29 @@ public class LegacyGame {
 
 	private void changeMarksToFindHorizontalOrVerticalWin(int fasterIndex, int slowerIndex, int winSize) {
 		for(int k = 0; k < winSize; k++){
-			incrementWinCountForDirection((fasterIndex  * SQUARES_PER_SIDE + slowerIndex + k), 			  Directions.HORIZONTAL.index);
-			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex  + k * SQUARES_PER_SIDE), Directions.VERTICAL.index);
+			incrementWinCountForDirection((fasterIndex  * SQUARES_PER_SIDE + slowerIndex + k), 			  Directions.HORIZONTAL);
+			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex  + k * SQUARES_PER_SIDE), Directions.VERTICAL);
 		}
 	}
 	
 	private void changeMarksToFindDiagonalWin(int fasterIndex, int slowerIndex, int winSize) {
 		for(int k = 0; k < winSize; k++){
-			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex - k * 9 + (winSize - 1) * SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT.index);
-			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + k * (SQUARES_PER_SIDE+1)), 				  Directions.DIAGONAL_RIGHT.index);
+			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex - k * 9 + (winSize - 1) * SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
+			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + k * (SQUARES_PER_SIDE+1)), 				  Directions.DIAGONAL_RIGHT);
 		}
 	}
 	
-	private void incrementWinCountForDirection(int indexOnBoard, int direction){
-			if(indexOnBoard < 100 && indexOnBoard >= 0)
-				marksForChecking[gameBoard.gameBoardZero()[indexOnBoard]][direction]++;
+	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
+			if(indexOnBoard < 100 && indexOnBoard >= 0){
+				marksForChecking[playerMark(indexOnBoard).index][direction.index]++;
+            }
 	}
 
-	private boolean playerWon(Player p) {
+    private GameBoardMark playerMark(int indexOnBoard) {
+        return GameBoardMark.valueOf(gameBoard.gameBoardZero()[indexOnBoard]);
+    }
+
+    private boolean playerWon(Player p) {
         for (Directions direction : Directions.values()){
 			if(marksForChecking[p.playerMark][direction.index] >= p.winLength){
 				return true;

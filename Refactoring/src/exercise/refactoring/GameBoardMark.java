@@ -8,4 +8,13 @@ public enum GameBoardMark {
     GameBoardMark(int index) {
         this.index = index;
     }
+
+    public static GameBoardMark valueOf(int index) {
+        for (GameBoardMark mark : GameBoardMark.values()){
+            if (mark.index == index){
+                return mark;
+            }
+        }
+        return null;
+    }
 }
