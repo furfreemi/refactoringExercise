@@ -1056,17 +1056,25 @@ public class TicTacToe {
         return match;
     }
 
+    protected void setValueInMarksByAxisByPlayerForChecking(int index, int value){
+        marksByAxisByPlayerForChecking[index] = value;
+    }
+
+    protected int getTempRowForChecks(int index){
+       return tempRowForChecks[index];
+    }
+
     public boolean anyDiagDown4MatchToMark(int type, int place) {
         boolean match = false;
 
-        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 3
-                && marksByAxisByPlayerForChecking[1] == 1) {
+        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[2] = 1;
             if (type == CHECK_MODE) {
                 match = true;
             }
-            if (type == SETFLAGS_MODE)
+            if (type == SETFLAGS_MODE){
                 tempTableForChecks[place] = OCCUPIED;
+            }
         }
         if (type == CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 2
                 && marksByAxisByPlayerForChecking[1] == 2) {
