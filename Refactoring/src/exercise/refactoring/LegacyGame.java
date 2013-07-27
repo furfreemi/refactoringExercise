@@ -1139,9 +1139,11 @@ public class LegacyGame {
 	}
 
 	private boolean playerWon(Player p) {
-		for(int i = 0; i < 4; i++)
-			if(marksForChecking[p.playerMark][i] >= p.winLength)
+        for (Directions direction : Directions.values()){
+			if(marksForChecking[p.playerMark][direction.index] >= p.winLength){
 				return true;
+            }
+        }
 		return false;
 	}
 
@@ -1151,10 +1153,6 @@ public class LegacyGame {
               marksForChecking[mark.index][direction.index] = 0;
             }
         }
-
-//		for(int i = 0; i <= 2; i++) // could be enum all possible states of contents of box on board
-//			for(int j = 0; j <= 3; j++) // could be enum of all possible directions
-//				marksForChecking[i][j] = 0;
 	}
 
     public int getMoveNumber() {
