@@ -76,10 +76,10 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		} else {
 			for (int r = 0; r < LegacyGame.SQUARES_PER_SIDE; r++) {
 				for (int c = 0; c < LegacyGame.SQUARES_PER_SIDE; c++) {
-					if (game.gameBoard.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE + c] == LegacyGame.X_MARK_FOR_PLAYER)
+					if (game.gameBoard.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE + c] == GameBoardMark.X_MARK_FOR_PLAYER.index)
 						g.drawImage(xMark, c * 30, r * 30 + 40, this);
 					else if (game.gameBoard.gameBoard[0][r * LegacyGame.SQUARES_PER_SIDE
-							+ c] == LegacyGame.ZERO_MARK_FOR_COMPUTER) {
+							+ c] == GameBoardMark.ZERO_MARK_FOR_COMPUTER.index) {
 						if (r * LegacyGame.SQUARES_PER_SIDE + c == game.lastMove)
 							g.drawImage(filledOMark, c * 30, r * 30 + 40, this);
 						else
@@ -124,7 +124,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		System.out.println("player x = " + x);
 		System.out.println("player y = " + y);
 
-		if (game.gameBoard.gameBoard[0][playerMove] != LegacyGame.EMPTY
+		if (game.gameBoard.gameBoard[0][playerMove] != GameBoardMark.EMPTY.index
 				|| game.gameState != 0 || game.moveNumber > 49) // polje
 		{
 			return true;

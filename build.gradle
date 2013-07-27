@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'idea'
-apply from: 'https://github.com/valkolovos/gradle_cobertura/raw/master/repo/gradle_cobertura/gradle_cobertura/1.0/coberturainit.gradle'
+//apply from: 'https://github.com/valkolovos/gradle_cobertura/raw/master/repo/gradle_cobertura/gradle_cobertura/1.0/coberturainit.gradle'
 
 repositories {
     mavenCentral()
@@ -28,9 +28,9 @@ sourceSets {
     }
 }
 
-cobertura {
-    coverageSourceDirs = srcDirs = projects.collect { project -> project + '/src' }
-}
+//cobertura {
+//    coverageSourceDirs = srcDirs = projects.collect { project -> project + '/src' }
+//}
 
 idea {
     module {

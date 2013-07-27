@@ -21,7 +21,7 @@ public class ComputerMove {
         }
 
         if (legacyGame.getMoveNumber() > 3) {
-            position = legacyGame.blockSeriesOfFourOrMore(LegacyGame.ZERO_MARK_FOR_COMPUTER, 0,
+            position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0,
                     LegacyGame.CHECK_MODE);
             if (position != LegacyGame.NONE) {
                 if (reporting)
@@ -30,7 +30,7 @@ public class ComputerMove {
                 return position;
             }
 
-            position = legacyGame.blockSeriesOfFourOrMore(LegacyGame.X_MARK_FOR_PLAYER, 0, LegacyGame.CHECK_MODE);
+            position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE);
             if (position != LegacyGame.NONE) {
                 if (reporting)
                     System.out.println("blockSeriesOfFourOrMore() found "
@@ -39,7 +39,7 @@ public class ComputerMove {
             }
         }
 
-        position = legacyGame.responseTo3Or4InaRowOpportunity(LegacyGame.ZERO_MARK_FOR_COMPUTER, 0,
+        position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0,
                 LegacyGame.CHECK_MODE);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
             if (reporting)
@@ -49,7 +49,7 @@ public class ComputerMove {
         }
 
         position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(
-                LegacyGame.ZERO_MARK_FOR_COMPUTER, 0);
+                GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out
@@ -58,10 +58,10 @@ public class ComputerMove {
             return position;
         }
 
-        legacyGame.setFlagsForLaterProcessing(LegacyGame.X_MARK_FOR_PLAYER);
+        legacyGame.setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER.index);
 
         position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(
-                LegacyGame.ZERO_MARK_FOR_COMPUTER, 0);
+                GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out
@@ -70,7 +70,7 @@ public class ComputerMove {
             return position;
         }
 
-        position = legacyGame.responseTo3Or4InaRowOpportunity(LegacyGame.X_MARK_FOR_PLAYER, 0,
+        position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER.index, 0,
                 LegacyGame.CHECK_MODE);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
             if (reporting)
@@ -80,7 +80,7 @@ public class ComputerMove {
         }
 
         position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(
-                LegacyGame.X_MARK_FOR_PLAYER, 0);
+                GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out
@@ -89,10 +89,10 @@ public class ComputerMove {
             return position;
         }
 
-        legacyGame.setFlagsForLaterProcessing(LegacyGame.ZERO_MARK_FOR_COMPUTER);
+        legacyGame.setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
 
         position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(
-                LegacyGame.X_MARK_FOR_PLAYER, 0);
+                GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out
@@ -103,7 +103,7 @@ public class ComputerMove {
 
         copyBoardZeroToBoardTwo();
 
-        position = legacyGame.checkSeries(LegacyGame.ZERO_MARK_FOR_COMPUTER, 0);
+        position = legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 3) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out.println("checkSeries() found " + position);
@@ -111,20 +111,20 @@ public class ComputerMove {
         }
 
         if (legacyGame.getMoveNumber() > 3
-                && (position = legacyGame.checkSeries(LegacyGame.X_MARK_FOR_PLAYER, 0)) != LegacyGame.NONE) {
+                && (position = legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("checkSeries() found " + position);
             return position;
         }
 
-        position = legacyGame.check2o3c(LegacyGame.ZERO_MARK_FOR_COMPUTER, 0);
+        position = legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out.println("check2o3c() found " + position);
             return position;
         }
 
-        position = legacyGame.check2o3c(LegacyGame.X_MARK_FOR_PLAYER, 0);
+        position = legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 20) && (position != LegacyGame.NONE)) {
             if (reporting)
                 System.out.println("check2o3c() found " + position);
@@ -132,20 +132,20 @@ public class ComputerMove {
         }
 
         if (legacyGame.getMoveNumber() > 3
-                && (position = legacyGame.checkCross(LegacyGame.X_MARK_FOR_PLAYER)) != LegacyGame.NONE) {
+                && (position = legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("checkCross() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 3
-                && (position = legacyGame.checkCross(LegacyGame.ZERO_MARK_FOR_COMPUTER)) != LegacyGame.NONE) {
+                && (position = legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("checkCross() found " + position);
             return position;
         }
 
-        if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.checkBox(LegacyGame.X_MARK_FOR_PLAYER)) != LegacyGame.NONE) {
+        if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("checkBox() found " + position);
             return position;
@@ -166,7 +166,7 @@ public class ComputerMove {
             return position;
         }
 
-        if ((position = legacyGame.responseTo3Or4InaRowOpportunity(LegacyGame.ZERO_MARK_FOR_COMPUTER,
+        if ((position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index,
                 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("responseTo3Or4InaRowOpportunity() found "
@@ -174,7 +174,7 @@ public class ComputerMove {
             return position;
         }
 
-        if ((position = legacyGame.blockSeriesOfFourOrMore(LegacyGame.X_MARK_FOR_PLAYER, 0,
+        if ((position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0,
                 LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
             if (reporting)
                 System.out.println("blockEitherEndOfSeriesOf4OrMore() found "
@@ -203,16 +203,16 @@ public class ComputerMove {
 
     private int createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
         int i;
-        legacyGame.seto4cc(LegacyGame.X_MARK_FOR_PLAYER);
+        legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER.index);
         for (i = 11; i < 89; i++)
             if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED
-                    && (legacyGame.gameBoard.gameBoard[0][i - 11] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i - LegacyGame.SQUARES_PER_SIDE] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i - 9] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i - 1] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i + 1] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i + 9] == LegacyGame.X_MARK_FOR_PLAYER
-                            || legacyGame.gameBoard.gameBoard[0][i + LegacyGame.SQUARES_PER_SIDE] == LegacyGame.X_MARK_FOR_PLAYER || legacyGame.gameBoard.gameBoard[0][i + 11] == LegacyGame.X_MARK_FOR_PLAYER)) {
+                    && (legacyGame.gameBoard.gameBoard[0][i - 11] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i - LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i - 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i - 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i + 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i + 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.gameBoard[0][i + LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index || legacyGame.gameBoard.gameBoard[0][i + 11] == GameBoardMark.X_MARK_FOR_PLAYER.index)) {
 
                 return i;
             }

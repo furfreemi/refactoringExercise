@@ -10,4 +10,12 @@ public class GameBoard {
     int[] gameBoardZero() {
         return gameBoard[0];
     }
+
+    int[] gameBoardTwo() {
+        return gameBoard[2];
+    }
+
+    public void markMove(int position, int playerMark) {
+        gameBoardZero()[position] = playerMark;
+	}
 }
