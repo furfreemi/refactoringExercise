@@ -1,7 +1,5 @@
 package exercise.refactoring;
 
-import java.util.HashMap;
-
 public class LegacyGame {
 
 	public static final int TOTAL_SQUARES_PER_BOARD = 100;
@@ -9,7 +7,7 @@ public class LegacyGame {
 
 	public static final String CR_CHARACTER = "\n";
 
-//    public static final int GameBoardMark.EMPTY.indexInMarksForChecking = 0;
+//    public static final int GameBoardMark.EMPTY.index = 0;
 
 
 	public static int PLAYER_WIN_LENGTH = 5;
@@ -45,7 +43,7 @@ public class LegacyGame {
 
     private Player computerPlayer = createComputerPlayer();
 	private Player humanPlayer = createHumanPlayer();
-	private HashMap<Directions, Integer[]> marksForChecking = new HashMap<Directions, Integer[]>();
+	private int[][] marksForChecking = new int[NUMBER_OF_POSSIBLE_CELL_STATES][NUMBER_OF_DIRECTIONS];
 
 	public int makeComputerMove(int x, int y, boolean reporting) {
         return computerMove.makeComputerMove(x, y, reporting);
@@ -1129,25 +1127,25 @@ public class LegacyGame {
 	}
 	
 	private void changeMarksToFindDiagonalWin(int fasterIndex, int slowerIndex, int winSize) {
-		for(int numberOfStepsToWin = 0; numberOfStepsToWin < winSize; numberOfStepsToWin++){
-			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex - numberOfStepsToWin * 9 + (winSize - 1) * SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
-			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + numberOfStepsToWin * (SQUARES_PER_SIDE+1)), 				  Directions.DIAGONAL_RIGHT);
+		for(int k = 0; k < winSize; k++){
+			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex - k * 9 + (winSize - 1) * SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
+			incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + k * (SQUARES_PER_SIDE+1)), 				  Directions.DIAGONAL_RIGHT);
 		}
 	}
 	
 	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
 			if(indexOnBoard < 100 && indexOnBoard >= 0){
-				marksForChecking[playerMarkAtGameBoardIndex(indexOnBoard).index][direction.indexInMarksForChecking]++;
+				marksForChecking[playerMark(indexOnBoard).index][direction.index]++;
             }
 	}
 
-    private GameBoardMark playerMarkAtGameBoardIndex(int indexOnBoard) {
+    private GameBoardMark playerMark(int indexOnBoard) {
         return GameBoardMark.valueOf(gameBoard.gameBoardZero()[indexOnBoard]);
     }
 
     private boolean playerWon(Player p) {
         for (Directions direction : Directions.values()){
-			if(marksForChecking[p.playerMark][direction.indexInMarksForChecking] >= p.winLength){
+			if(marksForChecking[p.playerMark][direction.index] >= p.winLength){
 				return true;
             }
         }
@@ -1157,8 +1155,7 @@ public class LegacyGame {
 	private void initializeMarksByPlayerByAxis() {
         for (GameBoardMark mark : GameBoardMark.values()){
             for (Directions direction : Directions.values()){
-                marksForChecking.get(direction)[direction.indexInMarksForChecking] = 0;
-//              marksForChecking[mark.index][direction.indexInMarksForChecking] = 0;
+              marksForChecking[mark.index][direction.index] = 0;
             }
         }
 	}
