@@ -1152,18 +1152,6 @@ public class LegacyGame {
         return marksForChecking.get(passedInDirection).get(GameBoardMark.valueOf(p.playerMark)) >= p.winLength;
     }
 
-    private HashMap<Directions, HashMap<GameBoardMark, Integer>> directionGameMarkFromIntegerArray(int[][] marksForChecking) {
-        HashMap<Directions, HashMap<GameBoardMark, Integer>> nonIntegerMarksForChecking = new HashMap<Directions, HashMap<GameBoardMark, Integer>>();
-        for(Directions directions : Directions.values()){
-            HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
-            for(GameBoardMark mark : GameBoardMark.values()){
-                playerMarkToInteger.put(GameBoardMark.valueOf(mark.index), marksForChecking[mark.index][directions.index]);
-            }
-            nonIntegerMarksForChecking.put(Directions.valueOf(directions.index), playerMarkToInteger);
-        }
-        return nonIntegerMarksForChecking;
-    }
-
     private void initializeMarksByPlayerByAxis() {
         for(Directions directions : Directions.values()){
             HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
