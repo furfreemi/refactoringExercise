@@ -1130,8 +1130,7 @@ public class LegacyGame {
 	
 	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
 		if(indexOnBoard < 100 && indexOnBoard >= 0){
-            Integer original = marksForChecking.marksForChecking.get(direction).get(playerMark(indexOnBoard));
-            marksForChecking.marksForChecking.get(direction).put(playerMark(indexOnBoard), original + 1);
+            marksForChecking.incrementValueAt(direction, playerMark(indexOnBoard));
         }
 	}
 
