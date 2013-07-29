@@ -43,7 +43,7 @@ public class LegacyGame {
 
     private Player computerPlayer = createComputerPlayer();
 	private Player humanPlayer = createHumanPlayer();
-	private int[][] marksForChecking = new int[NUMBER_OF_POSSIBLE_CELL_STATES][NUMBER_OF_DIRECTIONS];
+    private int[][] marksForChecking = new int[GameBoardMark.values().length][Directions.values().length];
 
 	public int makeComputerMove(int x, int y, boolean reporting) {
         return computerMove.makeComputerMove(x, y, reporting);
