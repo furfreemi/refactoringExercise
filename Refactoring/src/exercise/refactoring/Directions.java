@@ -8,12 +8,4 @@ public enum Directions {
         this.indexInMarksForChecking = indexInMarksForChecking;
     }
 
-    public static Directions valueOf(int indexInMarksForChecking) {
-        for (Directions direction : Directions.values()){
-            if (direction.indexInMarksForChecking == indexInMarksForChecking){
-                return direction;
-            }
-        }
-        return null;
-    }
 }

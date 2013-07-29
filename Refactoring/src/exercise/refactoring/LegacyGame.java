@@ -1137,8 +1137,7 @@ public class LegacyGame {
 	
 	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
 			if(indexOnBoard < 100 && indexOnBoard >= 0){
-                marksForChecking.get(playerMarkAtGameBoardIndex(indexOnBoard))[direction.indexInMarksForChecking]++;
-//				marksForChecking[playerMarkAtGameBoardIndex(indexOnBoard).index][direction.indexInMarksForChecking]++;
+				marksForChecking[playerMarkAtGameBoardIndex(indexOnBoard).index][direction.indexInMarksForChecking]++;
             }
 	}
 
@@ -1148,8 +1147,7 @@ public class LegacyGame {
 
     private boolean playerWon(Player p) {
         for (Directions direction : Directions.values()){
-            if(marksForChecking.get(Directions.valueOf(p.playerMark))[direction.indexInMarksForChecking] >= p.winLength){
-//			if(marksForChecking[p.playerMark][direction.indexInMarksForChecking] >= p.winLength){
+			if(marksForChecking[p.playerMark][direction.indexInMarksForChecking] >= p.winLength){
 				return true;
             }
         }
