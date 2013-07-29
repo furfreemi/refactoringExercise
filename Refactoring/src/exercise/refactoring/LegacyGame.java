@@ -1,7 +1,5 @@
 package exercise.refactoring;
 
-import java.util.HashMap;
-
 public class LegacyGame {
 
 	public static final int TOTAL_SQUARES_PER_BOARD = 100;
@@ -1096,14 +1094,14 @@ public class LegacyGame {
 		for (slowerIndex = 0; slowerIndex < (SQUARES_PER_SIDE-p.winLength+1); slowerIndex++) {
 
 			for (fasterIndex = 0; fasterIndex < SQUARES_PER_SIDE; fasterIndex++) {
-				initializeMarksByPlayerByAxis();
+                marksForChecking.resetAllValuesToZero();
 				changeMarksToFindHorizontalOrVerticalWin(fasterIndex, slowerIndex, p.winLength);
 				if (playerWon(p)) {
 					return true;
 				}
 
 				if(fasterIndex < (SQUARES_PER_SIDE-p.winLength+1)){
-					initializeMarksByPlayerByAxis();
+                    marksForChecking.resetAllValuesToZero();
 					changeMarksToFindDiagonalWin(fasterIndex, slowerIndex, p.winLength);
 					if (playerWon(p)) {
 						return true;
@@ -1150,16 +1148,6 @@ public class LegacyGame {
     protected boolean countLargerThanWinLength(MarksForChecking marksForChecking, Player p, Directions passedInDirection) {
         return marksForChecking.isLargerThan(p.winLength, passedInDirection, GameBoardMark.valueOf(p.playerMark));
     }
-
-    private void initializeMarksByPlayerByAxis() {
-        for(Directions directions : Directions.values()){
-            HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
-            for(GameBoardMark mark : GameBoardMark.values()){
-                playerMarkToInteger.put(GameBoardMark.valueOf(mark.index), 0);
-            }
-            marksForChecking.marksForChecking.put(directions, playerMarkToInteger);
-        }
-	}
 
     public int getMoveNumber() {
         return moveNumber;
