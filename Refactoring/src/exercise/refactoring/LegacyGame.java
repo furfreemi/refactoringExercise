@@ -13,6 +13,7 @@ public class LegacyGame {
 	public static final int MARK_FOR_COMPUTER_2 = 2;
 	public static final int empty0 = 0;
     public final GameBoard gameBoard = new GameBoard();
+    final MarksForChecking marksForChecking = new MarksForChecking();
     private final ComputerMove computerMove = new ComputerMove(this);
 
     public int gameState = 0;
@@ -38,9 +39,8 @@ public class LegacyGame {
 
     private Player computerPlayer = createComputerPlayer();
 	private Player humanPlayer = createHumanPlayer();
-    HashMap<Directions, HashMap<GameBoardMark, Integer>> marksForChecking = new HashMap<Directions, HashMap<GameBoardMark, Integer>>();
 
-	public int makeComputerMove(int x, int y, boolean reporting) {
+    public int makeComputerMove(int x, int y, boolean reporting) {
         return computerMove.makeComputerMove(x, y, reporting);
     }
 
@@ -1130,8 +1130,8 @@ public class LegacyGame {
 	
 	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
 		if(indexOnBoard < 100 && indexOnBoard >= 0){
-            Integer original = marksForChecking.get(direction).get(playerMark(indexOnBoard));
-            marksForChecking.get(direction).put(playerMark(indexOnBoard), original + 1);
+            Integer original = marksForChecking.marksForChecking.get(direction).get(playerMark(indexOnBoard));
+            marksForChecking.marksForChecking.get(direction).put(playerMark(indexOnBoard), original + 1);
         }
 	}
 
@@ -1141,7 +1141,7 @@ public class LegacyGame {
 
     private boolean playerWon(Player p) {
         for (Directions direction : Directions.values()){
-			if(countLargerThanWinLength(marksForChecking, p, direction)){
+			if(countLargerThanWinLength(marksForChecking.marksForChecking, p, direction)){
 				return true;
             }
         }
@@ -1158,7 +1158,7 @@ public class LegacyGame {
             for(GameBoardMark mark : GameBoardMark.values()){
                 playerMarkToInteger.put(GameBoardMark.valueOf(mark.index), 0);
             }
-            marksForChecking.put(directions, playerMarkToInteger);
+            marksForChecking.marksForChecking.put(directions, playerMarkToInteger);
         }
 	}
 
