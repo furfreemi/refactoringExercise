@@ -7,17 +7,10 @@ public class LegacyGame {
 	public static final int TOTAL_SQUARES_PER_BOARD = 100;
 	public static final int SQUARES_PER_SIDE = 10;
 
-	public static final String CR_CHARACTER = "\n";
-
-//    public static final int GameBoardMark.EMPTY.index = 0;
-
-
 	public static int PLAYER_WIN_LENGTH = 5;
 	public static int COMPUTER_WIN_LENGTH = 6;
 	public static final int MARK_FOR_PLAYER_1 = 1;
 	public static final int MARK_FOR_COMPUTER_2 = 2;
-	public static final int NUMBER_OF_DIRECTIONS = 4;
-	public static final int NUMBER_OF_POSSIBLE_CELL_STATES = 3;
 	public static final int empty0 = 0;
     public final GameBoard gameBoard = new GameBoard();
     private final ComputerMove computerMove = new ComputerMove(this);
@@ -45,7 +38,6 @@ public class LegacyGame {
 
     private Player computerPlayer = createComputerPlayer();
 	private Player humanPlayer = createHumanPlayer();
-//    private int[][] marksForChecking = new int[GameBoardMark.values().length][Directions.values().length];
     HashMap<Directions, HashMap<GameBoardMark, Integer>> marksForChecking = new HashMap<Directions, HashMap<GameBoardMark, Integer>>();
 
 	public int makeComputerMove(int x, int y, boolean reporting) {
@@ -1140,7 +1132,6 @@ public class LegacyGame {
 			if(indexOnBoard < 100 && indexOnBoard >= 0){
                 Integer original = marksForChecking.get(direction).get(playerMark(indexOnBoard));
                 marksForChecking.get(direction).put(playerMark(indexOnBoard), original + 1);
-//				marksForChecking[playerMark(indexOnBoard).index][direction.index]++;
             }
 	}
 
@@ -1174,15 +1165,6 @@ public class LegacyGame {
     }
 
     private void initializeMarksByPlayerByAxis() {
-//        for (GameBoardMark mark : GameBoardMark.values()){
-//            for (Directions direction : Directions.values()){
-//                HashMap<GameBoardMark, Integer> emptyInitializedGameBoardMarkMap = new HashMap<GameBoardMark, Integer>();
-//                emptyInitializedGameBoardMarkMap.put(mark, 0);
-//                marksForChecking.put(direction, emptyInitializedGameBoardMarkMap);
-////              marksForChecking[mark.index][direction.index] = 0;
-//            }
-//        }
-
         for(Directions directions : Directions.values()){
             HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
             for(GameBoardMark mark : GameBoardMark.values()){
