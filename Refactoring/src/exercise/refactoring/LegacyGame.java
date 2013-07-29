@@ -1145,14 +1145,18 @@ public class LegacyGame {
 
     private boolean playerWon(Player p) {
         for (Directions direction : Directions.values()){
-			if(marksForChecking[p.playerMark][direction.index] >= p.winLength){
+			if(countLargerThanWinLength(marksForChecking, p, p.winLength, direction)){
 				return true;
             }
         }
 		return false;
 	}
 
-	private void initializeMarksByPlayerByAxis() {
+    protected boolean countLargerThanWinLength(int[][] marksForChecking, Player p, int winLength, Directions direction) {
+        return marksForChecking[p.playerMark][direction.index] >= p.winLength;
+    }
+
+    private void initializeMarksByPlayerByAxis() {
         for (GameBoardMark mark : GameBoardMark.values()){
             for (Directions direction : Directions.values()){
               marksForChecking[mark.index][direction.index] = 0;
