@@ -1139,7 +1139,7 @@ public class LegacyGame {
 	private void incrementWinCountForDirection(int indexOnBoard, Directions direction){
 			if(indexOnBoard < 100 && indexOnBoard >= 0){
                 Integer original = marksForChecking.get(direction).get(playerMark(indexOnBoard));
-                marksForChecking.get(direction).put(playerMark(indexOnBoard), original++);
+                marksForChecking.get(direction).put(playerMark(indexOnBoard), original + 1);
 //				marksForChecking[playerMark(indexOnBoard).index][direction.index]++;
             }
 	}
@@ -1158,7 +1158,7 @@ public class LegacyGame {
 	}
 
     protected boolean countLargerThanWinLength(HashMap<Directions, HashMap<GameBoardMark, Integer>> marksForChecking, Player p, Directions passedInDirection) {
-        return marksForChecking.get(Directions.valueOf(passedInDirection.index)).get(GameBoardMark.valueOf(p.playerMark)) >= p.winLength;
+        return marksForChecking.get(passedInDirection).get(GameBoardMark.valueOf(p.playerMark)) >= p.winLength;
     }
 
     private HashMap<Directions, HashMap<GameBoardMark, Integer>> directionGameMarkFromIntegerArray(int[][] marksForChecking) {
