@@ -1,5 +1,7 @@
 package exercise.refactoring;
 
+import java.util.HashMap;
+
 public class LegacyGame {
 
 	public static final int TOTAL_SQUARES_PER_BOARD = 100;
@@ -1152,8 +1154,20 @@ public class LegacyGame {
 		return false;
 	}
 
-    protected boolean countLargerThanWinLength(int[][] marksForChecking, Player p, int winLength, Directions direction) {
-        return marksForChecking[p.playerMark][direction.index] >= p.winLength;
+    protected boolean countLargerThanWinLength(int[][] marksForChecking, Player p, int winLength, Directions passedInDirection) {
+        return directionGameMarkFromIntegerArray(marksForChecking).get(Directions.valueOf(passedInDirection.index)).get(GameBoardMark.valueOf(p.playerMark)) >= p.winLength;
+    }
+
+    private HashMap<Directions, HashMap<GameBoardMark, Integer>> directionGameMarkFromIntegerArray(int[][] marksForChecking) {
+        HashMap<Directions, HashMap<GameBoardMark, Integer>> nonIntegerMarksForChecking = new HashMap<Directions, HashMap<GameBoardMark, Integer>>();
+        for(Directions directions : Directions.values()){
+            HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
+            for(GameBoardMark mark : GameBoardMark.values()){
+                playerMarkToInteger.put(GameBoardMark.valueOf(mark.index), marksForChecking[mark.index][directions.index]);
+            }
+            nonIntegerMarksForChecking.put(Directions.valueOf(directions.index), playerMarkToInteger);
+        }
+        return nonIntegerMarksForChecking;
     }
 
     private void initializeMarksByPlayerByAxis() {
