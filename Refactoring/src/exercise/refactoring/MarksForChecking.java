@@ -12,4 +12,8 @@ public class MarksForChecking {
         Integer original = marksForChecking.get(direction).get(gameBoardMark);
         marksForChecking.get(direction).put(gameBoardMark, original + 1);
     }
+
+    public boolean isLargerThan(int winLength, Directions direction, GameBoardMark gameBoardMark) {
+        return marksForChecking.get(direction).get(gameBoardMark) >= winLength;
+    }
 }
