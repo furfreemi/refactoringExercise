@@ -8,6 +8,4 @@ class Player {
         this.winLength = winLength;
         this.playerMark = playerMark;
     }
-
-    public Player() {}
 }

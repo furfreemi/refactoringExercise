@@ -1051,17 +1051,11 @@ public class LegacyGame {
     }
 
     private Player createHumanPlayer() {
-        Player p = new Player();
-        p.winLength = PLAYER_WIN_LENGTH;
-        p.playerMark = MARK_FOR_PLAYER_1;
-        return p;
+        return new Player(PLAYER_WIN_LENGTH, MARK_FOR_PLAYER_1);
     }
 
     private Player createComputerPlayer() {
-        Player p = new Player();
-        p.winLength = COMPUTER_WIN_LENGTH;
-        p.playerMark = MARK_FOR_COMPUTER_2;
-        return p;
+        return new Player(COMPUTER_WIN_LENGTH, MARK_FOR_COMPUTER_2);
     }
 
     public boolean checkForPlayerWin() {
