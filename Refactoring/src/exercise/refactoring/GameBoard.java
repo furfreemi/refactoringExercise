@@ -15,7 +15,7 @@ public class GameBoard {
 
     public void markMove(int position, int playerMark) {
         mainBoard()[position] = playerMark;
-	}
+    }
 
     public int getValueAt(int i, int j) {
         return board[i][j];
@@ -30,6 +30,10 @@ public class GameBoard {
     }
 
     public boolean valueAtPositionMatches(int boardNumber, int position, int playerMark) {
-       return board[boardNumber][position] == playerMark;
+        return board[boardNumber][position] == playerMark;
+    }
+
+    public void setPositionToEmpty(int boardNumber, int position) {
+        board[boardNumber][position] = GameBoardMark.EMPTY.index;
     }
 }
