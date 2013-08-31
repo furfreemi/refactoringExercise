@@ -949,21 +949,6 @@ public class LegacyGame {
             perhapsaTemporaryBoardHolder[depth][k] = stagingBoard[k];
     }
 
-
-    public String returnPrintableBoard(String crCharacter) {
-        String border = "*****************************" + crCharacter;
-        String boardString = border;
-        String spacer = SINGLE_BLANK_SPACE;
-
-        spacer = DOUBLE_BLANK_SPACE;
-        for (int x = 0; x < 10; x++) {
-            boardString = printBoardRow(boardString, spacer, x);
-        }
-        boardString += border;
-
-        return boardString;
-    }
-
     private String printBoardRow(String boardString, String spacer, int x) {
         int cell;
         for (int y = 0; y < 10; y++) {
