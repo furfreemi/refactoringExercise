@@ -33,6 +33,10 @@ public class GameBoard {
         return board[boardNumber][position] == playerMark;
     }
 
+    public boolean valueOnMainBoardAtPositionMatches(int position, int playerMark) {
+        return mainBoard()[position] == playerMark;
+    }
+
     public void setPositionToEmpty(int boardNumber, int position) {
         board[boardNumber][position] = GameBoardMark.EMPTY.index;
     }
