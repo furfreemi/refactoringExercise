@@ -724,7 +724,7 @@ public class LegacyGame {
 						return place;
 				}
 
-				if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j] == GameBoardMark.EMPTY.index
+				if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j)
 						&& gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + 50] == GameBoardMark.EMPTY.index) {
 
 					place = checkForVert4InRow(playerMark, boardLevel, j, l);
@@ -736,17 +736,15 @@ public class LegacyGame {
 			for (j = 0; j < 5; j++) {
 				clearMarksByAxisArray();
 
-				if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j] == GameBoardMark.EMPTY.index
-						&& gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + 55] == GameBoardMark.EMPTY.index) {
+				if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j)
+						&& gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 55)) {
 
 					place = checkForDiagDown4InRow(playerMark, boardLevel, j, l);
 					if (anyDiagDown4MatchToMark(type, place))
 						return place;
 				}
 
-				if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + 50] == GameBoardMark.EMPTY.index
-						&& gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + 5] == GameBoardMark.EMPTY.index) {
-
+				if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 5)) {
 					place = checkForDiagUp4InRow(playerMark, boardLevel, j, l);
 					if (anyDiagUp4MatchToMark(type, place))
 						return place;
@@ -766,9 +764,9 @@ public class LegacyGame {
 		int place = NONE;
 		int k;
 		for (k = 1; k < 5; k++) {
-			if (gameBoard.board[boardLevel][j * SQUARES_PER_SIDE + l + k] == playerMark)
+			if (gameBoard.valueAtPositionMatches(boardLevel, j * SQUARES_PER_SIDE + l + k, playerMark))
 				marksByAxisByPlayerForChecking[0]++;
-			else if (gameBoard.board[boardLevel][j * SQUARES_PER_SIDE + l + k] == GameBoardMark.EMPTY.index) {
+			else if (gameBoard.hasEmptyValueAt(boardLevel, j * SQUARES_PER_SIDE + l + k)) {
 				place = SQUARES_PER_SIDE * j + l + k;
 				marksByAxisByPlayerForChecking[1]++;
 			} else
