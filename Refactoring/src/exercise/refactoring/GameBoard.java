@@ -2,8 +2,9 @@ package exercise.refactoring;
 
 public class GameBoard {
     private final int numberOfBoards = 2;
-//    private int board[][];
-    public int board[][];
+    private int board[][];
+    private int[][] boardTo;
+//    public int board[][];
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];
@@ -35,5 +36,9 @@ public class GameBoard {
 
     public void setPositionToEmpty(int boardNumber, int position) {
         board[boardNumber][position] = GameBoardMark.EMPTY.index;
+    }
+
+    public void setBoardTo(int[][] boardTo) {
+        this.board = boardTo;
     }
 }
