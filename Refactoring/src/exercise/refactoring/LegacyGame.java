@@ -1025,7 +1025,7 @@ public class LegacyGame {
 
 	private void copyBoardToCheck(int indexForBoardToCheck) {
 		for (int j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
-            gameBoard.setValueAt(1, j, gameBoard.board[indexForBoardToCheck][j]);
+            gameBoard.setValueAt(1, j, gameBoard.getValueAt(indexForBoardToCheck, j));
         }
 	}
 

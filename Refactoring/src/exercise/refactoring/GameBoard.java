@@ -2,6 +2,7 @@ package exercise.refactoring;
 
 public class GameBoard {
     private final int numberOfBoards = 2;
+//    public int board[][];
     public int board[][];
 
     public GameBoard() {
