@@ -223,7 +223,7 @@ public class LegacyGame {
                     if (type == LegacyGame.SAFE_MODE) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++)
-                            if (gameBoard.board[x][l * 10 + j + k * 10] == GameBoardMark.EMPTY.index
+                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 10)
                                     && tempTableForChecks[l * 10 + j + k * 10] == LegacyGame.OCCUPIED)
                                 flag2 = LegacyGame.OCCUPIED;
                         if (flag2 == GameBoardMark.EMPTY.index) {
@@ -256,7 +256,7 @@ public class LegacyGame {
                     if (type == LegacyGame.SAFE_MODE) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++) {
-                            if (gameBoard.board[x][l * 10 + j + k * 11] == GameBoardMark.EMPTY.index
+                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 11)
                                     && tempTableForChecks[l * 10 + j + k * 11] == LegacyGame.OCCUPIED) {
                                 flag2 = LegacyGame.OCCUPIED;
                             }
