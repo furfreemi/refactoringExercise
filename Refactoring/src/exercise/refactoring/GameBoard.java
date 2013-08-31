@@ -28,4 +28,8 @@ public class GameBoard {
     public boolean hasEmptyValueAt(int boardNumber, int position) {
         return board[boardNumber][position] == GameBoardMark.EMPTY.index;
     }
+
+    public boolean valueAtPositionMatches(int boardNumber, int position, int playerMark) {
+       return board[boardNumber][position] == playerMark;
+    }
 }
