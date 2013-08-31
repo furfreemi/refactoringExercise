@@ -38,10 +38,6 @@ public class LegacyGame {
     private Player computerPlayer = createComputerPlayer();
     private Player humanPlayer = createHumanPlayer();
 
-    public int makeComputerMove(int x, int y, boolean reporting) {
-        return computerMove.makeComputerMove(x, y, reporting);
-    }
-
     public int findSpot() {
         int position;
         int i;
@@ -949,47 +945,6 @@ public class LegacyGame {
             perhapsaTemporaryBoardHolder[depth][k] = stagingBoard[k];
     }
 
-    private String printBoardRow(String boardString, String spacer, int x) {
-        int cell;
-        for (int y = 0; y < 10; y++) {
-            String mark = null;
-            cell = getBoardCellNumber(x, y);
-
-            if (doubleDigitRow(cell))
-                spacer = SINGLE_BLANK_SPACE;
-            else if ((gameBoard.mainBoard()[0] == 0) && (gameBoard.mainBoard()[1] == 0))
-                spacer = DOUBLE_BLANK_SPACE;
-            else
-                spacer = DOUBLE_BLANK_SPACE;
-
-            if (gameBoard.mainBoard()[cell] == 2) {
-                mark = "00";
-                if (cell < 9)
-                    spacer = SINGLE_BLANK_SPACE;
-            }
-            if (gameBoard.mainBoard()[cell] == 1) {
-                mark = "XX";
-                if (cell < 9)
-                    spacer = SINGLE_BLANK_SPACE;
-            }
-            if (mark == null) {
-                boardString += "" + cell + spacer;
-            } else {
-                boardString += "" + mark + spacer;
-            }
-        }
-        boardString += "\n";
-        return boardString;
-    }
-
-    private boolean doubleDigitRow(int cell) {
-        return cell > 9;
-    }
-
-    private int getBoardCellNumber(int x, int y) {
-        return (x * 10) + y;
-    }
-
     private void copyBoardToCheck(int indexForBoardToCheck) {
         for (int j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
             gameBoard.setValueAt(1, j, gameBoard.getValueAt(indexForBoardToCheck, j));
@@ -1005,11 +960,6 @@ public class LegacyGame {
     public void resetMainGameBoard(int boardLevel) {
         for (int k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
             gameBoard.setValueAt(boardLevel, k, 0);
-    }
-
-    public void resetBoard() {
-        for (int k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
-            gameBoard.mainBoard()[k] = 0;
     }
 
     public void respondToMouseUp(int playerMove, int x, int y) {
