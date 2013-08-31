@@ -2,7 +2,7 @@ package exercise.refactoring;
 
 public class GameBoard {
     private final int numberOfBoards = 2;
-//    public int board[][];
+//    private int board[][];
     public int board[][];
 
     public GameBoard() {
@@ -23,5 +23,9 @@ public class GameBoard {
 
     public void setValueAt(int boardNumber, int position, int newValue) {
         board[boardNumber][position] = newValue;
+    }
+
+    public boolean hasEmptyValueAt(int boardNumber, int position) {
+        return board[boardNumber][position] == GameBoardMark.EMPTY.index;
     }
 }

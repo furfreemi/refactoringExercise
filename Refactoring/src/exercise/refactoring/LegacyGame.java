@@ -902,16 +902,16 @@ public class LegacyGame {
 		int k;
 
 		for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
-			if (gameBoard.board[x][k] != GameBoardMark.EMPTY.index)
+			if (! gameBoard.hasEmptyValueAt(x, k))
 				continue;
 
-            gameBoard.board[x][k] = playerMark;
+            gameBoard.setValueAt(x, k, playerMark);
 
 			if (responseTo3Or4InaRowOpportunity(playerMark, x, COUNT_MODE) > 1) {
 				return k;
 			}
 
-            gameBoard.board[x][k] = GameBoardMark.EMPTY.index;
+            gameBoard.setValueAt(x, k, GameBoardMark.EMPTY.index);
 		}
 		return NONE;
 	}
@@ -945,10 +945,6 @@ public class LegacyGame {
 			tempTableForChecks[k] = GameBoardMark.EMPTY.index;
 		blockSeriesOfFourOrMore(playerMark, 0, SETFLAGS_MODE);
 		responseTo3Or4InaRowOpportunity(playerMark, 0, SETFLAGS_MODE);
-	}
-
-	public int[][] gameBoard() {
-		return gameBoard.board;
 	}
 
 	public void resetAllMarksAlongAxesForFirstHalfOfBoard() {
@@ -1037,7 +1033,7 @@ public class LegacyGame {
 
 	public void resetMainGameBoard(int boardLevel) {
 		for (int k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
-            gameBoard.board[boardLevel][k] = 0;
+            gameBoard.setValueAt(boardLevel, k, 0);
 	}
 
 	public void resetBoard() {
