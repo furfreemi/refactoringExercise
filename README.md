@@ -5,3 +5,6 @@ Along with a finished solution.
 Goal: refactor this to make it more maintainable and extensible
 
 "10 x 10 TicTacToe game where the first player to 5 in a row in any direction wins."
+
+
+Next step: inline changeMarksToFindHorizontalOrVerticalWin and changeMarksToFindDiagonalWin, then extract calculateIndex from fasterIndex  * SQUARES_PER_SIDE + slowerIndex + k
