@@ -781,11 +781,9 @@ public class LegacyGame {
 		int place = NONE;
 		int k;
 		for (k = 1; k < 5; k++) {
-			if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + k
-					* SQUARES_PER_SIDE] == playerMark)
+			if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE, playerMark))
 				marksByAxisByPlayerForChecking[2]++;
-			else if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + k
-					* SQUARES_PER_SIDE] == GameBoardMark.EMPTY.index) {
+			else if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE)) {
 				place = SQUARES_PER_SIDE * l + j + k * SQUARES_PER_SIDE;
 				marksByAxisByPlayerForChecking[3]++;
 			} else
@@ -800,9 +798,9 @@ public class LegacyGame {
 		int place = NONE;
 		int k;
 		for (k = 1; k < 5; k++) {
-			if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + k * 11] == playerMark)
+			if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j + k * 11, playerMark))
 				marksByAxisByPlayerForChecking[0]++;
-			if (gameBoard.board[boardLevel][l * SQUARES_PER_SIDE + j + k * 11] == GameBoardMark.EMPTY.index) {
+			if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + k * 11)) {
 				place = l * SQUARES_PER_SIDE + j + k * 11;
 				marksByAxisByPlayerForChecking[1]++;
 			}
