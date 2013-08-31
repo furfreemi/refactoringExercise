@@ -1,7 +1,7 @@
 package exercise.refactoring;
 
 public class GameBoard {
-    public static final int numberOfBoards = 2;
+    private final int numberOfBoards = 2;
     public int board[][];
 
     public GameBoard() {
@@ -12,11 +12,15 @@ public class GameBoard {
         return board[0];
     }
 
-    int[] auxilliaryBoard() {
-        return board[2];
-    }
-
     public void markMove(int position, int playerMark) {
         mainBoard()[position] = playerMark;
 	}
+
+    public int getValueAt(int i, int j) {
+        return board[i][j];
+    }
+
+    public void setValueAt(int boardNumber, int position, int newValue) {
+        board[boardNumber][position] = newValue;
+    }
 }

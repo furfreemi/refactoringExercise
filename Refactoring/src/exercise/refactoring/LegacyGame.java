@@ -83,6 +83,7 @@ public class LegacyGame {
 	}
 
 	public int checkSeries(int playerMark, int depth) {
+        int[] auxilliaryBoard = new int[LegacyGame.TOTAL_SQUARES_PER_BOARD];
 		int winningPosition;
 		if (depth == MAX_DEPTH)
 			return NONE;
@@ -90,26 +91,26 @@ public class LegacyGame {
 		setc4c(playerMark);
 
 		for (int k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
-            if (stagingBoard[k] == GameBoardMark.EMPTY.index || gameBoard.auxilliaryBoard()[k] != GameBoardMark.EMPTY.index)
+            if (stagingBoard[k] == GameBoardMark.EMPTY.index || auxilliaryBoard[k] != GameBoardMark.EMPTY.index)
 				continue;
 			copyStagingBoardIntoOddGroupOfBoardsAtDepth(depth);
 
-            gameBoard.auxilliaryBoard()[k] = playerMark;
+            auxilliaryBoard[k] = playerMark;
 
 			winningPosition = checkForWinOpportunity(switchPlayers(playerMark),
                     2);
 			if (winningPosition == NONE)
 				return NONE;
 
-            gameBoard.auxilliaryBoard()[winningPosition] = switchPlayers(playerMark);
+            auxilliaryBoard[winningPosition] = switchPlayers(playerMark);
 			if (blockSeriesOfFourOrMore(playerMark, 2, CHECK_MODE) != NONE) {
 				return k;
 			}
 
 			if (blockSeriesOfFourOrMore(switchPlayers(playerMark),
                     2, CHECK_MODE) != NONE) {
-                gameBoard.auxilliaryBoard()[k] = GameBoardMark.EMPTY.index;
-                gameBoard.auxilliaryBoard()[winningPosition] = GameBoardMark.EMPTY.index;
+                auxilliaryBoard[k] = GameBoardMark.EMPTY.index;
+                auxilliaryBoard[winningPosition] = GameBoardMark.EMPTY.index;
 				copyIntoStagingBoardFromOddBoardGroupAtDepth(depth);
 				continue;
 			}
@@ -118,8 +119,8 @@ public class LegacyGame {
 				return k;
 			}
 
-            gameBoard.auxilliaryBoard()[k] = GameBoardMark.EMPTY.index;
-            gameBoard.auxilliaryBoard()[winningPosition] = GameBoardMark.EMPTY.index;
+            auxilliaryBoard[k] = GameBoardMark.EMPTY.index;
+            auxilliaryBoard[winningPosition] = GameBoardMark.EMPTY.index;
 			copyIntoStagingBoardFromOddBoardGroupAtDepth(depth);
 		}
 		return NONE;
@@ -1023,8 +1024,9 @@ public class LegacyGame {
 	}
 
 	private void copyBoardToCheck(int indexForBoardToCheck) {
-		for (int j = 0; j < TOTAL_SQUARES_PER_BOARD; j++)
-            gameBoard.board[1][j] = gameBoard.board[indexForBoardToCheck][j];
+		for (int j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
+            gameBoard.setValueAt(1, j, gameBoard.board[indexForBoardToCheck][j]);
+        }
 	}
 
 	private void clearMarksByAxisArray() {
