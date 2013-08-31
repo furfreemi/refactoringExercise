@@ -182,7 +182,7 @@ public class LegacyGame {
                 marksByAxisByPlayerForChecking[1] = 0;
                 marksByAxisByPlayerForChecking[2] = 0;
                 for (k = 0; k < 5; k++)
-                    marksByAxisByPlayerForChecking[gameBoard.board[x][j * 10 + l + k]]++;
+                    marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, j * 10 + l + k)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4
                         && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
                     if (type == LegacyGame.SAFE_MODE) {
@@ -216,8 +216,7 @@ public class LegacyGame {
                 marksByAxisByPlayerForChecking[1] = 0;
                 marksByAxisByPlayerForChecking[2] = 0;
                 for (k = 0; k < 5; k++)
-                    marksByAxisByPlayerForChecking[gameBoard.board[x][l * 10 + j + k
-                            * 10]]++; /* v */
+                    marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j + k * 10)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4
                         && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
                     if (type == LegacyGame.SAFE_MODE) {
@@ -249,8 +248,7 @@ public class LegacyGame {
                     marksByAxisByPlayerForChecking[k] = 0;
                 for (k = 0; k < 5; k++)
 					/* diag\ */
-                    marksByAxisByPlayerForChecking[gameBoard.board[x][l * 10 + j + k
-                            * 11]]++;
+                    marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j + k * 11)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4
                         && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
                     if (type == LegacyGame.SAFE_MODE) {
@@ -282,7 +280,7 @@ public class LegacyGame {
                 for (k = 0; k < 3; k++)
                     marksByAxisByPlayerForChecking[k] = 0;
                 for (k = 0; k < 5; k++)
-                    marksByAxisByPlayerForChecking[gameBoard.board[x][l * 10 + j - k * 9 + 40]]++;
+                    marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j - k * 9 + 40)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4
                         && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
                     if (type == LegacyGame.SAFE_MODE) {
