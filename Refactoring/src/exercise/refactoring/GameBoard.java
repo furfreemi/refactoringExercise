@@ -4,7 +4,6 @@ public class GameBoard {
     private final int numberOfBoards = 2;
     private int board[][];
     private int[][] boardTo;
-//    public int board[][];
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];

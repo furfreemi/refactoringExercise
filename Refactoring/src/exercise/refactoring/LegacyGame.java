@@ -35,8 +35,8 @@ public class LegacyGame {
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
     private int tempRowForChecks[] = new int[SQUARES_PER_SIDE];
 
-    private Player computerPlayer = createComputerPlayer();
-    private Player humanPlayer = createHumanPlayer();
+    private Player computerPlayer = new Player(COMPUTER_WIN_LENGTH, MARK_FOR_COMPUTER_2);
+    private Player humanPlayer = new Player(PLAYER_WIN_LENGTH, MARK_FOR_PLAYER_1);
 
     public int findSpot() {
         int position;
@@ -983,14 +983,6 @@ public class LegacyGame {
         resetMainGameBoard(0);
         moveNumber = 0;
         gameState = 0;
-    }
-
-    private Player createHumanPlayer() {
-        return new Player(PLAYER_WIN_LENGTH, MARK_FOR_PLAYER_1);
-    }
-
-    private Player createComputerPlayer() {
-        return new Player(COMPUTER_WIN_LENGTH, MARK_FOR_COMPUTER_2);
     }
 
     public boolean checkForPlayerWin() {
