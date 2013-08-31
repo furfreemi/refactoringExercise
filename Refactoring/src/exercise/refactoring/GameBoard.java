@@ -1,7 +1,7 @@
 package exercise.refactoring;
 
 public class GameBoard {
-    public static final int numberOfBoards = 3;
+    public static final int numberOfBoards = 2;
     public int board[][];
 
     public GameBoard() {
