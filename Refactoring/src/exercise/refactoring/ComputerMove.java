@@ -198,7 +198,7 @@ public class ComputerMove {
 
     private void copyBoardZeroToBoardTwo() {
         for (int i = 0; i < LegacyGame.TOTAL_SQUARES_PER_BOARD; i++)
-            legacyGame.gameBoard.gameBoard[2][i] = legacyGame.gameBoard.gameBoard[0][i];
+            legacyGame.gameBoard.board[2][i] = legacyGame.gameBoard.board[0][i];
     }
 
     private int createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
@@ -206,13 +206,13 @@ public class ComputerMove {
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER.index);
         for (i = 11; i < 89; i++)
             if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED
-                    && (legacyGame.gameBoard.gameBoard[0][i - 11] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i - LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i - 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i - 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i + 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i + 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
-                            || legacyGame.gameBoard.gameBoard[0][i + LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index || legacyGame.gameBoard.gameBoard[0][i + 11] == GameBoardMark.X_MARK_FOR_PLAYER.index)) {
+                    && (legacyGame.gameBoard.board[0][i - 11] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i - LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i - 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i - 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i + 1] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i + 9] == GameBoardMark.X_MARK_FOR_PLAYER.index
+                            || legacyGame.gameBoard.board[0][i + LegacyGame.SQUARES_PER_SIDE] == GameBoardMark.X_MARK_FOR_PLAYER.index || legacyGame.gameBoard.board[0][i + 11] == GameBoardMark.X_MARK_FOR_PLAYER.index)) {
 
                 return i;
             }

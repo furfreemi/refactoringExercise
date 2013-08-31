@@ -16,7 +16,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCanWinWithSixInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 2, 2, 2, 2, 2, 0, 0, 0,
@@ -37,7 +37,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithEmptyGapInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 2, 2, 0, 2, 2, 0, 0, 0,
@@ -59,7 +59,7 @@ public class WinMethodCharacterizationTest {
 	@Test
 	public void computerCannotWinWithPlayerGapARowHorizontal() {
 
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 1, 2, 2, 2, 2, 0, 0, 0,
@@ -81,7 +81,7 @@ public class WinMethodCharacterizationTest {
 	@Test
 	public void computerCanWinWithSixInARowVertical() {
 
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -103,7 +103,7 @@ public class WinMethodCharacterizationTest {
 	@Test
 	public void computerCannotWinWithPlayerGapInARowVertical() {
 
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -124,7 +124,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void computerCanWinWithSixInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -145,7 +145,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithEmptyGapInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -166,7 +166,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCanWinWithSixInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
@@ -187,7 +187,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithEmptyGapInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
@@ -208,7 +208,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithHorizontalWrapAround() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 2, 2, 2, 2, 2,
@@ -229,7 +229,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithHorizontalWrapAround2() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 2, 2, 2, 2,
@@ -250,7 +250,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCanWinWithFiveInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -271,7 +271,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithEmptyGapInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 1, 1, 0, 1, 0, 0, 0, 0,
@@ -292,7 +292,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithComputerGapARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 2, 1, 1, 1, 0, 0, 0, 0,
@@ -313,7 +313,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCanWinWithFiveInARowVertical() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -334,7 +334,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithComputerGapInARowVertical() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -355,7 +355,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void playerCanWinWithFiveInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -376,7 +376,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithEmptyGapInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -397,7 +397,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCanWinWithFiveInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
@@ -418,7 +418,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playrCannotWinWithEmptyGapInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
@@ -439,7 +439,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithHorizontalWrapAround() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
@@ -460,7 +460,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void computerCannotWinWithFiveInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 2, 2, 2, 2, 0, 0, 0, 0,
@@ -481,7 +481,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithFiveInARowVertical() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -502,7 +502,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void computerCannotWinWithFiveInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -523,7 +523,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithFiveInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
@@ -545,7 +545,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void playerCannotWinWithFourInARowHorizontal() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
@@ -566,7 +566,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithFourInARowVertical() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -587,7 +587,7 @@ public class WinMethodCharacterizationTest {
 	
 	@Test
 	public void playerCannotWinWithFourInARowDiagonalRight() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -608,7 +608,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void playerCannotWinWithFourInARowDiagonalLeft() {
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
@@ -629,7 +629,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithDiagonalRightWrapAround(){
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
@@ -650,7 +650,7 @@ public class WinMethodCharacterizationTest {
 
 	@Test
 	public void computerCannotWinWithDiagonalLeftWrapAround(){
-        game.gameBoard.gameBoard = new int[][]{
+        game.gameBoard.board = new int[][]{
                 {
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         2, 0, 0, 0, 0, 0, 0, 0, 0, 2,
