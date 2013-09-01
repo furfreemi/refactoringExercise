@@ -1,6 +1,7 @@
 package exercise.refactoring;
 
 public class ComputerMove {
+    public static final int eightyNine = 89;
     private final LegacyGame legacyGame;
 
     public ComputerMove(LegacyGame legacyGame) {
@@ -65,7 +66,7 @@ public class ComputerMove {
             return position;
         }
 
-        copyBoardZeroToBoardTwo();
+        legacyGame.gameBoard.setBoardTwoToDuplicateOfMainBoard();
 
         position.setPosition(legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
         if ((legacyGame.moveNumberIsOver(3) && position.isNotNone())) {
@@ -145,14 +146,9 @@ public class ComputerMove {
     }
 
 
-    private void copyBoardZeroToBoardTwo() {
-        for (int i = 0; i < LegacyGame.TOTAL_SQUARES_PER_BOARD; i++)
-            legacyGame.gameBoard.setValueAt(2, i, legacyGame.gameBoard.getValueAt(0, i));
-    }
-
     private GamePosition createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
-        for (int position = GameBoard.oneMoreThanSquaresPerSide; position < 89; position++)
+        for (int position = GameBoard.oneMoreThanSquaresPerSide; position < eightyNine; position++)
             if (positionIsOccupiedOnStagingBoardAndDesirable(legacyGame.gameBoard, legacyGame.stagingBoard, position)) {
                 return new GamePosition(position);
             }

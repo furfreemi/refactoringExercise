@@ -72,4 +72,8 @@ public class GameBoard {
                 || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide)
                 || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE);
     }
+
+    public void setBoardTwoToDuplicateOfMainBoard() {
+        board[2] = mainBoard().clone();
+    }
 }

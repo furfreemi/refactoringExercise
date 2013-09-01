@@ -1024,6 +1024,4 @@ public class LegacyGame {
     public boolean moveNumberIsOver(int moveNumber) {
         return getMoveNumber() > moveNumber;
     }
-
-
 }
