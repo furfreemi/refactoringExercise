@@ -8,117 +8,133 @@ public class ComputerMove {
         this.legacyGame = legacyGame;
     }
 
-    public int makeComputerMove(int x, int y, boolean reporting) {
-        int position = 0;
+    public GamePosition makeComputerMove(int x, int y, boolean reporting) {
+        GamePosition position = new GamePosition();
 
         if (legacyGame.isFirstMove()) {
-            return makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y);
+            return new GamePosition(makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y));
         }
 
-        position = legacyGame.closeGapInSeries();
-        if ((legacyGame.moveNumberIs(2) && (position != LegacyGame.NONE))) {
+        position.setPosition(legacyGame.closeGapInSeries());
+        if ((legacyGame.moveNumberIs(2) && (position.isNotNone()))) {
             return position;
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE);
-            if (position != LegacyGame.NONE) {
+            position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE));
+            if (position.isNotNone()) {
                 return position;
             }
 
-            position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE);
-            if (position != LegacyGame.NONE) {
+            position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE));
+            if (position.isNotNone()) {
                 return position;
             }
         }
 
-        position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE);
-        if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE));
+        if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
-        if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
 
         legacyGame.setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER.index);
 
-        position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
-        if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }
 
-        position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE);
-        if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE));
+        if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
-        if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
 
         legacyGame.setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
 
-        position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
-        if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }
 
         copyBoardZeroToBoardTwo();
 
-        position = legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
-        if ((legacyGame.getMoveNumber() > 3) && (position != LegacyGame.NONE)) {
+        position.setPosition(legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        if ((legacyGame.moveNumberIsOver(3) && position.isNotNone())) {
             return position;
         }
 
-        if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0)) != LegacyGame.NONE) {
-            return position;
-        }
-
-        position = legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
-        if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
-            return position;
-        }
-
-        position = legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
-        if ((legacyGame.getMoveNumber() > 20) && (position != LegacyGame.NONE)) {
-            return position;
-        }
-
-        if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
-            return position;
-        }
-
-        if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) != LegacyGame.NONE) {
-            return position;
-        }
-
-        if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
-            return position;
-        }
-
-        if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.closeGapInSeries()) != LegacyGame.NONE) {
-            return position;
-        }
-
-        position = createTwoAxesOrCreateOneAndBlockAnother(legacyGame);
-        if (position != LegacyGame.NONE) {
-            return position;
-        }
-
-        if ((position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
-            return position;
-        }
-
-        if ((position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
-            if (reporting) {
+//        I may have broken this
+        if (legacyGame.moveNumberIsOver(3)) {
+            position.setPosition(legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+            if (position.isNotNone()) {
+                return position;
             }
+        }
+
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position = legacyGame.findSpot();
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        if ((legacyGame.moveNumberIsOver(20) && position.isNotNone())) {
+            return position;
+        }
+
+        if (legacyGame.moveNumberIsOver(3)) {
+            position.setPosition(legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER.index));
+            if (position.isNotNone()) {
+                return position;
+            }
+        }
+
+        if (legacyGame.moveNumberIsOver(3)) {
+            position.setPosition(legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index));
+            if (position.isNotNone()) {
+                return position;
+            }
+        }
+
+        if (legacyGame.moveNumberIsOver(2)) {
+            position.setPosition(legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER.index));
+            if (position.isNotNone()) {
+                return position;
+            }
+        }
+
+        if (legacyGame.moveNumberIsOver(2)) {
+            position.setPosition(legacyGame.closeGapInSeries());
+            if (position.isNotNone()) {
+                return position;
+            }
+        }
+
+        position.setPosition(createTwoAxesOrCreateOneAndBlockAnother(legacyGame));
+        if (position.isNotNone()) {
+            return position;
+        }
+
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CLEAN_MODE));
+        if (position.isNotNone()) {
+            return position;
+        }
+
+        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CLEAN_MODE));
+        if (position.isNotNone()) {
+            return position;
+        }
+
+        position.setPosition(legacyGame.findSpot());
         return position;
     }
 
