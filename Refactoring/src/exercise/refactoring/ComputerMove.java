@@ -21,7 +21,7 @@ public class ComputerMove {
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE));
+            position = legacyGame.blockSeriesOfFourOrMoreInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0);
             if (position.isNotNone()) {
                 return position;
             }

@@ -451,6 +451,71 @@ public class LegacyGame {
         }
     }
 
+    public GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark gameBoardMark, int x) {
+        int playerMark = gameBoardMark.index;
+        int type = CHECK_MODE;
+
+        int j, k, l;
+        int position = 0, position2 = 0;
+
+        for (l = 0; l < 6; l++) {
+            for (j = 0; j < SQUARES_PER_SIDE; j++) {
+                resetAllMarksAlongAxesForFirstHalfOfBoard();
+
+                position = checkFor5AlongHorizAxis(playerMark, x, j, l, position);
+
+                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
+                    if (type == SETFLAGS_MODE) {
+                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
+                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
+                    }
+                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                }
+
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == CHECK_MODE) return new GamePosition(position);
+
+                position = checkFor5AlongVertAxis(playerMark, x, j, l, position);
+
+                if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
+                    if (type == SETFLAGS_MODE) {
+                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
+                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
+                    }
+                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                }
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == CHECK_MODE) return new GamePosition(position);
+            }
+
+            for (j = 0; j < 6; j++) {
+                resetAllMarksAlongAxesForFirstHalfOfBoard();
+
+                for (k = 0; k < 5; k++) {
+                    position = checkFor5AlongDiagDownRightAxis(playerMark, x, j, k, l, position);
+                    position2 = checkFor5AlongDiagUpRightAxis(playerMark, x, j, k, l, position2);
+                }
+
+                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
+                    if (type == SETFLAGS_MODE) {
+                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
+                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
+                    }
+                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                }
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == CHECK_MODE) return new GamePosition(position);
+
+                if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
+                    if (type == SETFLAGS_MODE) {
+                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
+                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
+                    }
+                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                }
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == CHECK_MODE) return new GamePosition(position2);
+            }
+        }
+        return new GamePosition(NONE);
+    }
+
     public int blockSeriesOfFourOrMore(int playerMark, int x, int type) {
         int j, k, l;
         int position = 0, position2 = 0;
@@ -774,7 +839,6 @@ public class LegacyGame {
         }
         return NONE;
     }
-
 
 
     public void setFlagsForLaterProcessing(int playerMark) {
