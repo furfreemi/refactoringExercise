@@ -22,7 +22,6 @@ public class LegacyGame {
     private static final int MAX_DEPTH = 7;
     static final int NONE = 100;
     static final int OCCUPIED = 1;
-    static final int CLEAN_MODE = 3;
     private static final int COUNT_MODE = 2;
     private static final int SETFLAGS_MODE = 1;
 
@@ -508,7 +507,7 @@ public class LegacyGame {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == CLEAN_MODE) return tempRowForChecks[0];
+                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
                 }
 
                 if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == Mode.CHECK.rawMode) return position;
@@ -520,7 +519,7 @@ public class LegacyGame {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == CLEAN_MODE) return tempRowForChecks[0];
+                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
                 }
                 if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == Mode.CHECK.rawMode) return position;
             }
@@ -538,7 +537,7 @@ public class LegacyGame {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == CLEAN_MODE) return tempRowForChecks[0];
+                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
                 }
                 if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == Mode.CHECK.rawMode) return position;
 
@@ -547,7 +546,7 @@ public class LegacyGame {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == CLEAN_MODE) return tempRowForChecks[0];
+                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
                 }
                 if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == Mode.CHECK.rawMode) return position2;
             }
@@ -610,7 +609,7 @@ public class LegacyGame {
             if (gameBoard.hasEmptyValueAt(1, k)) {
                 gameBoard.setValueAt(1, k, playerMark);
 
-                if (countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, CLEAN_MODE) > 1) return k;
+                if (countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.CLEAN.rawMode) > 1) return k;
 
                 gameBoard.setPositionToEmpty(1, k);
             }
@@ -720,14 +719,14 @@ public class LegacyGame {
 
     public boolean anyDiagUp4MatchToMark(int type, int place) {
         boolean match = false;
-        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
+        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[3] = 1;
             if (type == Mode.CHECK.rawMode) {
                 match = true;
             }
             if (type == SETFLAGS_MODE) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == CLEAN_MODE && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
+        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
             match = true;
         }
         return match;
@@ -736,14 +735,14 @@ public class LegacyGame {
     public boolean anyDiagDown4MatchToMark(int type, int place) {
         boolean match = false;
 
-        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
+        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[2] = 1;
             if (type == Mode.CHECK.rawMode) {
                 match = true;
             }
             if (type == SETFLAGS_MODE) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
+        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
             match = true;
         }
         return match;
@@ -751,7 +750,7 @@ public class LegacyGame {
 
     public boolean anyVert4MatchToMark(int type, int place) {
         boolean match = false;
-        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
+        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[1] = 1;
             if (type == Mode.CHECK.rawMode) {
 
@@ -759,14 +758,14 @@ public class LegacyGame {
             }
             if (type == SETFLAGS_MODE) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == CLEAN_MODE && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
+        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
             match = true;
         }
         return match;
     }
 
     public boolean anyHoriz4MatchToMark(int type, int place) {
-        if (type != CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
+        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[0] = 1;
             if (type == Mode.CHECK.rawMode) {
                 return true;
@@ -774,7 +773,7 @@ public class LegacyGame {
             if (type == SETFLAGS_MODE) tempTableForChecks[place] = OCCUPIED;
         }
 
-        if (type == CLEAN_MODE && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
+        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
             return true;
         }
         return false;

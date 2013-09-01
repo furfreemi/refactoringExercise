@@ -123,12 +123,12 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CLEAN_MODE));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, Mode.CLEAN.rawMode));
         if (position.isNotNone()) {
             return position;
         }
 
-        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CLEAN_MODE));
+        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, Mode.CLEAN.rawMode));
         if (position.isNotNone()) {
             return position;
         }
