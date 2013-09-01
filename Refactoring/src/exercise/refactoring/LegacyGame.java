@@ -59,7 +59,7 @@ public class LegacyGame {
         return NONE;
     }
 
-        private boolean isNone(int response) {
+    private boolean isNone(int response) {
         return response != NONE;
     }
 
@@ -756,16 +756,20 @@ public class LegacyGame {
     }
 
     public int closeGapInSeries() {
-        int k, l, x, y;
+        int upToSeven, upToNine, position, otherPosition;
 
-        for (k = 1; k < 7; k++) {
-            for (l = 1; l < 9; l++) {
-                x = k + SQUARES_PER_SIDE * l;
-                y = l + k * SQUARES_PER_SIDE;
+        for (upToSeven = 1; upToSeven < 7; upToSeven++) {
+            for (upToNine = 1; upToNine < 9; upToNine++) {
+                position = upToSeven + SQUARES_PER_SIDE * upToNine;
+                otherPosition = upToNine + upToSeven * SQUARES_PER_SIDE;
 
-                if (gameBoard.playerXOccupiesMainBoardPosition(x) && gameBoard.mainBoard()[x + 2] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[x + 1] == 0) return (x + 1);
+                if (gameBoard.playerXOccupiesMainBoardPosition(position) && gameBoard.mainBoard()[position + 2] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[position + 1] == 0) {
+                    return (position + 1);
+                }
 
-                if (gameBoard.playerXOccupiesMainBoardPosition(y) && gameBoard.mainBoard()[y + 20] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[y + SQUARES_PER_SIDE] == 0) return (y + SQUARES_PER_SIDE);
+                if (gameBoard.playerXOccupiesMainBoardPosition(otherPosition) && gameBoard.mainBoard()[otherPosition + 20] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[otherPosition + SQUARES_PER_SIDE] == 0) {
+                    return (otherPosition + SQUARES_PER_SIDE);
+                }
             }
         }
         return NONE;
