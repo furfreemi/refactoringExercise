@@ -26,7 +26,6 @@ public class LegacyGame {
     private int perhapsaTemporaryBoardHolder[][] = new int[MAX_DEPTH][TOTAL_SQUARES_PER_BOARD];
     int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
-    private int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
 
     public int findSpot() {
         int position;
@@ -283,9 +282,10 @@ public class LegacyGame {
         int j, k, l;
         int position, x = 2; // TODO make this Position object
 
-        for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++)
+        for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
             stagingBoard[j] = GameBoardMark.EMPTY.index;
-
+        }
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 6; k++) {
                 marksByAxisByPlayerForChecking[0] = 0;
@@ -360,8 +360,10 @@ public class LegacyGame {
         int position;
         int x = 2;
 
-        for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++)
+        for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
             stagingBoard[j] = GameBoardMark.EMPTY.index;
+        }
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
 
         for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 5; k++) {
@@ -491,7 +493,7 @@ public class LegacyGame {
     public int blockSeriesOfFourOrMore(GameBoardMark playerMark, int x, Mode type) {
         int j, k, l;
         int position = 0, position2 = 0;
-
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (l = 0; l < 6; l++) {
             for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
                 resetAllMarksAlongAxesForFirstHalfOfBoard();
@@ -552,6 +554,8 @@ public class LegacyGame {
 
     public int checkFor5AlongDiagUpRightAxis(GameBoardMark playerMark, int x, int j, int k, int l, int position2) {
         if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j - k * oneLessThanCountInRow + 40, playerMark)) marksByAxisByPlayerForChecking[2]++;
+
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j - k * oneLessThanCountInRow + 40)) {
             position2 = l * GameBoard.SQUARES_PER_SIDE + j - k * oneLessThanCountInRow + 40;
             tempRowForChecks[marksByAxisByPlayerForChecking[3]] = position2;
@@ -562,6 +566,8 @@ public class LegacyGame {
 
     public int checkFor5AlongDiagDownRightAxis(GameBoardMark playerMark, int x, int j, int k, int l, int position) {
         if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j + k * 11, playerMark)) marksByAxisByPlayerForChecking[0]++;
+
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j + k * 11)) {
             position = l * GameBoard.SQUARES_PER_SIDE + j + k * 11;
             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = position;
@@ -572,6 +578,8 @@ public class LegacyGame {
 
     public int checkFor5AlongVertAxis(GameBoardMark playerMark, int x, int j, int l, int position) {
         int k;
+
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (k = 0; k < 5; k++) {
             if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE, playerMark)) marksByAxisByPlayerForChecking[2]++;
             else if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE)) {
@@ -585,6 +593,7 @@ public class LegacyGame {
 
     public int checkFor5AlongHorizAxis(GameBoardMark playerMark, int x, int j, int l, int position) {
         int k;
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (k = 0; k < 5; k++) {
             if (gameBoard.valueAtPositionMatches(x, j * GameBoard.SQUARES_PER_SIDE + l + k, playerMark)) marksByAxisByPlayerForChecking[0]++;
 
@@ -665,8 +674,10 @@ public class LegacyGame {
         int j, k, l;
         int place = 0;
 
-        for (k = 0; k < 4; k++)
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
+        for (k = 0; k < 4; k++) {
             tempRowForChecks[k] = 0;
+        }
 
         for (l = 0; l < 5; l++) {
             for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
@@ -763,6 +774,7 @@ public class LegacyGame {
 
     public boolean anyDiagUp4MatchToMark(Mode type, int place) {
         boolean match = false;
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (!type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[3] = 1;
             if (type.equals(Mode.CHECK)) {
@@ -778,7 +790,7 @@ public class LegacyGame {
 
     public boolean anyDiagDown4MatchToMark(Mode type, int place) {
         boolean match = false;
-
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (!type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[2] = 1;
             if (type.equals(Mode.CHECK)) {
@@ -794,6 +806,7 @@ public class LegacyGame {
 
     public boolean anyVert4MatchToMark(Mode type, int place) {
         boolean match = false;
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (!type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[1] = 1;
             if (type.equals(Mode.CHECK)) {
@@ -809,6 +822,7 @@ public class LegacyGame {
     }
 
     public boolean anyHoriz4MatchToMark(Mode type, int place) {
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         if (!type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[0] = 1;
             if (type.equals(Mode.CHECK)) {
