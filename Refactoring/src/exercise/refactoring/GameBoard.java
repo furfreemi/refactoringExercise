@@ -6,6 +6,7 @@ public class GameBoard {
     public static final int SQUARES_PER_SIDE = 10;
     public static int mainBoardIndex = 0;
     public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
+    public static int boardTwoIndex = 2;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];
@@ -75,5 +76,10 @@ public class GameBoard {
 
     public void setBoardTwoToDuplicateOfMainBoard() {
         board[2] = mainBoard().clone();
+    }
+
+
+    boolean hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(int position, int diff) {
+        return hasEmptyValueAt(boardTwoIndex, position) && hasEmptyValueAt(boardTwoIndex, position + diff);
     }
 }

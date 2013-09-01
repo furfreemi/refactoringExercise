@@ -359,7 +359,6 @@ public class LegacyGame {
     public void seto4cc(GameBoardMark playerMark) {
         int j, k, l;
         int position;
-        int x = 2;
 
         for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++) {
             stagingBoard[j] = GameBoardMark.EMPTY.index;
@@ -369,11 +368,11 @@ public class LegacyGame {
         for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 5)) {
+                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 5)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
+                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
                         if (position == playerMark.index) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l;
@@ -389,11 +388,11 @@ public class LegacyGame {
         for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 5; k++) {
                 position = k * GameBoard.SQUARES_PER_SIDE + j;
-                if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 50)) {
+                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 50)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
+                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
                         if (position == playerMark.index) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
@@ -409,11 +408,11 @@ public class LegacyGame {
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 55)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position) && gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 55)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l * 11).index;
+                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k + l * 11).index;
                         if (position == playerMark.index) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l * 11;
@@ -429,11 +428,11 @@ public class LegacyGame {
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(x, position + 50) && gameBoard.hasEmptyValueAt(x, position + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 5)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 50).index;
+                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 50).index;
                         if (position == playerMark.index) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 50;
