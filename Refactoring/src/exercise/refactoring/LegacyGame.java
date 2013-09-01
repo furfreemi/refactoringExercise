@@ -44,8 +44,8 @@ public class LegacyGame {
             return blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK);
         }
 
-        if (isNone(responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK.rawMode))) {
-            return responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK.rawMode);
+        if (isNone(responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK))) {
+            return responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK);
         }
 
         return NONE;
@@ -269,7 +269,7 @@ public class LegacyGame {
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
             if (gameBoard.hasEmptyValueAt(1, k)) {
                 gameBoard.setValueAt(1, k, playerMark);
-                if (responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK.rawMode) != NONE && countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.SAFE.rawMode) > 0) {
+                if (responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK) != NONE && countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.SAFE.rawMode) > 0) {
                     return k;
                 }
                 gameBoard.setPositionToEmpty(1, k);
@@ -613,7 +613,7 @@ public class LegacyGame {
         return (NONE);
     }
 
-    public int responseTo3Or4InaRowOpportunity(int playerMark, int boardLevel, int type) {
+    public int responseTo3Or4InaRowOpportunity(int playerMark, int boardLevel, Mode type) {
         int j, k, l;
         int place = 0;
 
@@ -653,7 +653,7 @@ public class LegacyGame {
             }
         }
 
-        if (type == Mode.COUNT.rawMode) {
+        if (type.equals(Mode.COUNT)) {
             return tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3];
         }
 
@@ -713,63 +713,63 @@ public class LegacyGame {
         return place;
     }
 
-    public boolean anyDiagUp4MatchToMark(int type, int place) {
+    public boolean anyDiagUp4MatchToMark(Mode type, int place) {
         boolean match = false;
-        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
+        if (! type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[3] = 1;
-            if (type == Mode.CHECK.rawMode) {
+            if (type.equals(Mode.CHECK)) {
                 match = true;
             }
-            if (type == Mode.SETFLAGS.rawMode) tempTableForChecks[place] = OCCUPIED;
+            if (type.equals(Mode.SETFLAGS)) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
             match = true;
         }
         return match;
     }
 
-    public boolean anyDiagDown4MatchToMark(int type, int place) {
+    public boolean anyDiagDown4MatchToMark(Mode type, int place) {
         boolean match = false;
 
-        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
+        if (! type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[2] = 1;
-            if (type == Mode.CHECK.rawMode) {
+            if (type.equals(Mode.CHECK)) {
                 match = true;
             }
-            if (type == Mode.SETFLAGS.rawMode) tempTableForChecks[place] = OCCUPIED;
+            if (type.equals(Mode.SETFLAGS)) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
             match = true;
         }
         return match;
     }
 
-    public boolean anyVert4MatchToMark(int type, int place) {
+    public boolean anyVert4MatchToMark(Mode type, int place) {
         boolean match = false;
-        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
+        if (! type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 1) {
             tempRowForChecks[1] = 1;
-            if (type == Mode.CHECK.rawMode) {
+            if (type.equals(Mode.CHECK)) {
 
                 match = true;
             }
-            if (type == Mode.SETFLAGS.rawMode) tempTableForChecks[place] = OCCUPIED;
+            if (type.equals(Mode.SETFLAGS)) tempTableForChecks[place] = OCCUPIED;
         }
-        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[2] == 2 && marksByAxisByPlayerForChecking[3] == 2) {
             match = true;
         }
         return match;
     }
 
-    public boolean anyHoriz4MatchToMark(int type, int place) {
-        if (type != Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
+    public boolean anyHoriz4MatchToMark(Mode type, int place) {
+        if (! type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 1) {
             tempRowForChecks[0] = 1;
-            if (type == Mode.CHECK.rawMode) {
+            if (type.equals(Mode.CHECK)) {
                 return true;
             }
-            if (type == Mode.SETFLAGS.rawMode) tempTableForChecks[place] = OCCUPIED;
+            if (type.equals(Mode.SETFLAGS)) tempTableForChecks[place] = OCCUPIED;
         }
 
-        if (type == Mode.CLEAN.rawMode && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxisByPlayerForChecking[0] == 2 && marksByAxisByPlayerForChecking[1] == 2) {
             return true;
         }
         return false;
@@ -783,7 +783,7 @@ public class LegacyGame {
 
             gameBoard.setValueAt(x, k, playerMark);
 
-            if (responseTo3Or4InaRowOpportunity(playerMark, x, Mode.COUNT.rawMode) > 1) {
+            if (responseTo3Or4InaRowOpportunity(playerMark, x, Mode.COUNT) > 1) {
                 return k;
             }
 
@@ -819,7 +819,7 @@ public class LegacyGame {
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
             tempTableForChecks[k] = GameBoardMark.EMPTY.index;
         blockSeriesOfFourOrMore(playerMark, 0, Mode.SETFLAGS);
-        responseTo3Or4InaRowOpportunity(playerMark, 0, Mode.SETFLAGS.rawMode);
+        responseTo3Or4InaRowOpportunity(playerMark, 0, Mode.SETFLAGS);
     }
 
     public void resetAllMarksAlongAxesForFirstHalfOfBoard() {
