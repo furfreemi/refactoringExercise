@@ -163,6 +163,6 @@ public class ComputerMove {
     }
 
     private boolean isPlayer(GameBoard gameBoard, int position) {
-        return gameBoard.playerXOccupiesPosition(position);
+        return gameBoard.playerXOccupiesMainBoardPosition(position);
     }
 }

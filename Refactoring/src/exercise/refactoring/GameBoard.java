@@ -45,7 +45,7 @@ public class GameBoard {
         this.board = boardTo;
     }
 
-    public boolean playerXOccupiesPosition(int position) {
+    public boolean playerXOccupiesMainBoardPosition(int position) {
         return mainBoard()[position] == GameBoardMark.X_MARK_FOR_PLAYER.index;
     }
 }

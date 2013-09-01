@@ -763,9 +763,9 @@ public class LegacyGame {
                 x = k + SQUARES_PER_SIDE * l;
                 y = l + k * SQUARES_PER_SIDE;
 
-                if (gameBoard.mainBoard()[x] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[x + 2] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[x + 1] == 0) return (x + 1);
+                if (gameBoard.playerXOccupiesMainBoardPosition(x) && gameBoard.mainBoard()[x + 2] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[x + 1] == 0) return (x + 1);
 
-                if (gameBoard.mainBoard()[y] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[y + 20] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[y + SQUARES_PER_SIDE] == 0) return (y + SQUARES_PER_SIDE);
+                if (gameBoard.playerXOccupiesMainBoardPosition(y) && gameBoard.mainBoard()[y + 20] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[y + SQUARES_PER_SIDE] == 0) return (y + SQUARES_PER_SIDE);
             }
         }
         return NONE;
