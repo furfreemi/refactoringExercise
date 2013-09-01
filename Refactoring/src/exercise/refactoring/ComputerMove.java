@@ -155,17 +155,25 @@ public class ComputerMove {
         int position;
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
         for (position = oneMoreThanSquaresPerSide; position < 89; position++)
-            if (positionIsDesirable(legacyGame.gameBoard, legacyGame.stagingBoard, position)) {
+            if (positionIsOccupiedOnStagingBoardAndDesirable(legacyGame.gameBoard, legacyGame.stagingBoard, position)) {
                 return new GamePosition(position);
             }
         return GamePosition.nonePosition();
     }
 
-    private boolean positionIsDesirable(GameBoard gameBoard,  int[] stagingBoard, int i) {
-        return stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(gameBoard, i - GameBoard.SQUARES_PER_SIDE) || isPlayer(gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(gameBoard, i - 1) || isPlayer(gameBoard, i + 1) || isPlayer(gameBoard, i + oneMoreThanSquaresPerSide) || isPlayer(gameBoard, i + GameBoard.SQUARES_PER_SIDE) || isPlayer(gameBoard, i + oneMoreThanSquaresPerSide));
+    private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, int[] stagingBoard, int position) {
+        return stagingBoard[position] == LegacyGame.OCCUPIED && positionIsDesirable(gameBoard, position);
     }
 
-    private boolean isPlayer(GameBoard gameBoard, int position) {
-        return gameBoard.playerXOccupiesMainBoardPosition(position);
+    private boolean positionIsDesirable(GameBoard gameBoard, int position) {
+        return gameBoard.playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
+                || gameBoard.playerXOccupiesMainBoardPosition(position - GameBoard.SQUARES_PER_SIDE)
+                || gameBoard.playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
+                || gameBoard.playerXOccupiesMainBoardPosition(position - 1)
+                || gameBoard.playerXOccupiesMainBoardPosition(position + 1)
+                || gameBoard.playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide)
+                || gameBoard.playerXOccupiesMainBoardPosition(position + GameBoard.SQUARES_PER_SIDE)
+                || gameBoard.playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide);
     }
+
 }
