@@ -5,7 +5,7 @@ public enum GameBoardMark {
     X_MARK_FOR_PLAYER(1);
     public final int index;
 
-    GameBoardMark(int index) {
+    private GameBoardMark(int index) {
         this.index = index;
     }
 
