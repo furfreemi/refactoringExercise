@@ -163,6 +163,6 @@ public class ComputerMove {
     }
 
     private boolean isPlayer(GameBoard gameBoard, int position) {
-        return legacyGame.gameBoard.getValueAt(0, position) == GameBoardMark.X_MARK_FOR_PLAYER.index;
+        return gameBoard.getValueAt(0, position) == GameBoardMark.X_MARK_FOR_PLAYER.index;
     }
 }
