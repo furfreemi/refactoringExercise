@@ -616,9 +616,10 @@ public class LegacyGame {
     public int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark) {
         int j, k, l;
         int place = 0;
-
-        for (k = 0; k < 4; k++)
+        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
+        for (k = 0; k < 4; k++) {
             tempRowForChecks[k] = 0;
+        }
 
         for (l = 0; l < 5; l++) {
             for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
