@@ -49,7 +49,7 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER, GameBoard.mainBoardIndex, Mode.CHECK));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }

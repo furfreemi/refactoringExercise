@@ -11,7 +11,7 @@ public class GameBoard {
     }
 
     int[] mainBoard() {
-        return board[0];
+        return board[mainBoardIndex];
     }
 
     public void markMove(int position, int playerMark) {
