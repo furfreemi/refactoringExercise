@@ -52,4 +52,13 @@ public class GameBoard {
     public boolean playerXOccupiesMainBoardPosition(int position) {
         return mainBoard()[position] == GameBoardMark.X_MARK_FOR_PLAYER.index;
     }
+
+    boolean hasOccupiedUnoccupiedOccupiedPatternStartingAt(int position) {
+        return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 2) && hasEmptyValueOnMainBoardAt(position + 1);
+    }
+
+    public boolean hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(int position) {
+        // Not completely sure that this is diagonal
+        return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 20) && hasEmptyValueOnMainBoardAt(position + LegacyGame.SQUARES_PER_SIDE);
+    }
 }
