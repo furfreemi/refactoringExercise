@@ -48,15 +48,15 @@ public class LegacyGame {
     }
 
     public int checkForWinOpportunity(int playerMark, int x) {
-        int position = 0;
-
-        if ((position = blockSeriesOfFourOrMore(switchPlayers(playerMark), x, CHECK_MODE)) != NONE) return position;
-
-        if ((position = responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), x, CHECK_MODE)) != NONE) {
-            return position;
+        if (blockSeriesOfFourOrMore(switchPlayers(playerMark), x, CHECK_MODE) != NONE) {
+            return blockSeriesOfFourOrMore(switchPlayers(playerMark), x, CHECK_MODE);
         }
 
-        return (NONE);
+        if (responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), x, CHECK_MODE) != NONE) {
+            return responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), x, CHECK_MODE);
+        }
+
+        return NONE;
     }
 
     public int checkToSeeIfEitherSideHasWon() {
