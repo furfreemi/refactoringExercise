@@ -123,12 +123,12 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0, Mode.CLEAN));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER, GameBoard.mainBoardIndex, Mode.CLEAN));
         if (position.isNotNone()) {
             return position;
         }
 
-        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER, 0, Mode.CLEAN));
+        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER, GameBoard.mainBoardIndex, Mode.CLEAN));
         if (position.isNotNone()) {
             return position;
         }
@@ -155,10 +155,14 @@ public class ComputerMove {
         int i;
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
         for (i = oneMoreThanSquaresPerSide; i < 89; i++)
-            if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide))) {
+            if (foo(legacyGame, i)) {
                 return i;
             }
         return LegacyGame.NONE;
+    }
+
+    private boolean foo(LegacyGame legacyGame, int i) {
+        return legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i + GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide));
     }
 
     private boolean isPlayer(GameBoard gameBoard, int position) {
