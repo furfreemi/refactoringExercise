@@ -670,54 +670,49 @@ public class LegacyGame {
         return (NONE);
     }
 
-    public int responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark) {
-
-        int j, k, l;
+    public GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark) {
+        int alsoUpToFive, upToFour, upToFive;
         int place = 0;
 
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-        for (k = 0; k < 4; k++) {
-            tempRowForChecks[k] = 0;
+        for (upToFour = 0; upToFour < 4; upToFour++) {
+            tempRowForChecks[upToFour] = 0;
         }
 
-        for (l = 0; l < 5; l++) {
-            for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
+        for (upToFive = 0; upToFive < 5; upToFive++) {
+            for (alsoUpToFive = 0; alsoUpToFive < GameBoard.SQUARES_PER_SIDE; alsoUpToFive++) {
                 clearMarksByAxisArray();
 
-                if (gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l) && gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l + 5)) {
+                if (gameBoard.hasEmptyValueOnMainBoardAt(alsoUpToFive * GameBoard.SQUARES_PER_SIDE + upToFive) && gameBoard.hasEmptyValueOnMainBoardAt(alsoUpToFive * GameBoard.SQUARES_PER_SIDE + upToFive + 5)) {
 
-                    place = checkForHoriz4InRow(playerMark, 0, j, l);
-                    if (anyHoriz4MatchToMark(Mode.CLEAN, place)) return place;
+                    place = checkForHoriz4InRow(playerMark, 0, alsoUpToFive, upToFive);
+                    if (anyHoriz4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
                 }
 
-                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50)) {
+                if (gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive) && gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 50)) {
 
-                    place = checkForVert4InRow(playerMark, 0, j, l);
-                    if (anyVert4MatchToMark(Mode.CLEAN, place)) return place;
+                    place = checkForVert4InRow(playerMark, 0, alsoUpToFive, upToFive);
+                    if (anyVert4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
                 }
             }
 
-            for (j = 0; j < 5; j++) {
+            for (alsoUpToFive = 0; alsoUpToFive < 5; alsoUpToFive++) {
                 clearMarksByAxisArray();
 
-                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 55)) {
+                if (gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive) && gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 55)) {
 
-                    place = checkForDiagDown4InRow(playerMark, 0, j, l);
-                    if (anyDiagDown4MatchToMark(Mode.CLEAN, place)) return place;
+                    place = checkForDiagDown4InRow(playerMark, 0, alsoUpToFive, upToFive);
+                    if (anyDiagDown4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
                 }
 
-                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 5)) {
-                    place = checkForDiagUp4InRow(playerMark, 0, j, l);
-                    if (anyDiagUp4MatchToMark(Mode.CLEAN, place)) return place;
+                if (gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 50) && gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 5)) {
+                    place = checkForDiagUp4InRow(playerMark, 0, alsoUpToFive, upToFive);
+                    if (anyDiagUp4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
                 }
             }
         }
 
-        if (Mode.CLEAN.equals(Mode.COUNT)) {
-            return tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3];
-        }
-
-        return (NONE);
+        return GamePosition.nonePosition();
     }
 
     public int responseTo3Or4InaRowOpportunity(GameBoardMark playerMark, int boardLevel, Mode type) {
