@@ -12,7 +12,7 @@ public class ComputerMove {
         GamePosition position = new GamePosition();
 
         if (legacyGame.isFirstMove()) {
-            return new GamePosition(makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y));
+            return makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y);
         }
 
         position.setPosition(legacyGame.closeGapInSeries());
@@ -73,7 +73,6 @@ public class ComputerMove {
             return position;
         }
 
-//        I may have broken this
         if (legacyGame.moveNumberIsOver(3)) {
             position.setPosition(legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
             if (position.isNotNone()) {
@@ -138,10 +137,10 @@ public class ComputerMove {
         return position;
     }
 
-    private int makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
+    private GamePosition makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
         if (y > 5) {
-            return (y * LegacyGame.SQUARES_PER_SIDE + x - oneMoreThanSquaresPerSide);
-        } else return (y * LegacyGame.SQUARES_PER_SIDE + x + oneMoreThanSquaresPerSide);
+            return new GamePosition(y * LegacyGame.SQUARES_PER_SIDE + x - oneMoreThanSquaresPerSide);
+        } else return new GamePosition(y * LegacyGame.SQUARES_PER_SIDE + x + oneMoreThanSquaresPerSide);
     }
 
 
