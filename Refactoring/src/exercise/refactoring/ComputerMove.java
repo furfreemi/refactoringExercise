@@ -17,35 +17,28 @@ public class ComputerMove {
 
         position = legacyGame.closeGapInSeries();
         if ((legacyGame.moveNumberIs(2) && (position != LegacyGame.NONE))) {
-            if (reporting) {
-                System.out.println("closeGapInSeries() found " + position);
-            }
             return position;
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
             position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE);
             if (position != LegacyGame.NONE) {
-                if (reporting) System.out.println("blockSeriesOfFourOrMore() found " + position);
                 return position;
             }
 
             position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE);
             if (position != LegacyGame.NONE) {
-                if (reporting) System.out.println("blockSeriesOfFourOrMore() found " + position);
                 return position;
             }
         }
 
         position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("responseTo3Or4InaRowOpportunity() found " + position);
             return position;
         }
 
         position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes() found " + position);
             return position;
         }
 
@@ -53,19 +46,16 @@ public class ComputerMove {
 
         position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("tryToMake3WithGap_FromVert4IntersectingWithHoriz4() found " + position);
             return position;
         }
 
         position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CHECK_MODE);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("responseTo3Or4InaRowOpportunity() found " + position);
             return position;
         }
 
         position = legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 5) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes() found " + position);
             return position;
         }
 
@@ -73,7 +63,6 @@ public class ComputerMove {
 
         position = legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 4) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("tryToMake3WithGap_FromVert4IntersectingWithHoriz4() found " + position);
             return position;
         }
 
@@ -81,69 +70,55 @@ public class ComputerMove {
 
         position = legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 3) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("checkSeries() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("checkSeries() found " + position);
             return position;
         }
 
         position = legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0);
         if ((legacyGame.getMoveNumber() > 2) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("check2o3c() found " + position);
             return position;
         }
 
         position = legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER.index, 0);
         if ((legacyGame.getMoveNumber() > 20) && (position != LegacyGame.NONE)) {
-            if (reporting) System.out.println("check2o3c() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("checkCross() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 3 && (position = legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("checkCross() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER.index)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("checkBox() found " + position);
             return position;
         }
 
         if (legacyGame.getMoveNumber() > 2 && (position = legacyGame.closeGapInSeries()) != LegacyGame.NONE) {
-            if (reporting) System.out.println("closeGapInSeries() found " + position);
             return position;
         }
 
         position = createTwoAxesOrCreateOneAndBlockAnother(legacyGame);
         if (position != LegacyGame.NONE) {
-            if (reporting) System.out.println("createTwoAxesOrCreateOneAndBlockAnother() found " + position);
             return position;
         }
 
         if ((position = legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("responseTo3Or4InaRowOpportunity() found " + position);
             return position;
         }
 
         if ((position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
             if (reporting) {
-                System.out.println("blockEitherEndOfSeriesOf4OrMore() found " + position);
             }
             return position;
         }
 
         position = legacyGame.findSpot();
-        if (reporting) {
-            System.out.println("findGoodSpotNearOpponent() found " + position);
-        }
         return position;
     }
 
