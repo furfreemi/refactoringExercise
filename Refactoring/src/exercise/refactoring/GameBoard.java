@@ -4,6 +4,7 @@ public class GameBoard {
     private final int numberOfBoards = 2;
     private int board[][];
     public static final int SQUARES_PER_SIDE = 10;
+    public static int mainBoardIndex = 0;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];

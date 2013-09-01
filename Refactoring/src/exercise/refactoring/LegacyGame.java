@@ -263,7 +263,7 @@ public class LegacyGame {
 
     public int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark) {
         int k;
-        int gameBoardLevelToCheck = 0;
+        int gameBoardLevelToCheck = GameBoard.mainBoardIndex;
 
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
             gameBoard.setValueAt(1, k, gameBoard.getValueAt(gameBoardLevelToCheck, k));
@@ -838,19 +838,19 @@ public class LegacyGame {
         return false;
     }
 
-    public int check2o3c(GameBoardMark playerMark, int x) {
+    public int check2o3c(GameBoardMark playerMark) {
         int k;
 
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
-            if (!gameBoard.hasEmptyValueAt(x, k)) continue;
+            if (!gameBoard.hasEmptyValueOnMainBoardAt(k)) continue;
 
-            gameBoard.setValueAt(x, k, playerMark);
+            gameBoard.setValueAt(GameBoard.mainBoardIndex, k, playerMark);
 
-            if (responseTo3Or4InaRowOpportunity(playerMark, x, Mode.COUNT) > 1) {
+            if (responseTo3Or4InaRowOpportunity(playerMark, GameBoard.mainBoardIndex, Mode.COUNT) > 1) {
                 return k;
             }
 
-            gameBoard.setValueAt(x, k, GameBoardMark.EMPTY);
+            gameBoard.setValueAt(GameBoard.mainBoardIndex, k, GameBoardMark.EMPTY);
         }
         return NONE;
     }

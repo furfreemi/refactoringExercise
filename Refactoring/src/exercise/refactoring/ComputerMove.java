@@ -49,7 +49,7 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER, 0, Mode.CHECK));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER, GameBoard.mainBoardIndex, Mode.CHECK));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
@@ -80,12 +80,12 @@ public class ComputerMove {
             }
         }
 
-        position.setPosition(legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER, 0));
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((legacyGame.moveNumberIsOver(20) && position.isNotNone())) {
             return position;
         }
