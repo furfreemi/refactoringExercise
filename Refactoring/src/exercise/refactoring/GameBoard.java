@@ -5,6 +5,7 @@ public class GameBoard {
     private int board[][];
     public static final int SQUARES_PER_SIDE = 10;
     public static int mainBoardIndex = 0;
+    public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];
@@ -61,5 +62,16 @@ public class GameBoard {
     public boolean hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(int position) {
         // Not completely sure that this is diagonal
         return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 20) && hasEmptyValueOnMainBoardAt(position + SQUARES_PER_SIDE);
+    }
+
+    public boolean positionIsDesirableForcreateTwoAxesOrCreateOneAndBlockAnother(int position) {
+        return playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
+                || playerXOccupiesMainBoardPosition(position - SQUARES_PER_SIDE)
+                || playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
+                || playerXOccupiesMainBoardPosition(position - 1)
+                || playerXOccupiesMainBoardPosition(position + 1)
+                || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide)
+                || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE)
+                || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide);
     }
 }
