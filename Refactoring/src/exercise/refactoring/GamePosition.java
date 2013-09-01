@@ -22,4 +22,8 @@ public class GamePosition {
     public int getRaw() {
         return position;
     }
+
+    public static GamePosition nonePosition() {
+        return new GamePosition(LegacyGame.NONE);
+    }
 }

@@ -1,7 +1,7 @@
 package exercise.refactoring;
 
 public class ComputerMove {
-    public static final int oneMoreThanSquaresPerSide = LegacyGame.SQUARES_PER_SIDE + 1;
+    public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
     private final LegacyGame legacyGame;
 
     public ComputerMove(LegacyGame legacyGame) {
@@ -21,7 +21,7 @@ public class ComputerMove {
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position = legacyGame.blockSeriesOfFourOrMoreInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0);
+            position = legacyGame.blockSeriesOfFourOrMoreInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
             if (position.isNotNone()) {
                 return position;
             }
@@ -139,9 +139,9 @@ public class ComputerMove {
 
     private GamePosition makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
         if (y > 5) {
-            return new GamePosition(y * LegacyGame.SQUARES_PER_SIDE + x - oneMoreThanSquaresPerSide);
+            return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x - oneMoreThanSquaresPerSide);
         } else {
-            return new GamePosition(y * LegacyGame.SQUARES_PER_SIDE + x + oneMoreThanSquaresPerSide);
+            return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x + oneMoreThanSquaresPerSide);
         }
     }
 
@@ -155,7 +155,7 @@ public class ComputerMove {
         int i;
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER.index);
         for (i = oneMoreThanSquaresPerSide; i < 89; i++)
-            if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide))) {
+            if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide))) {
                 return i;
             }
         return LegacyGame.NONE;

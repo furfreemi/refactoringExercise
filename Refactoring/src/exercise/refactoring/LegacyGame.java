@@ -3,7 +3,6 @@ package exercise.refactoring;
 public class LegacyGame {
 
     public static final int TOTAL_SQUARES_PER_BOARD = 100;
-    public static final int SQUARES_PER_SIDE = 10;
 
     public static int PLAYER_WIN_LENGTH = 5;
     public static int COMPUTER_WIN_LENGTH = 6;
@@ -33,7 +32,7 @@ public class LegacyGame {
     private int perhapsaTemporaryBoardHolder[][] = new int[MAX_DEPTH][TOTAL_SQUARES_PER_BOARD];
     int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
-    private int tempRowForChecks[] = new int[SQUARES_PER_SIDE];
+    private int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
 
     public int findSpot() {
         int position;
@@ -42,7 +41,7 @@ public class LegacyGame {
         do {
             position = (int) (Math.random() * TOTAL_SQUARES_PER_BOARD);
             if (gameBoard.mainBoard()[position] != GameBoardMark.EMPTY.index) continue;
-            if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - 9] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + 9] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = OCCUPIED;
+            if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - 9] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + 9] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = OCCUPIED;
         } while (i == GameBoardMark.EMPTY.index);
         return position;
     }
@@ -293,15 +292,15 @@ public class LegacyGame {
         for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++)
             stagingBoard[j] = GameBoardMark.EMPTY.index;
 
-        for (j = 0; j < SQUARES_PER_SIDE; j++) {
+        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 6; k++) {
                 marksByAxisByPlayerForChecking[0] = 0;
                 marksByAxisByPlayerForChecking[1] = 0;
                 for (l = 0; l < 5; l++) {
-                    position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k + l);
+                    position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l);
                     if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                     if (position == GameBoardMark.EMPTY.index) {
-                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k + l;
+                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l;
                         marksByAxisByPlayerForChecking[1]++;
                     }
                 }
@@ -310,32 +309,15 @@ public class LegacyGame {
             }
         }
 
-        for (j = 0; j < SQUARES_PER_SIDE; j++) {
+        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 6; k++) {
                 marksByAxisByPlayerForChecking[0] = 0;
                 marksByAxisByPlayerForChecking[1] = 0;
                 for (l = 0; l < 5; l++) {
-                    position = gameBoard.getValueAt(x, k * SQUARES_PER_SIDE + j + l * SQUARES_PER_SIDE);
+                    position = gameBoard.getValueAt(x, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE);
                     if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                     if (position == GameBoardMark.EMPTY.index) {
-                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = k * SQUARES_PER_SIDE + j + l * SQUARES_PER_SIDE;
-                        marksByAxisByPlayerForChecking[1]++;
-                    }
-                }
-                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) for (l = 0; l < 2; l++)
-                    stagingBoard[tempRowForChecks[l]] = OCCUPIED;
-            }
-        }
-
-        for (j = 0; j < 6; j++) {
-            for (k = 0; k < 6; k++) {
-                marksByAxisByPlayerForChecking[0] = 0;
-                marksByAxisByPlayerForChecking[1] = 0;
-                for (l = 0; l < 5; l++) {
-                    position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k + l * 11);
-                    if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
-                    if (position == GameBoardMark.EMPTY.index) {
-                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k + l * 11;
+                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
                         marksByAxisByPlayerForChecking[1]++;
                     }
                 }
@@ -349,10 +331,27 @@ public class LegacyGame {
                 marksByAxisByPlayerForChecking[0] = 0;
                 marksByAxisByPlayerForChecking[1] = 0;
                 for (l = 0; l < 5; l++) {
-                    position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k - l * 9 + 40);
+                    position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l * 11);
                     if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                     if (position == GameBoardMark.EMPTY.index) {
-                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k - l * 9 + 40;
+                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l * 11;
+                        marksByAxisByPlayerForChecking[1]++;
+                    }
+                }
+                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) for (l = 0; l < 2; l++)
+                    stagingBoard[tempRowForChecks[l]] = OCCUPIED;
+            }
+        }
+
+        for (j = 0; j < 6; j++) {
+            for (k = 0; k < 6; k++) {
+                marksByAxisByPlayerForChecking[0] = 0;
+                marksByAxisByPlayerForChecking[1] = 0;
+                for (l = 0; l < 5; l++) {
+                    position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k - l * 9 + 40);
+                    if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
+                    if (position == GameBoardMark.EMPTY.index) {
+                        tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k - l * 9 + 40;
                         marksByAxisByPlayerForChecking[1]++;
                     }
                 }
@@ -370,17 +369,17 @@ public class LegacyGame {
         for (j = 0; j < TOTAL_SQUARES_PER_BOARD; j++)
             stagingBoard[j] = GameBoardMark.EMPTY.index;
 
-        for (j = 0; j < SQUARES_PER_SIDE; j++) {
+        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 5; k++) {
-                position = j * SQUARES_PER_SIDE + k;
+                position = j * GameBoard.SQUARES_PER_SIDE + k;
                 if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 5)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k + l);
+                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l);
                         if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k + l;
+                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l;
                             marksByAxisByPlayerForChecking[1]++;
                         }
                     }
@@ -390,17 +389,17 @@ public class LegacyGame {
             }
         }
 
-        for (j = 0; j < SQUARES_PER_SIDE; j++) {
+        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
             for (k = 0; k < 5; k++) {
-                position = k * SQUARES_PER_SIDE + j;
+                position = k * GameBoard.SQUARES_PER_SIDE + j;
                 if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 50)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, k * SQUARES_PER_SIDE + j + l * SQUARES_PER_SIDE);
+                        position = gameBoard.getValueAt(x, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE);
                         if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = k * SQUARES_PER_SIDE + j + l * SQUARES_PER_SIDE;
+                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
                             marksByAxisByPlayerForChecking[1]++;
                         }
                     }
@@ -412,15 +411,15 @@ public class LegacyGame {
 
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
-                position = j * SQUARES_PER_SIDE + k;
+                position = j * GameBoard.SQUARES_PER_SIDE + k;
                 if (gameBoard.hasEmptyValueAt(x, position) && gameBoard.hasEmptyValueAt(x, position + 55)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k + l * 11);
+                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k + l * 11);
                         if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k + l * 11;
+                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k + l * 11;
                             marksByAxisByPlayerForChecking[1]++;
                         }
                     }
@@ -432,15 +431,15 @@ public class LegacyGame {
 
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
-                position = j * SQUARES_PER_SIDE + k;
+                position = j * GameBoard.SQUARES_PER_SIDE + k;
                 if (gameBoard.hasEmptyValueAt(x, position + 50) && gameBoard.hasEmptyValueAt(x, position + 5)) {
                     marksByAxisByPlayerForChecking[0] = 0;
                     marksByAxisByPlayerForChecking[1] = 0;
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(x, j * SQUARES_PER_SIDE + k - l * 9 + 50);
+                        position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k - l * 9 + 50);
                         if (position == playerMark) marksByAxisByPlayerForChecking[0]++;
                         if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * SQUARES_PER_SIDE + k - l * 9 + 50;
+                            tempRowForChecks[marksByAxisByPlayerForChecking[1]] = j * GameBoard.SQUARES_PER_SIDE + k - l * 9 + 50;
                             marksByAxisByPlayerForChecking[1]++;
                         }
                     }
@@ -451,69 +450,49 @@ public class LegacyGame {
         }
     }
 
-    public GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark gameBoardMark, int x) {
+    public GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark gameBoardMark) {
+        int zero = 0;
         int playerMark = gameBoardMark.index;
-        int type = CHECK_MODE;
 
-        int j, k, l;
-        int position = 0, position2 = 0;
+        int upToSquaresPerSide, upToFive, upToSix;
+        int position = 0;
+        int position2 = 0;
 
-        for (l = 0; l < 6; l++) {
-            for (j = 0; j < SQUARES_PER_SIDE; j++) {
+        for (upToSix = 0; upToSix < 6; upToSix++) {
+            for (upToSquaresPerSide = 0; upToSquaresPerSide < GameBoard.SQUARES_PER_SIDE; upToSquaresPerSide++) {
                 resetAllMarksAlongAxesForFirstHalfOfBoard();
 
-                position = checkFor5AlongHorizAxis(playerMark, x, j, l, position);
+                position = checkFor5AlongHorizAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
-                    if (type == SETFLAGS_MODE) {
-                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
-                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
-                    }
-                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1) {
+                    return new GamePosition(position);
                 }
 
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == CHECK_MODE) return new GamePosition(position);
+                position = checkFor5AlongVertAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                position = checkFor5AlongVertAxis(playerMark, x, j, l, position);
-
-                if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
-                    if (type == SETFLAGS_MODE) {
-                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
-                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
-                    }
-                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1) {
+                    return new GamePosition(position);
                 }
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == CHECK_MODE) return new GamePosition(position);
             }
 
-            for (j = 0; j < 6; j++) {
+            for (upToSquaresPerSide = 0; upToSquaresPerSide < 6; upToSquaresPerSide++) {
                 resetAllMarksAlongAxesForFirstHalfOfBoard();
 
-                for (k = 0; k < 5; k++) {
-                    position = checkFor5AlongDiagDownRightAxis(playerMark, x, j, k, l, position);
-                    position2 = checkFor5AlongDiagUpRightAxis(playerMark, x, j, k, l, position2);
+                for (upToFive = 0; upToFive < 5; upToFive++) {
+                    position = checkFor5AlongDiagDownRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position);
+                    position2 = checkFor5AlongDiagUpRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position2);
                 }
 
-                if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
-                    if (type == SETFLAGS_MODE) {
-                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
-                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
-                    }
-                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1) {
+                    return new GamePosition(position);
                 }
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == CHECK_MODE) return new GamePosition(position);
 
-                if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
-                    if (type == SETFLAGS_MODE) {
-                        tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
-                        tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
-                    }
-                    if (type == CLEAN_MODE) return new GamePosition(tempRowForChecks[0]);
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1) {
+                    return new GamePosition(position2);
                 }
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == CHECK_MODE) return new GamePosition(position2);
             }
         }
-        return new GamePosition(NONE);
+        return GamePosition.nonePosition();
     }
 
     public int blockSeriesOfFourOrMore(int playerMark, int x, int type) {
@@ -521,7 +500,7 @@ public class LegacyGame {
         int position = 0, position2 = 0;
 
         for (l = 0; l < 6; l++) {
-            for (j = 0; j < SQUARES_PER_SIDE; j++) {
+            for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
                 resetAllMarksAlongAxesForFirstHalfOfBoard();
 
                 position = checkFor5AlongHorizAxis(playerMark, x, j, l, position);
@@ -579,9 +558,9 @@ public class LegacyGame {
     }
 
     public int checkFor5AlongDiagUpRightAxis(int playerMark, int x, int j, int k, int l, int position2) {
-        if (gameBoard.valueAtPositionMatches(x, l * SQUARES_PER_SIDE + j - k * 9 + 40, playerMark)) marksByAxisByPlayerForChecking[2]++;
-        if (gameBoard.hasEmptyValueAt(x, l * SQUARES_PER_SIDE + j - k * 9 + 40)) {
-            position2 = l * SQUARES_PER_SIDE + j - k * 9 + 40;
+        if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 40, playerMark)) marksByAxisByPlayerForChecking[2]++;
+        if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 40)) {
+            position2 = l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 40;
             tempRowForChecks[marksByAxisByPlayerForChecking[3]] = position2;
             marksByAxisByPlayerForChecking[3]++;
         }
@@ -589,9 +568,9 @@ public class LegacyGame {
     }
 
     public int checkFor5AlongDiagDownRightAxis(int playerMark, int x, int j, int k, int l, int position) {
-        if (gameBoard.valueAtPositionMatches(x, l * SQUARES_PER_SIDE + j + k * 11, playerMark)) marksByAxisByPlayerForChecking[0]++;
-        if (gameBoard.hasEmptyValueAt(x, l * SQUARES_PER_SIDE + j + k * 11)) {
-            position = l * SQUARES_PER_SIDE + j + k * 11;
+        if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j + k * 11, playerMark)) marksByAxisByPlayerForChecking[0]++;
+        if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j + k * 11)) {
+            position = l * GameBoard.SQUARES_PER_SIDE + j + k * 11;
             tempRowForChecks[marksByAxisByPlayerForChecking[1]] = position;
             marksByAxisByPlayerForChecking[1]++;
         }
@@ -601,9 +580,9 @@ public class LegacyGame {
     public int checkFor5AlongVertAxis(int playerMark, int x, int j, int l, int position) {
         int k;
         for (k = 0; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(x, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE, playerMark)) marksByAxisByPlayerForChecking[2]++;
-            else if (gameBoard.hasEmptyValueAt(x, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE)) {
-                position = SQUARES_PER_SIDE * l + j + k * SQUARES_PER_SIDE;
+            if (gameBoard.valueAtPositionMatches(x, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE, playerMark)) marksByAxisByPlayerForChecking[2]++;
+            else if (gameBoard.hasEmptyValueAt(x, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE)) {
+                position = GameBoard.SQUARES_PER_SIDE * l + j + k * GameBoard.SQUARES_PER_SIDE;
                 tempRowForChecks[marksByAxisByPlayerForChecking[3]] = position;
                 marksByAxisByPlayerForChecking[3]++;
             } else break;
@@ -614,10 +593,10 @@ public class LegacyGame {
     public int checkFor5AlongHorizAxis(int playerMark, int x, int j, int l, int position) {
         int k;
         for (k = 0; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(x, j * SQUARES_PER_SIDE + l + k, playerMark)) marksByAxisByPlayerForChecking[0]++;
+            if (gameBoard.valueAtPositionMatches(x, j * GameBoard.SQUARES_PER_SIDE + l + k, playerMark)) marksByAxisByPlayerForChecking[0]++;
 
-            else if (gameBoard.hasEmptyValueAt(x, j * SQUARES_PER_SIDE + l + k)) {
-                position = SQUARES_PER_SIDE * j + l + k;
+            else if (gameBoard.hasEmptyValueAt(x, j * GameBoard.SQUARES_PER_SIDE + l + k)) {
+                position = GameBoard.SQUARES_PER_SIDE * j + l + k;
                 tempRowForChecks[marksByAxisByPlayerForChecking[1]] = position;
                 marksByAxisByPlayerForChecking[1]++;
 
@@ -649,16 +628,16 @@ public class LegacyGame {
             tempRowForChecks[k] = 0;
 
         for (l = 0; l < 5; l++) {
-            for (j = 0; j < SQUARES_PER_SIDE; j++) {
+            for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
                 clearMarksByAxisArray();
 
-                if (gameBoard.hasEmptyValueAt(boardLevel, j * SQUARES_PER_SIDE + l) && gameBoard.hasEmptyValueAt(boardLevel, j * SQUARES_PER_SIDE + l + 5)) {
+                if (gameBoard.hasEmptyValueAt(boardLevel, j * GameBoard.SQUARES_PER_SIDE + l) && gameBoard.hasEmptyValueAt(boardLevel, j * GameBoard.SQUARES_PER_SIDE + l + 5)) {
 
                     place = checkForHoriz4InRow(playerMark, boardLevel, j, l);
                     if (anyHoriz4MatchToMark(type, place)) return place;
                 }
 
-                if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 50)) {
+                if (gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + 50)) {
 
                     place = checkForVert4InRow(playerMark, boardLevel, j, l);
                     if (anyVert4MatchToMark(type, place)) return place;
@@ -668,13 +647,13 @@ public class LegacyGame {
             for (j = 0; j < 5; j++) {
                 clearMarksByAxisArray();
 
-                if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 55)) {
+                if (gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + 55)) {
 
                     place = checkForDiagDown4InRow(playerMark, boardLevel, j, l);
                     if (anyDiagDown4MatchToMark(type, place)) return place;
                 }
 
-                if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + 5)) {
+                if (gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + 5)) {
                     place = checkForDiagUp4InRow(playerMark, boardLevel, j, l);
                     if (anyDiagUp4MatchToMark(type, place)) return place;
                 }
@@ -692,9 +671,9 @@ public class LegacyGame {
         int place = NONE;
         int k;
         for (k = 1; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(boardLevel, j * SQUARES_PER_SIDE + l + k, playerMark)) marksByAxisByPlayerForChecking[0]++;
-            else if (gameBoard.hasEmptyValueAt(boardLevel, j * SQUARES_PER_SIDE + l + k)) {
-                place = SQUARES_PER_SIDE * j + l + k;
+            if (gameBoard.valueAtPositionMatches(boardLevel, j * GameBoard.SQUARES_PER_SIDE + l + k, playerMark)) marksByAxisByPlayerForChecking[0]++;
+            else if (gameBoard.hasEmptyValueAt(boardLevel, j * GameBoard.SQUARES_PER_SIDE + l + k)) {
+                place = GameBoard.SQUARES_PER_SIDE * j + l + k;
                 marksByAxisByPlayerForChecking[1]++;
             } else break;
         }
@@ -705,9 +684,9 @@ public class LegacyGame {
         int place = NONE;
         int k;
         for (k = 1; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE, playerMark)) marksByAxisByPlayerForChecking[2]++;
-            else if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + k * SQUARES_PER_SIDE)) {
-                place = SQUARES_PER_SIDE * l + j + k * SQUARES_PER_SIDE;
+            if (gameBoard.valueAtPositionMatches(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE, playerMark)) marksByAxisByPlayerForChecking[2]++;
+            else if (gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + k * GameBoard.SQUARES_PER_SIDE)) {
+                place = GameBoard.SQUARES_PER_SIDE * l + j + k * GameBoard.SQUARES_PER_SIDE;
                 marksByAxisByPlayerForChecking[3]++;
             } else break;
 
@@ -719,9 +698,9 @@ public class LegacyGame {
         int place = NONE;
         int k;
         for (k = 1; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j + k * 11, playerMark)) marksByAxisByPlayerForChecking[0]++;
-            if (gameBoard.hasEmptyValueAt(boardLevel, l * SQUARES_PER_SIDE + j + k * 11)) {
-                place = l * SQUARES_PER_SIDE + j + k * 11;
+            if (gameBoard.valueAtPositionMatches(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + k * 11, playerMark)) marksByAxisByPlayerForChecking[0]++;
+            if (gameBoard.hasEmptyValueAt(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j + k * 11)) {
+                place = l * GameBoard.SQUARES_PER_SIDE + j + k * 11;
                 marksByAxisByPlayerForChecking[1]++;
             }
         }
@@ -732,9 +711,9 @@ public class LegacyGame {
         int place = NONE;
         int k;
         for (k = 1; k < 5; k++) {
-            if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j - k * 9 + 50, playerMark)) marksByAxisByPlayerForChecking[2]++;
-            if (gameBoard.valueAtPositionMatches(boardLevel, l * SQUARES_PER_SIDE + j - k * 9 + 50, GameBoardMark.EMPTY.index)) {
-                place = l * SQUARES_PER_SIDE + j - k * 9 + 50;
+            if (gameBoard.valueAtPositionMatches(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 50, playerMark)) marksByAxisByPlayerForChecking[2]++;
+            if (gameBoard.valueAtPositionMatches(boardLevel, l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 50, GameBoardMark.EMPTY.index)) {
+                place = l * GameBoard.SQUARES_PER_SIDE + j - k * 9 + 50;
                 marksByAxisByPlayerForChecking[3]++;
             }
         }
@@ -825,15 +804,15 @@ public class LegacyGame {
 
         for (upToSeven = 1; upToSeven < 7; upToSeven++) {
             for (upToNine = 1; upToNine < 9; upToNine++) {
-                position = upToSeven + SQUARES_PER_SIDE * upToNine;
-                otherPosition = upToNine + upToSeven * SQUARES_PER_SIDE;
+                position = upToSeven + GameBoard.SQUARES_PER_SIDE * upToNine;
+                otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
 
                 if (gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
                     return (position + 1);
                 }
 
                 if (gameBoard.hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(otherPosition)) {
-                    return (otherPosition + SQUARES_PER_SIDE);
+                    return (otherPosition + GameBoard.SQUARES_PER_SIDE);
                 }
             }
         }
@@ -916,16 +895,16 @@ public class LegacyGame {
     public boolean checkForWin(Player p) {
         int fasterIndex;
         int slowerIndex;
-        for (slowerIndex = 0; slowerIndex < (SQUARES_PER_SIDE - p.winLength + 1); slowerIndex++) {
+        for (slowerIndex = 0; slowerIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength + 1); slowerIndex++) {
 
-            for (fasterIndex = 0; fasterIndex < SQUARES_PER_SIDE; fasterIndex++) {
+            for (fasterIndex = 0; fasterIndex < GameBoard.SQUARES_PER_SIDE; fasterIndex++) {
                 marksForChecking.resetAllValuesToZero();
                 changeMarksToFindHorizontalOrVerticalWin(fasterIndex, slowerIndex, p.winLength);
                 if (playerWon(p)) {
                     return true;
                 }
 
-                if (fasterIndex < (SQUARES_PER_SIDE - p.winLength + 1)) {
+                if (fasterIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength + 1)) {
                     marksForChecking.resetAllValuesToZero();
                     changeMarksToFindDiagonalWin(fasterIndex, slowerIndex, p.winLength);
                     if (playerWon(p)) {
@@ -939,15 +918,15 @@ public class LegacyGame {
 
     private void changeMarksToFindHorizontalOrVerticalWin(int fasterIndex, int slowerIndex, int winSize) {
         for (int k = 0; k < winSize; k++) {
-            incrementWinCountForDirection((fasterIndex * SQUARES_PER_SIDE + slowerIndex + k), Directions.HORIZONTAL);
-            incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + k * SQUARES_PER_SIDE), Directions.VERTICAL);
+            incrementWinCountForDirection((fasterIndex * GameBoard.SQUARES_PER_SIDE + slowerIndex + k), Directions.HORIZONTAL);
+            incrementWinCountForDirection((slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex + k * GameBoard.SQUARES_PER_SIDE), Directions.VERTICAL);
         }
     }
 
     private void changeMarksToFindDiagonalWin(int fasterIndex, int slowerIndex, int winSize) {
         for (int k = 0; k < winSize; k++) {
-            incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex - k * 9 + (winSize - 1) * SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
-            incrementWinCountForDirection((slowerIndex * SQUARES_PER_SIDE + fasterIndex + k * (SQUARES_PER_SIDE + 1)), Directions.DIAGONAL_RIGHT);
+            incrementWinCountForDirection((slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex - k * 9 + (winSize - 1) * GameBoard.SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
+            incrementWinCountForDirection((slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex + k * (GameBoard.SQUARES_PER_SIDE + 1)), Directions.DIAGONAL_RIGHT);
         }
     }
 

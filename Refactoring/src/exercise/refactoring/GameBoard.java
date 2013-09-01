@@ -3,7 +3,7 @@ package exercise.refactoring;
 public class GameBoard {
     private final int numberOfBoards = 2;
     private int board[][];
-    private int[][] boardTo;
+    public static final int SQUARES_PER_SIDE = 10;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];
@@ -59,6 +59,6 @@ public class GameBoard {
 
     public boolean hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(int position) {
         // Not completely sure that this is diagonal
-        return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 20) && hasEmptyValueOnMainBoardAt(position + LegacyGame.SQUARES_PER_SIDE);
+        return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 20) && hasEmptyValueOnMainBoardAt(position + SQUARES_PER_SIDE);
     }
 }

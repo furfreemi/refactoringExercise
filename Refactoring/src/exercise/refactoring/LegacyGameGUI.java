@@ -74,12 +74,12 @@ public class LegacyGameGUI extends Applet implements Runnable {
 				return;
 			}
 		} else {
-			for (int r = 0; r < LegacyGame.SQUARES_PER_SIDE; r++) {
-				for (int c = 0; c < LegacyGame.SQUARES_PER_SIDE; c++) {
-					if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * LegacyGame.SQUARES_PER_SIDE + c, GameBoardMark.X_MARK_FOR_PLAYER.index))
+			for (int r = 0; r < GameBoard.SQUARES_PER_SIDE; r++) {
+				for (int c = 0; c < GameBoard.SQUARES_PER_SIDE; c++) {
+					if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.X_MARK_FOR_PLAYER.index))
 						g.drawImage(xMark, c * 30, r * 30 + 40, this);
-					else if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * LegacyGame.SQUARES_PER_SIDE + c, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) {
-						if (r * LegacyGame.SQUARES_PER_SIDE + c == game.lastMove)
+					else if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) {
+						if (r * GameBoard.SQUARES_PER_SIDE + c == game.lastMove)
 							g.drawImage(filledOMark, c * 30, r * 30 + 40, this);
 						else
 							g.drawImage(oMark, c * 30, r * 30 + 40, this);
@@ -117,7 +117,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		x = x / 30;
 		y = (y - 40) / 30;
 
-		int playerMove = y * LegacyGame.SQUARES_PER_SIDE + x;
+		int playerMove = y * GameBoard.SQUARES_PER_SIDE + x;
 
 		System.out.println("playerMove = " + playerMove);
 		System.out.println("player x = " + x);
