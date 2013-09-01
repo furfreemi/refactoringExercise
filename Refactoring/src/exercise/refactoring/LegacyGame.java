@@ -614,8 +614,6 @@ public class LegacyGame {
     }
 
     public int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark) {
-        Mode type = Mode.CHECK;
-
         int j, k, l;
         int place = 0;
 
@@ -629,13 +627,13 @@ public class LegacyGame {
                 if (gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l) && gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l + 5)) {
 
                     place = checkForHoriz4InRow(playerMark, 0, j, l);
-                    if (anyHoriz4MatchToMark(type, place)) return place;
+                    if (anyHoriz4MatchToMark(Mode.CHECK, place)) return place;
                 }
 
                 if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50)) {
 
                     place = checkForVert4InRow(playerMark, 0, j, l);
-                    if (anyVert4MatchToMark(type, place)) return place;
+                    if (anyVert4MatchToMark(Mode.CHECK, place)) return place;
                 }
             }
 
@@ -645,17 +643,17 @@ public class LegacyGame {
                 if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 55)) {
 
                     place = checkForDiagDown4InRow(playerMark, 0, j, l);
-                    if (anyDiagDown4MatchToMark(type, place)) return place;
+                    if (anyDiagDown4MatchToMark(Mode.CHECK, place)) return place;
                 }
 
                 if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 5)) {
                     place = checkForDiagUp4InRow(playerMark, 0, j, l);
-                    if (anyDiagUp4MatchToMark(type, place)) return place;
+                    if (anyDiagUp4MatchToMark(Mode.CHECK, place)) return place;
                 }
             }
         }
 
-        if (type.equals(Mode.COUNT)) {
+        if (Mode.CHECK.equals(Mode.COUNT)) {
             return tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3];
         }
 
