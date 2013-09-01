@@ -16,7 +16,9 @@ public class ComputerMove {
 
         position = legacyGame.closeGapInSeries();
         if ((legacyGame.moveNumberIs(2) && (position != LegacyGame.NONE))) {
-            if (reporting) System.out.println("closeGapInSeries() found " + position);
+            if (reporting) {
+                System.out.println("closeGapInSeries() found " + position);
+            }
             return position;
         }
 
@@ -131,18 +133,23 @@ public class ComputerMove {
         }
 
         if ((position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, LegacyGame.CLEAN_MODE)) != LegacyGame.NONE) {
-            if (reporting) System.out.println("blockEitherEndOfSeriesOf4OrMore() found " + position);
+            if (reporting) {
+                System.out.println("blockEitherEndOfSeriesOf4OrMore() found " + position);
+            }
             return position;
         }
 
         position = legacyGame.findSpot();
-        if (reporting) System.out.println("findGoodSpotNearOpponent() found " + position);
+        if (reporting) {
+            System.out.println("findGoodSpotNearOpponent() found " + position);
+        }
         return position;
     }
 
     private int makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
-        if (y > 5) return (y * LegacyGame.SQUARES_PER_SIDE + x - 11);
-        else return (y * LegacyGame.SQUARES_PER_SIDE + x + 11);
+        if (y > 5) {
+            return (y * LegacyGame.SQUARES_PER_SIDE + x - 11);
+        } else return (y * LegacyGame.SQUARES_PER_SIDE + x + 11);
     }
 
 
