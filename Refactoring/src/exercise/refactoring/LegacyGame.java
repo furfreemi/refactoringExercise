@@ -613,6 +613,55 @@ public class LegacyGame {
         return (NONE);
     }
 
+    public int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark) {
+        Mode type = Mode.CHECK;
+
+        int j, k, l;
+        int place = 0;
+
+        for (k = 0; k < 4; k++)
+            tempRowForChecks[k] = 0;
+
+        for (l = 0; l < 5; l++) {
+            for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
+                clearMarksByAxisArray();
+
+                if (gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l) && gameBoard.hasEmptyValueOnMainBoardAt(j * GameBoard.SQUARES_PER_SIDE + l + 5)) {
+
+                    place = checkForHoriz4InRow(playerMark, 0, j, l);
+                    if (anyHoriz4MatchToMark(type, place)) return place;
+                }
+
+                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50)) {
+
+                    place = checkForVert4InRow(playerMark, 0, j, l);
+                    if (anyVert4MatchToMark(type, place)) return place;
+                }
+            }
+
+            for (j = 0; j < 5; j++) {
+                clearMarksByAxisArray();
+
+                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 55)) {
+
+                    place = checkForDiagDown4InRow(playerMark, 0, j, l);
+                    if (anyDiagDown4MatchToMark(type, place)) return place;
+                }
+
+                if (gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 50) && gameBoard.hasEmptyValueOnMainBoardAt(l * GameBoard.SQUARES_PER_SIDE + j + 5)) {
+                    place = checkForDiagUp4InRow(playerMark, 0, j, l);
+                    if (anyDiagUp4MatchToMark(type, place)) return place;
+                }
+            }
+        }
+
+        if (type.equals(Mode.COUNT)) {
+            return tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3];
+        }
+
+        return (NONE);
+    }
+
     public int responseTo3Or4InaRowOpportunity(GameBoardMark playerMark, int boardLevel, Mode type) {
         int j, k, l;
         int place = 0;
@@ -961,4 +1010,6 @@ public class LegacyGame {
     public boolean moveNumberIsOver(int moveNumber) {
         return getMoveNumber() > moveNumber;
     }
+
+
 }
