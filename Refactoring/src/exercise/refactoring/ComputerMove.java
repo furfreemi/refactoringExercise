@@ -151,9 +151,8 @@ public class ComputerMove {
     }
 
     private GamePosition createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
-        int position;
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
-        for (position = GameBoard.oneMoreThanSquaresPerSide; position < 89; position++)
+        for (int position = GameBoard.oneMoreThanSquaresPerSide; position < 89; position++)
             if (positionIsOccupiedOnStagingBoardAndDesirable(legacyGame.gameBoard, legacyGame.stagingBoard, position)) {
                 return new GamePosition(position);
             }
