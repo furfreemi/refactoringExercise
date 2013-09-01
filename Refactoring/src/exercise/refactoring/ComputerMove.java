@@ -10,17 +10,17 @@ public class ComputerMove {
     public int makeComputerMove(int x, int y, boolean reporting) {
         int position = 0;
 
-        if (legacyGame.getMoveNumber() == 1) {
+        if (legacyGame.isFirstMove()) {
             return makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y);
         }
 
         position = legacyGame.closeGapInSeries();
-        if ((legacyGame.getMoveNumber() == 2) && (position != LegacyGame.NONE)) {
+        if ((legacyGame.moveNumberIs(2) && (position != LegacyGame.NONE))) {
             if (reporting) System.out.println("closeGapInSeries() found " + position);
             return position;
         }
 
-        if (legacyGame.getMoveNumber() > 3) {
+        if (legacyGame.moveNumberIsOver(3)) {
             position = legacyGame.blockSeriesOfFourOrMore(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, LegacyGame.CHECK_MODE);
             if (position != LegacyGame.NONE) {
                 if (reporting) System.out.println("blockSeriesOfFourOrMore() found " + position);

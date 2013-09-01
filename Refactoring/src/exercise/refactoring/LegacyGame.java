@@ -907,4 +907,16 @@ public class LegacyGame {
     public int getMoveNumber() {
         return moveNumber;
     }
+
+    public boolean isFirstMove() {
+        return getMoveNumber() == 1;
+    }
+
+    public boolean moveNumberIs(int moveNumber) {
+        return getMoveNumber() == moveNumber;
+    }
+
+    public boolean moveNumberIsOver(int moveNumber) {
+        return getMoveNumber() > moveNumber;
+    }
 }
