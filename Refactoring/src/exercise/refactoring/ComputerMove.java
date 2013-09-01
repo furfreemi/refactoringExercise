@@ -128,7 +128,7 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, Mode.CLEAN.rawMode));
+        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, Mode.CLEAN));
         if (position.isNotNone()) {
             return position;
         }

@@ -17,8 +17,6 @@ public class LegacyGame {
     public int moveNumber = -1;
     public int lastMove = NONE;
 
-    private static final String DOUBLE_BLANK_SPACE = "  ";
-    private static final String SINGLE_BLANK_SPACE = " ";
     private static final int MAX_DEPTH = 7;
     static final int NONE = 100;
     static final int OCCUPIED = 1;
@@ -42,8 +40,8 @@ public class LegacyGame {
     }
 
     public int checkForWinOpportunity(int playerMark, int boardNumber) {
-        if (isNone(blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK.rawMode))) {
-            return blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK.rawMode);
+        if (isNone(blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK))) {
+            return blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK);
         }
 
         if (isNone(responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK.rawMode))) {
@@ -80,11 +78,11 @@ public class LegacyGame {
             if (winningPosition == NONE) return NONE;
 
             auxilliaryBoard[winningPosition] = switchPlayers(playerMark);
-            if (blockSeriesOfFourOrMore(playerMark, 2, Mode.CHECK.rawMode) != NONE) {
+            if (blockSeriesOfFourOrMore(playerMark, 2, Mode.CHECK) != NONE) {
                 return k;
             }
 
-            if (blockSeriesOfFourOrMore(switchPlayers(playerMark), 2, Mode.CHECK.rawMode) != NONE) {
+            if (blockSeriesOfFourOrMore(switchPlayers(playerMark), 2, Mode.CHECK) != NONE) {
                 auxilliaryBoard[k] = GameBoardMark.EMPTY.index;
                 auxilliaryBoard[winningPosition] = GameBoardMark.EMPTY.index;
                 copyIntoStagingBoardFromOddBoardGroupAtDepth(depth);
@@ -490,7 +488,7 @@ public class LegacyGame {
         return GamePosition.nonePosition();
     }
 
-    public int blockSeriesOfFourOrMore(int playerMark, int x, int type) {
+    public int blockSeriesOfFourOrMore(int playerMark, int x, Mode type) {
         int j, k, l;
         int position = 0, position2 = 0;
 
@@ -501,25 +499,25 @@ public class LegacyGame {
                 position = checkFor5AlongHorizAxis(playerMark, x, j, l, position);
 
                 if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
-                    if (type == Mode.SETFLAGS.rawMode) {
+                    if (type.equals(Mode.SETFLAGS)) {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
+                    if (type.equals(Mode.CLEAN)) return tempRowForChecks[0];
                 }
 
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == Mode.CHECK.rawMode) return position;
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type.equals(Mode.CHECK)) return position;
 
                 position = checkFor5AlongVertAxis(playerMark, x, j, l, position);
 
                 if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
-                    if (type == Mode.SETFLAGS.rawMode) {
+                    if (type.equals(Mode.SETFLAGS)) {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
+                    if (type.equals(Mode.CLEAN)) return tempRowForChecks[0];
                 }
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == Mode.CHECK.rawMode) return position;
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type.equals(Mode.CHECK)) return position;
             }
 
             for (j = 0; j < 6; j++) {
@@ -531,22 +529,22 @@ public class LegacyGame {
                 }
 
                 if (marksByAxisByPlayerForChecking[0] == 3 && marksByAxisByPlayerForChecking[1] == 2) {
-                    if (type == Mode.SETFLAGS.rawMode) {
+                    if (type.equals(Mode.SETFLAGS)) {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
+                    if (type.equals(Mode.CLEAN)) return tempRowForChecks[0];
                 }
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type == Mode.CHECK.rawMode) return position;
+                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1 && type.equals(Mode.CHECK)) return position;
 
                 if (marksByAxisByPlayerForChecking[2] == 3 && marksByAxisByPlayerForChecking[3] == 2) {
-                    if (type == Mode.SETFLAGS.rawMode) {
+                    if (type.equals(Mode.SETFLAGS)) {
                         tempTableForChecks[tempRowForChecks[0]] = OCCUPIED;
                         tempTableForChecks[tempRowForChecks[1]] = OCCUPIED;
                     }
-                    if (type == Mode.CLEAN.rawMode) return tempRowForChecks[0];
+                    if (type.equals(Mode.CLEAN)) return tempRowForChecks[0];
                 }
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type == Mode.CHECK.rawMode) return position2;
+                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1 && type.equals(Mode.CHECK)) return position2;
             }
         }
         return (NONE);
@@ -820,7 +818,7 @@ public class LegacyGame {
 
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
             tempTableForChecks[k] = GameBoardMark.EMPTY.index;
-        blockSeriesOfFourOrMore(playerMark, 0, Mode.SETFLAGS.rawMode);
+        blockSeriesOfFourOrMore(playerMark, 0, Mode.SETFLAGS);
         responseTo3Or4InaRowOpportunity(playerMark, 0, Mode.SETFLAGS.rawMode);
     }
 
