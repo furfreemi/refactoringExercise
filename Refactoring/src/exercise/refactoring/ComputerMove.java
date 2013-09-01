@@ -161,6 +161,6 @@ public class ComputerMove {
     }
 
     private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, int[] stagingBoard, int position) {
-        return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForcreateTwoAxesOrCreateOneAndBlockAnother(position);
+        return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 }

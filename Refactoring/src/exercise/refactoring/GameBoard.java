@@ -64,14 +64,12 @@ public class GameBoard {
         return playerXOccupiesMainBoardPosition(position) && playerXOccupiesMainBoardPosition(position + 20) && hasEmptyValueOnMainBoardAt(position + SQUARES_PER_SIDE);
     }
 
-    public boolean positionIsDesirableForcreateTwoAxesOrCreateOneAndBlockAnother(int position) {
+    public boolean positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(int position) {
         return playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
                 || playerXOccupiesMainBoardPosition(position - SQUARES_PER_SIDE)
-                || playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
                 || playerXOccupiesMainBoardPosition(position - 1)
                 || playerXOccupiesMainBoardPosition(position + 1)
                 || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide)
-                || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE)
-                || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide);
+                || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE);
     }
 }
