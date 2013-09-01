@@ -22,7 +22,6 @@ public class LegacyGame {
     private static final int MAX_DEPTH = 7;
     static final int NONE = 100;
     static final int OCCUPIED = 1;
-    private static final int SAFE_MODE = 1;
     static final int CLEAN_MODE = 3;
     private static final int COUNT_MODE = 2;
     private static final int SETFLAGS_MODE = 1;
@@ -155,7 +154,7 @@ public class LegacyGame {
                 for (k = 0; k < 5; k++)
                     marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, j * 10 + l + k)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4 && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
-                    if (type == LegacyGame.SAFE_MODE) {
+                    if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++) {
                             if (gameBoard.hasEmptyValueAt(x, j * 10 + l + k) && tempTableForChecks[j * 10 + l + k] == LegacyGame.OCCUPIED) {
@@ -186,7 +185,7 @@ public class LegacyGame {
                 for (k = 0; k < 5; k++)
                     marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j + k * 10)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4 && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
-                    if (type == LegacyGame.SAFE_MODE) {
+                    if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++)
                             if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 10) && tempTableForChecks[l * 10 + j + k * 10] == LegacyGame.OCCUPIED) flag2 = LegacyGame.OCCUPIED;
@@ -214,7 +213,7 @@ public class LegacyGame {
                     /* diag\ */
                     marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j + k * 11)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4 && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
-                    if (type == LegacyGame.SAFE_MODE) {
+                    if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++) {
                             if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 11) && tempTableForChecks[l * 10 + j + k * 11] == LegacyGame.OCCUPIED) {
@@ -243,7 +242,7 @@ public class LegacyGame {
                 for (k = 0; k < 5; k++)
                     marksByAxisByPlayerForChecking[gameBoard.getValueAt(x, l * 10 + j - k * 9 + 40)]++;
                 if (marksByAxisByPlayerForChecking[playerMark] == 4 && marksByAxisByPlayerForChecking[GameBoardMark.EMPTY.index] == 1) {
-                    if (type == LegacyGame.SAFE_MODE) {
+                    if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY.index;
                         for (k = 0; k < 5; k++) {
                             if (gameBoard.hasEmptyValueAt(x, l * 10 + j - k * 9 + 40) && tempTableForChecks[l * 10 + j - k * 9 + 40] == LegacyGame.OCCUPIED) {
@@ -275,7 +274,7 @@ public class LegacyGame {
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
             if (gameBoard.hasEmptyValueAt(1, k)) {
                 gameBoard.setValueAt(1, k, playerMark);
-                if (responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK.rawMode) != NONE && countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, SAFE_MODE) > 0) {
+                if (responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK.rawMode) != NONE && countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.SAFE.rawMode) > 0) {
                     return k;
                 }
                 gameBoard.setPositionToEmpty(1, k);
