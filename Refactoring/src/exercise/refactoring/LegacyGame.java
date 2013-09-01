@@ -763,11 +763,11 @@ public class LegacyGame {
                 position = upToSeven + SQUARES_PER_SIDE * upToNine;
                 otherPosition = upToNine + upToSeven * SQUARES_PER_SIDE;
 
-                if (gameBoard.playerXOccupiesMainBoardPosition(position) && gameBoard.mainBoard()[position + 2] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[position + 1] == 0) {
+                if (gameBoard.playerXOccupiesMainBoardPosition(position) && gameBoard.playerXOccupiesMainBoardPosition(position + 2) && gameBoard.hasEmptyValueOnMainBoardAt(position + 1)) {
                     return (position + 1);
                 }
 
-                if (gameBoard.playerXOccupiesMainBoardPosition(otherPosition) && gameBoard.mainBoard()[otherPosition + 20] == GameBoardMark.X_MARK_FOR_PLAYER.index && gameBoard.mainBoard()[otherPosition + SQUARES_PER_SIDE] == 0) {
+                if (gameBoard.playerXOccupiesMainBoardPosition(otherPosition) && gameBoard.playerXOccupiesMainBoardPosition(otherPosition + 20) && gameBoard.hasEmptyValueOnMainBoardAt(otherPosition + SQUARES_PER_SIDE)) {
                     return (otherPosition + SQUARES_PER_SIDE);
                 }
             }
