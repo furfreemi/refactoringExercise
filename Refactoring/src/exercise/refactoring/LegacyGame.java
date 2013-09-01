@@ -607,8 +607,8 @@ public class LegacyGame {
         return position;
     }
 
-    public int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark, int indexForBoardToCheck) {
-        copyBoardToCheck(indexForBoardToCheck);
+    public int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark) {
+        copyBoardToCheck(0);
 
         for (int k = 0; k < TOTAL_SQUARES_PER_BOARD; k++) {
             if (gameBoard.hasEmptyValueAt(1, k)) {

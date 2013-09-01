@@ -33,12 +33,11 @@ public class ComputerMove {
         }
 
         position.setPosition(legacyGame.responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
-//        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0, Mode.CHECK));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
@@ -55,7 +54,7 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER, 0));
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
