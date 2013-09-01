@@ -44,7 +44,7 @@ public class ComputerMove {
 
         legacyGame.setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER);
 
-        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }
@@ -61,7 +61,7 @@ public class ComputerMove {
 
         legacyGame.setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
 
-        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER, 0));
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }

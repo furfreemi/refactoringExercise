@@ -261,8 +261,9 @@ public class LegacyGame {
         return zbir;
     }
 
-    public int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark, int gameBoardLevelToCheck) {
+    public int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark) {
         int k;
+        int gameBoardLevelToCheck = 0;
 
         for (k = 0; k < TOTAL_SQUARES_PER_BOARD; k++)
             gameBoard.setValueAt(1, k, gameBoard.getValueAt(gameBoardLevelToCheck, k));
