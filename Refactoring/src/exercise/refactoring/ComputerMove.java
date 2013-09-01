@@ -1,6 +1,7 @@
 package exercise.refactoring;
 
 public class ComputerMove {
+    public static final int oneMoreThanSquaresPerSide = LegacyGame.SQUARES_PER_SIDE + 1;
     private final LegacyGame legacyGame;
 
     public ComputerMove(LegacyGame legacyGame) {
@@ -148,8 +149,8 @@ public class ComputerMove {
 
     private int makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
         if (y > 5) {
-            return (y * LegacyGame.SQUARES_PER_SIDE + x - 11);
-        } else return (y * LegacyGame.SQUARES_PER_SIDE + x + 11);
+            return (y * LegacyGame.SQUARES_PER_SIDE + x - oneMoreThanSquaresPerSide);
+        } else return (y * LegacyGame.SQUARES_PER_SIDE + x + oneMoreThanSquaresPerSide);
     }
 
 
@@ -161,8 +162,8 @@ public class ComputerMove {
     private int createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
         int i;
         legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER.index);
-        for (i = 11; i < 89; i++)
-            if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - 11) || isPlayer(legacyGame.gameBoard, i - LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + 11))) {
+        for (i = oneMoreThanSquaresPerSide; i < 89; i++)
+            if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + LegacyGame.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide))) {
 
                 return i;
             }
