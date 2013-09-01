@@ -17,12 +17,12 @@ public class GameBoard {
         mainBoard()[position] = playerMark;
     }
 
-    public int getValueAt(int i, int j) {
-        return board[i][j];
+    public GameBoardMark getValueAt(int i, int j) {
+        return GameBoardMark.valueOf(board[i][j]);
     }
 
-    public void setValueAt(int boardNumber, int position, int newValue) {
-        board[boardNumber][position] = newValue;
+    public void setValueAt(int boardNumber, int position, GameBoardMark newValue) {
+        board[boardNumber][position] = newValue.index;
     }
 
     public boolean hasEmptyValueAt(int boardNumber, int position) {
@@ -33,8 +33,8 @@ public class GameBoard {
         return mainBoard()[position] == GameBoardMark.EMPTY.index;
     }
 
-    public boolean valueAtPositionMatches(int boardNumber, int position, int playerMark) {
-        return board[boardNumber][position] == playerMark;
+    public boolean valueAtPositionMatches(int boardNumber, int position, GameBoardMark playerMark) {
+        return board[boardNumber][position] == playerMark.index;
     }
 
     public boolean valueOnMainBoardAtPositionMatches(int position, int playerMark) {

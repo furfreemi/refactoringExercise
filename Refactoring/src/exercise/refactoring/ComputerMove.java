@@ -32,80 +32,80 @@ public class ComputerMove {
             }
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, Mode.CHECK));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0, Mode.CHECK));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
         if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
 
-        legacyGame.setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER.index);
+        legacyGame.setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER);
 
-        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
         if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, Mode.CHECK));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.X_MARK_FOR_PLAYER, 0, Mode.CHECK));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        position.setPosition(legacyGame.tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER, 0));
         if ((legacyGame.moveNumberIsOver(5) && position.isNotNone())) {
             return position;
         }
 
-        legacyGame.setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
+        legacyGame.setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
 
-        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        position.setPosition(legacyGame.tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER, 0));
         if ((legacyGame.moveNumberIsOver(4) && position.isNotNone())) {
             return position;
         }
 
         copyBoardZeroToBoardTwo();
 
-        position.setPosition(legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        position.setPosition(legacyGame.checkSeries(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
         if ((legacyGame.moveNumberIsOver(3) && position.isNotNone())) {
             return position;
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position.setPosition(legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+            position.setPosition(legacyGame.checkSeries(GameBoardMark.X_MARK_FOR_PLAYER, 0));
             if (position.isNotNone()) {
                 return position;
             }
         }
 
-        position.setPosition(legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0));
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0));
         if ((legacyGame.moveNumberIsOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER.index, 0));
+        position.setPosition(legacyGame.check2o3c(GameBoardMark.X_MARK_FOR_PLAYER, 0));
         if ((legacyGame.moveNumberIsOver(20) && position.isNotNone())) {
             return position;
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position.setPosition(legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER.index));
+            position.setPosition(legacyGame.checkCross(GameBoardMark.X_MARK_FOR_PLAYER));
             if (position.isNotNone()) {
                 return position;
             }
         }
 
         if (legacyGame.moveNumberIsOver(3)) {
-            position.setPosition(legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index));
+            position.setPosition(legacyGame.checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
             if (position.isNotNone()) {
                 return position;
             }
         }
 
         if (legacyGame.moveNumberIsOver(2)) {
-            position.setPosition(legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER.index));
+            position.setPosition(legacyGame.checkBox(GameBoardMark.X_MARK_FOR_PLAYER));
             if (position.isNotNone()) {
                 return position;
             }
@@ -123,12 +123,12 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER.index, 0, Mode.CLEAN));
+        position.setPosition(legacyGame.responseTo3Or4InaRowOpportunity(GameBoardMark.ZERO_MARK_FOR_COMPUTER, 0, Mode.CLEAN));
         if (position.isNotNone()) {
             return position;
         }
 
-        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER.index, 0, Mode.CLEAN));
+        position.setPosition(legacyGame.blockSeriesOfFourOrMore(GameBoardMark.X_MARK_FOR_PLAYER, 0, Mode.CLEAN));
         if (position.isNotNone()) {
             return position;
         }
@@ -153,7 +153,7 @@ public class ComputerMove {
 
     private int createTwoAxesOrCreateOneAndBlockAnother(LegacyGame legacyGame) {
         int i;
-        legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER.index);
+        legacyGame.seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
         for (i = oneMoreThanSquaresPerSide; i < 89; i++)
             if (legacyGame.stagingBoard[i] == LegacyGame.OCCUPIED && (isPlayer(legacyGame.gameBoard, i - oneMoreThanSquaresPerSide) || isPlayer(legacyGame.gameBoard, i - GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i - 9) || isPlayer(legacyGame.gameBoard, i - 1) || isPlayer(legacyGame.gameBoard, i + 1) || isPlayer(legacyGame.gameBoard, i + 9) || isPlayer(legacyGame.gameBoard, i + GameBoard.SQUARES_PER_SIDE) || isPlayer(legacyGame.gameBoard, i + oneMoreThanSquaresPerSide))) {
                 return i;
