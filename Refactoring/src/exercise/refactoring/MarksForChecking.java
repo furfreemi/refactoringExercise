@@ -15,7 +15,7 @@ public class MarksForChecking {
     }
 
     public boolean isLargerThan(Player player, Directions direction) {
-        return marksForChecking.get(direction).get(player.playerMark) >= player.winLength;
+        return marksForChecking.get(direction).get(player.playerMark) >= player.winLength.length;
     }
 
     public void resetAllValuesToZero() {

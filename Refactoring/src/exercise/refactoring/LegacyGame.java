@@ -991,18 +991,18 @@ public class LegacyGame {
     public boolean checkForWin(Player p) {
         int fasterIndex;
         int slowerIndex;
-        for (slowerIndex = 0; slowerIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength + 1); slowerIndex++) {
+        for (slowerIndex = 0; slowerIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength.length + 1); slowerIndex++) {
 
             for (fasterIndex = 0; fasterIndex < GameBoard.SQUARES_PER_SIDE; fasterIndex++) {
                 marksForChecking.resetAllValuesToZero();
-                changeMarksToFindHorizontalOrVerticalWin(fasterIndex, slowerIndex, p.winLength);
+                changeMarksToFindHorizontalOrVerticalWin(fasterIndex, slowerIndex, p.winLength.length);
                 if (playerWon(p)) {
                     return true;
                 }
 
-                if (fasterIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength + 1)) {
+                if (fasterIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength.length + 1)) {
                     marksForChecking.resetAllValuesToZero();
-                    changeMarksToFindDiagonalWin(fasterIndex, slowerIndex, p.winLength);
+                    changeMarksToFindDiagonalWin(fasterIndex, slowerIndex, p.winLength.length);
                     if (playerWon(p)) {
                         return true;
                     }
