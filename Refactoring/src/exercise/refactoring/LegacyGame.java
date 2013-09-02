@@ -996,14 +996,14 @@ public class LegacyGame {
             for (fasterIndex = 0; fasterIndex < GameBoard.SQUARES_PER_SIDE; fasterIndex++) {
                 marksForChecking.resetAllValuesToZero();
                 changeMarksToFindHorizontalOrVerticalWin(fasterIndex, slowerIndex, p.winLength.length);
-                if (playerWon(p)) {
+                if (p.hasWon(marksForChecking)) {
                     return true;
                 }
 
                 if (fasterIndex < (GameBoard.SQUARES_PER_SIDE - p.winLength.length + 1)) {
                     marksForChecking.resetAllValuesToZero();
                     changeMarksToFindDiagonalWin(fasterIndex, slowerIndex, p.winLength.length);
-                    if (playerWon(p)) {
+                    if (p.hasWon(marksForChecking)) {
                         return true;
                     }
                 }
@@ -1038,19 +1038,6 @@ public class LegacyGame {
         if (indexOnBoard < NONE && indexOnBoard >= 0) { // i.e. position.isValid()
             marksForChecking.incrementValueFor(direction, gameBoard.gameMarkAtMainBoardPosition(indexOnBoard));
         }
-    }
-
-    private boolean playerWon(Player p) {
-        for (Directions direction : Directions.values()) {
-            if (countLargerThanWinLength(marksForChecking, p, direction)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected boolean countLargerThanWinLength(MarksForChecking marksForChecking, Player p, Directions passedInDirection) {
-        return p.sumForDirectionIsLargerThanWinLength(passedInDirection, marksForChecking);
     }
 
     public int getMoveNumber() {

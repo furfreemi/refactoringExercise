@@ -20,4 +20,13 @@ class Player {
     public boolean sumForDirectionIsLargerThanWinLength(Directions direction, MarksForChecking marksForChecking) {
         return marksForChecking.countForDirectionAndPlayerMark(direction, playerMark) >= winLength.length;
     }
+
+    public boolean hasWon(MarksForChecking marksForChecking) {
+        for (Directions direction : Directions.values()) {
+            if (sumForDirectionIsLargerThanWinLength(direction, marksForChecking)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
