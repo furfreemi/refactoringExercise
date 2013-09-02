@@ -1021,13 +1021,21 @@ public class LegacyGame {
 
     private void changeMarksToFindDiagonalWin(int fasterIndex, int slowerIndex, int winSize) {
         for (int k = 0; k < winSize; k++) {
-            incrementWinCountForDirection((slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex - k * oneLessThanCountInRow + (winSize - 1) * GameBoard.SQUARES_PER_SIDE), Directions.DIAGONAL_LEFT);
-            incrementWinCountForDirection((slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex + k * (GameBoard.SQUARES_PER_SIDE + 1)), Directions.DIAGONAL_RIGHT);
+            incrementWinCountForDirection(indexOnBoardForDiagonalLeft(fasterIndex, slowerIndex, winSize, k), Directions.DIAGONAL_LEFT);
+            incrementWinCountForDirection(indexOnBoardForDiagonalRight(fasterIndex, slowerIndex, k), Directions.DIAGONAL_RIGHT);
         }
     }
 
+    private int indexOnBoardForDiagonalRight(int fasterIndex, int slowerIndex, int k) {
+        return slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex + k * (GameBoard.SQUARES_PER_SIDE + 1);
+    }
+
+    private int indexOnBoardForDiagonalLeft(int fasterIndex, int slowerIndex, int winSize, int k) {
+        return slowerIndex * GameBoard.SQUARES_PER_SIDE + fasterIndex - k * oneLessThanCountInRow + (winSize - 1) * GameBoard.SQUARES_PER_SIDE;
+    }
+
     private void incrementWinCountForDirection(int indexOnBoard, Directions direction) {
-        if (indexOnBoard < NONE && indexOnBoard >= 0) {
+        if (indexOnBoard < NONE && indexOnBoard >= 0) { // i.e. position.isValid()
             marksForChecking.incrementValueFor(direction, gameBoard.gameMarkAtMainBoardPosition(indexOnBoard));
         }
     }
