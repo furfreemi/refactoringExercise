@@ -4,13 +4,15 @@ public class ComputerMove {
     private static final int lastPositionOnSecondToLastLine = 89;
     private final LegacyGame legacyGame;
     private final MoveSequence moveNumber;
+    private final GamePosition nextComputerMove;
 
-    public ComputerMove(LegacyGame legacyGame) {
+    public ComputerMove(LegacyGame legacyGame, RawPlayerMove rawPlayerMove) {
         this.legacyGame = legacyGame;
         this.moveNumber = legacyGame.moveNumber;
+        this.nextComputerMove = makeComputerMove(rawPlayerMove);
     }
 
-    GamePosition makeComputerMove(RawPlayerMove rawPlayerMove) {
+    private GamePosition makeComputerMove(RawPlayerMove rawPlayerMove) {
         GamePosition position = new GamePosition();
 
         if (moveNumber.isFirstMove()) {
@@ -401,5 +403,9 @@ public class ComputerMove {
             if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - LegacyGame.oneLessThanCountInRow] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + LegacyGame.oneLessThanCountInRow] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = LegacyGame.OCCUPIED;
         } while (i == GameBoardMark.EMPTY.index);
         return position;
+    }
+
+    public GamePosition getNextComputerMove() {
+        return nextComputerMove;
     }
 }

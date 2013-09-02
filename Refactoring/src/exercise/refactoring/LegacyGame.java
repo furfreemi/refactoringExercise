@@ -4,7 +4,6 @@ public class LegacyGame {
     public static final int oneLessThanCountInRow = GameBoard.SQUARES_PER_SIDE - 1;
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();
-    final ComputerMove computerMove = new ComputerMove(this);
     public int gameState = 0;
     public MoveSequence moveNumber = new MoveSequence();
     public int lastMove = NONE;
@@ -709,7 +708,7 @@ public class LegacyGame {
         moveNumber.increment();
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (winner() == GameBoardMark.EMPTY) {
-            lastMove = computerMove.makeComputerMove(rawPlayerMove).getRaw();
+            lastMove = new ComputerMove(this, rawPlayerMove).getNextComputerMove().getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = 0;
         }
