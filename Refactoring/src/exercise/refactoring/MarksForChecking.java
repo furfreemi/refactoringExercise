@@ -9,7 +9,7 @@ public class MarksForChecking {
         resetAllValuesToZero();
     }
 
-    public void incrementValueAt(Directions direction, GameBoardMark gameBoardMark) {
+    public void incrementValueFor(Directions direction, GameBoardMark gameBoardMark) {
         Integer original = marksForChecking.get(direction).get(gameBoardMark);
         marksForChecking.get(direction).put(gameBoardMark, original + 1);
     }

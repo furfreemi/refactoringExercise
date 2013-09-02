@@ -82,4 +82,8 @@ public class GameBoard {
     boolean hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(int position, int diff) {
         return hasEmptyValueAt(boardTwoIndex, position) && hasEmptyValueAt(boardTwoIndex, position + diff);
     }
+
+    public GameBoardMark gameMarkAtMainBoardPosition(int position) {
+        return GameBoardMark.valueOf(mainBoard()[position]);
+    }
 }
