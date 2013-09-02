@@ -128,7 +128,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		{
 			return true;
 		}
-		game.respondToMouseUp(playerMove, x, y);
+		game.respondToMouseUp(playerMove, new RawPlayerMove(x, y));
 
 		repaint();
 		return true;

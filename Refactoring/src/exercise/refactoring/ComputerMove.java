@@ -8,11 +8,11 @@ public class ComputerMove {
         this.legacyGame = legacyGame;
     }
 
-    public GamePosition makeComputerMove(int x, int y, boolean reporting) {
+    public GamePosition makeComputerMove(RawPlayerMove rawPlayerMove, boolean reporting) {
         GamePosition position = new GamePosition();
 
         if (legacyGame.isFirstMove()) {
-            return makeArbitraryFirstComputerMoveBasedOnPlayerY(x, y);
+            return makeArbitraryFirstComputerMoveBasedOnPlayerY(rawPlayerMove);
         }
 
         position.setPosition(legacyGame.closeGapInSeries());
@@ -137,11 +137,11 @@ public class ComputerMove {
         return position;
     }
 
-    private GamePosition makeArbitraryFirstComputerMoveBasedOnPlayerY(int x, int y) {
-        if (y > 5) {
-            return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x - GameBoard.oneMoreThanSquaresPerSide);
+    private GamePosition makeArbitraryFirstComputerMoveBasedOnPlayerY(RawPlayerMove rawPlayerMove) {
+        if (rawPlayerMove.y > 5) {
+            return rawPlayerMove.computerMoveIfFirstComputerMoveAndPlayerMoveOverFive();
         } else {
-            return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x + GameBoard.oneMoreThanSquaresPerSide);
+            return rawPlayerMove.computerMoveIfFirstComputerMoveAndPlayerMoveUnderFive();
         }
     }
 

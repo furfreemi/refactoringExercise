@@ -961,11 +961,11 @@ public class LegacyGame {
             gameBoard.setValueAt(boardLevel, k, GameBoardMark.EMPTY);
     }
 
-    public void respondToMouseUp(int playerMove, int x, int y) {
+    public void respondToMouseUp(int playerMove, RawPlayerMove rawPlayerMove) {
         moveNumber++;
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (checkToSeeIfEitherSideHasWon() == GameBoardMark.EMPTY.index) {
-            lastMove = computerMove.makeComputerMove(x, y, true).getRaw();
+            lastMove = computerMove.makeComputerMove(rawPlayerMove, true).getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = 0;
         }
