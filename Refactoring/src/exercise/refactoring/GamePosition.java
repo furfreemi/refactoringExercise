@@ -24,6 +24,14 @@ public class GamePosition {
     }
 
     public static GamePosition nonePosition() {
-        return new GamePosition(LegacyGame.NONE);
+        return new GamePosition(LegacyGame.NONE); // NONE = 100 - i.e. one more than possible, since we start from 0
+    }
+
+    public boolean isOverOne() {
+        return position > 1;
+    }
+
+    public boolean isNone() {
+        return position == LegacyGame.NONE;
     }
 }

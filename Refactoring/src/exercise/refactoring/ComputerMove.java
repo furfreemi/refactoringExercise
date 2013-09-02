@@ -17,7 +17,7 @@ public class ComputerMove {
             return rawPlayerMove.firstComputerMove();
         }
 
-        position.setPosition(closeGapInSeries(legacyGame.gameBoard));
+        position = closeGapInSeries(legacyGame.gameBoard);
         if ((moveNumber.isMove(2))) {
             return position;
         }
@@ -34,7 +34,7 @@ public class ComputerMove {
             }
         }
 
-        position.setPosition(responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, legacyGame));
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, legacyGame);
         if ((moveNumber.isOver(2) && position.isNotNone())) {
             return position;
         }
@@ -51,7 +51,7 @@ public class ComputerMove {
             return position;
         }
 
-        position.setPosition(responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.X_MARK_FOR_PLAYER, legacyGame));
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.X_MARK_FOR_PLAYER, legacyGame);
         if ((moveNumber.isOver(2) && position.isNotNone())) {
             return position;
         }
@@ -114,7 +114,7 @@ public class ComputerMove {
         }
 
         if (moveNumber.isOver(2)) {
-            position.setPosition(closeGapInSeries(legacyGame.gameBoard));
+            position = closeGapInSeries(legacyGame.gameBoard);
             if (position.isNotNone()) {
                 return position;
             }
@@ -153,7 +153,7 @@ public class ComputerMove {
         return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
-    private int closeGapInSeries(GameBoard gameBoard) {
+    private GamePosition closeGapInSeries(GameBoard gameBoard) {
         int upToSeven, upToNine, position, otherPosition;
 
         for (upToSeven = 1; upToSeven < 7; upToSeven++) {
@@ -162,15 +162,15 @@ public class ComputerMove {
                 otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
 
                 if (gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
-                    return (position + 1);
+                    return new GamePosition(position + 1);
                 }
 
                 if (gameBoard.hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(otherPosition)) {
-                    return (otherPosition + GameBoard.SQUARES_PER_SIDE);
+                    return new GamePosition(otherPosition + GameBoard.SQUARES_PER_SIDE);
                 }
             }
         }
-        return LegacyGame.NONE;
+        return GamePosition.nonePosition();
     }
 
     private GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -217,9 +217,9 @@ public class ComputerMove {
         return GamePosition.nonePosition();
     }
 
-    private int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
         int j, k, l;
-        int place = 0;
+        GamePosition place = new GamePosition();
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (k = 0; k < 4; k++) {
             tempRowForChecks[k] = 0;
@@ -259,10 +259,10 @@ public class ComputerMove {
         }
 
         if (Mode.CHECK.equals(Mode.COUNT)) {
-            return tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3];
+            return new GamePosition(tempRowForChecks[0] + tempRowForChecks[1] + tempRowForChecks[2] + tempRowForChecks[3]);
         }
 
-        return (LegacyGame.NONE);
+        return GamePosition.nonePosition();
     }
 
     private int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -289,7 +289,7 @@ public class ComputerMove {
         for (k = 0; k < LegacyGame.TOTAL_SQUARES_PER_BOARD; k++) {
             if (legacyGame.gameBoard.hasEmptyValueAt(1, k)) {
                 legacyGame.gameBoard.setValueAt(1, k, playerMark);
-                if (legacyGame.responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK) != LegacyGame.NONE && legacyGame.countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.SAFE.rawMode) > 0) {
+                if (legacyGame.responseTo3Or4InaRowOpportunity(playerMark, 1, Mode.CHECK).isNotNone() && legacyGame.countNumberOfAxesAlongWhichSeriesOfFourOccur(playerMark, 1, Mode.SAFE.rawMode) > 0) {
                     return k;
                 }
                 legacyGame.gameBoard.setPositionToEmpty(1, k);
@@ -306,7 +306,7 @@ public class ComputerMove {
 
             legacyGame.gameBoard.setValueAt(GameBoard.mainBoardIndex, k, playerMark);
 
-            if (legacyGame.responseTo3Or4InaRowOpportunity(playerMark, GameBoard.mainBoardIndex, Mode.COUNT) > 1) {
+            if (legacyGame.responseTo3Or4InaRowOpportunity(playerMark, GameBoard.mainBoardIndex, Mode.COUNT).isOverOne()) {
                 return k;
             }
 
@@ -348,7 +348,7 @@ public class ComputerMove {
 
     private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark, LegacyGame legacyGame) {
         int alsoUpToFive, upToFour, upToFive;
-        int place = 0;
+        GamePosition place = new GamePosition();
 
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (upToFour = 0; upToFour < 4; upToFour++) {
@@ -362,13 +362,13 @@ public class ComputerMove {
                 if (legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(alsoUpToFive * GameBoard.SQUARES_PER_SIDE + upToFive) && legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(alsoUpToFive * GameBoard.SQUARES_PER_SIDE + upToFive + 5)) {
 
                     place = legacyGame.checkForHoriz4InRow(playerMark, 0, alsoUpToFive, upToFive);
-                    if (legacyGame.anyHoriz4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
+                    if (legacyGame.anyHoriz4MatchToMark(Mode.CLEAN, place)) return place;
                 }
 
                 if (legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive) && legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 50)) {
 
                     place = legacyGame.checkForVert4InRow(playerMark, 0, alsoUpToFive, upToFive);
-                    if (legacyGame.anyVert4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
+                    if (legacyGame.anyVert4MatchToMark(Mode.CLEAN, place)) return place;
                 }
             }
 
@@ -378,12 +378,12 @@ public class ComputerMove {
                 if (legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive) && legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 55)) {
 
                     place = legacyGame.checkForDiagDown4InRow(playerMark, 0, alsoUpToFive, upToFive);
-                    if (legacyGame.anyDiagDown4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
+                    if (legacyGame.anyDiagDown4MatchToMark(Mode.CLEAN, place)) return place;
                 }
 
                 if (legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 50) && legacyGame.gameBoard.hasEmptyValueOnMainBoardAt(upToFive * GameBoard.SQUARES_PER_SIDE + alsoUpToFive + 5)) {
                     place = legacyGame.checkForDiagUp4InRow(playerMark, 0, alsoUpToFive, upToFive);
-                    if (legacyGame.anyDiagUp4MatchToMark(Mode.CLEAN, place)) return new GamePosition(place);
+                    if (legacyGame.anyDiagUp4MatchToMark(Mode.CLEAN, place)) return place;
                 }
             }
         }
