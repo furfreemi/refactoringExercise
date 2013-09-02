@@ -31,7 +31,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(2, result);
 	}
 
@@ -52,7 +52,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -74,7 +74,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -96,7 +96,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(2, result);
 	}
 
@@ -118,7 +118,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -139,7 +139,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(2, result);
 	}
 
@@ -160,7 +160,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -181,7 +181,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(2, result);
 	}
 
@@ -202,7 +202,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -223,7 +223,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -244,7 +244,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -265,7 +265,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(1, result);
 	}
 
@@ -286,7 +286,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -307,7 +307,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -328,7 +328,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(1, result);
 	}
 
@@ -349,7 +349,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -370,7 +370,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(1, result);
 	}
 
@@ -391,7 +391,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -412,7 +412,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(1, result);
 	}
 
@@ -433,7 +433,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -454,7 +454,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -475,7 +475,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -496,7 +496,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -517,7 +517,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -539,7 +539,7 @@ public class WinMethodCharacterizationTest {
                 {}, {}});
 
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -560,7 +560,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -581,7 +581,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 	
@@ -602,7 +602,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -623,7 +623,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 		
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -644,7 +644,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 
@@ -665,7 +665,7 @@ public class WinMethodCharacterizationTest {
                 },
                 {}, {}});
 
-		int result = game.checkToSeeIfEitherSideHasWon();
+		int result = game.winner().index;
 		assertEquals(0, result);
 	}
 }

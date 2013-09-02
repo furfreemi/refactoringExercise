@@ -5,11 +5,7 @@ public class LegacyGame {
     public static final int TOTAL_SQUARES_PER_BOARD = 100;
     public static final int oneLessThanCountInRow = GameBoard.SQUARES_PER_SIDE - 1;
 
-    public static int PLAYER_WIN_LENGTH = 5;
-    public static int COMPUTER_WIN_LENGTH = 6;
-    public static final int MARK_FOR_PLAYER_1 = 1;
-    public static final int MARK_FOR_COMPUTER_2 = 2;
-    public static final int empty0 = 0;
+
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();
     private final ComputerMove computerMove = new ComputerMove(this);
@@ -55,10 +51,10 @@ public class LegacyGame {
         return response != NONE;
     }
 
-    public int checkToSeeIfEitherSideHasWon() {
-        if (checkForComputerWin()) return MARK_FOR_COMPUTER_2;
-        if (checkForPlayerWin()) return MARK_FOR_PLAYER_1;
-        return (empty0);
+    public GameBoardMark winner() {
+        if (checkForComputerWin()) return GameBoardMark.ZERO_MARK_FOR_COMPUTER;
+        if (checkForPlayerWin()) return GameBoardMark.X_MARK_FOR_PLAYER;
+        return GameBoardMark.EMPTY;
     }
 
     public int checkSeries(GameBoardMark playerMark, int depth) {
@@ -964,16 +960,16 @@ public class LegacyGame {
     public void respondToMouseUp(int playerMove, RawPlayerMove rawPlayerMove) {
         moveNumber++;
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
-        if (checkToSeeIfEitherSideHasWon() == GameBoardMark.EMPTY.index) {
+        if (winner() == GameBoardMark.EMPTY) {
             lastMove = computerMove.makeComputerMove(rawPlayerMove).getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = 0;
         }
-        if (checkToSeeIfEitherSideHasWon() == GameBoardMark.ZERO_MARK_FOR_COMPUTER.index) {
+        if (winner() == GameBoardMark.ZERO_MARK_FOR_COMPUTER) {
             gameState = 3;
         }
 
-        if (checkToSeeIfEitherSideHasWon() == GameBoardMark.X_MARK_FOR_PLAYER.index) {
+        if (winner() == GameBoardMark.X_MARK_FOR_PLAYER) {
             gameState = 2;
         }
     }
@@ -985,11 +981,11 @@ public class LegacyGame {
     }
 
     public boolean checkForPlayerWin() {
-        return checkForWin(new Player(PLAYER_WIN_LENGTH, MARK_FOR_PLAYER_1));
+        return checkForWin(Player.xPlayer());
     }
 
     public boolean checkForComputerWin() {
-        return checkForWin(new Player(COMPUTER_WIN_LENGTH, MARK_FOR_COMPUTER_2));
+        return checkForWin(Player.computerPlayer());
     }
 
     public boolean checkForWin(Player p) {
@@ -1050,7 +1046,7 @@ public class LegacyGame {
     }
 
     protected boolean countLargerThanWinLength(MarksForChecking marksForChecking, Player p, Directions passedInDirection) {
-        return marksForChecking.isLargerThan(p.winLength, passedInDirection, GameBoardMark.valueOf(p.playerMark));
+        return marksForChecking.isLargerThan(p.winLength, passedInDirection, p.playerMark);
     }
 
     public int getMoveNumber() {
