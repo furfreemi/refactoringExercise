@@ -1050,7 +1050,7 @@ public class LegacyGame {
     }
 
     protected boolean countLargerThanWinLength(MarksForChecking marksForChecking, Player p, Directions passedInDirection) {
-        return marksForChecking.isLargerThan(p, passedInDirection);
+        return p.sumForDirectionIsLargerThanWinLength(passedInDirection, marksForChecking);
     }
 
     public int getMoveNumber() {

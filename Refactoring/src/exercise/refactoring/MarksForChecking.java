@@ -14,10 +14,6 @@ public class MarksForChecking {
         marksForChecking.get(direction).put(gameBoardMark, original + 1);
     }
 
-    public boolean isLargerThan(Player player, Directions direction) {
-        return marksForChecking.get(direction).get(player.playerMark) >= player.winLength.length;
-    }
-
     public void resetAllValuesToZero() {
         for(Directions directions : Directions.values()){
             HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
@@ -26,5 +22,9 @@ public class MarksForChecking {
             }
             marksForChecking.put(directions, playerMarkToInteger);
         }
+    }
+
+    public int countForDirectionAndPlayerMark(Directions direction, GameBoardMark gameBoardMark) {
+        return marksForChecking.get(direction).get(gameBoardMark);
     }
 }
