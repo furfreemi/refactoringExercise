@@ -9,11 +9,19 @@ public class RawPlayerMove {
         this.y = y;
     }
 
-    public GamePosition computerMoveIfFirstComputerMoveAndPlayerMoveOverFive() {
+    private GamePosition computerMoveIfFirstComputerMoveAndPlayerMoveOverFive() {
         return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x - GameBoard.oneMoreThanSquaresPerSide);
     }
 
-    public GamePosition computerMoveIfFirstComputerMoveAndPlayerMoveUnderFive() {
+    private GamePosition computerMoveIfFirstComputerMoveAndPlayerMoveUnderFive() {
         return new GamePosition(y * GameBoard.SQUARES_PER_SIDE + x + GameBoard.oneMoreThanSquaresPerSide);
+    }
+
+    public GamePosition firstComputerMove() {
+        if (y > 5) {
+            return computerMoveIfFirstComputerMoveAndPlayerMoveOverFive();
+        } else {
+            return computerMoveIfFirstComputerMoveAndPlayerMoveUnderFive();
+        }
     }
 }

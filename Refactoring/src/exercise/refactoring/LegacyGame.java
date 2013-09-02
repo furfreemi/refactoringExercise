@@ -965,7 +965,7 @@ public class LegacyGame {
         moveNumber++;
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (checkToSeeIfEitherSideHasWon() == GameBoardMark.EMPTY.index) {
-            lastMove = computerMove.makeComputerMove(rawPlayerMove, true).getRaw();
+            lastMove = computerMove.makeComputerMove(rawPlayerMove).getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = 0;
         }
