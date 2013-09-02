@@ -24,18 +24,20 @@ public class LegacyGame {
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
 
     public int checkForWinOpportunity(GameBoardMark playerMark, int boardNumber) {
-        if (isNone(blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK))) {
-            return blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK);
+        int winner = blockSeriesOfFourOrMore(switchPlayers(playerMark), boardNumber, Mode.CHECK);
+        if (isNotNone(winner)) {
+            return winner;
         }
 
-        if (responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK).isNone()) {
-            return responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK).getRaw();
+        GamePosition winnerCheck2 = responseTo3Or4InaRowOpportunity(switchPlayers(playerMark), boardNumber, Mode.CHECK);
+        if (! winnerCheck2.isNone()) {
+            return winnerCheck2.getRaw();
         }
 
         return NONE;
     }
 
-    private boolean isNone(int response) {
+    private boolean isNotNone(int response) {
         return response != NONE;
     }
 
