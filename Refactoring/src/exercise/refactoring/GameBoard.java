@@ -7,9 +7,15 @@ public class GameBoard {
     public static int mainBoardIndex = 0;
     public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
     public static int boardTwoIndex = 2;
+    static final int TOTAL_SQUARES_PER_BOARD = 100;
+
+    static final int MAX_DEPTH_FOR_TEMP_BOARD = 7;
+    static int[][] perhapsaTemporaryBoardHolder = new int[MAX_DEPTH_FOR_TEMP_BOARD][TOTAL_SQUARES_PER_BOARD];
+    static int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
+    static int[] tempTableForChecks = new int[TOTAL_SQUARES_PER_BOARD];
 
     public GameBoard() {
-        this.board = new int[numberOfBoards][LegacyGame.TOTAL_SQUARES_PER_BOARD];
+        this.board = new int[numberOfBoards][TOTAL_SQUARES_PER_BOARD];
     }
 
     int[] mainBoard() {

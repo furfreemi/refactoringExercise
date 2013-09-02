@@ -91,13 +91,13 @@ public class LegacyGameGUI extends Applet implements Runnable {
 
 		g.drawImage(newGameImage, 0, 0, this);
 		if (game.gameState == 0)
-			g.drawImage(yourTurnImage, LegacyGame.TOTAL_SQUARES_PER_BOARD, 0,
+			g.drawImage(yourTurnImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
 		else if (game.gameState == 2)
-			g.drawImage(winningImage, LegacyGame.TOTAL_SQUARES_PER_BOARD, 0,
+			g.drawImage(winningImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
 		else if (game.gameState == 3)
-			g.drawImage(losingImage, LegacyGame.TOTAL_SQUARES_PER_BOARD, 0,
+			g.drawImage(losingImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
 	}
 
@@ -106,7 +106,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 			return true;
 
 		if (y < 40) {
-			if (x < LegacyGame.TOTAL_SQUARES_PER_BOARD) // new game
+			if (x < GameBoard.TOTAL_SQUARES_PER_BOARD) // new game
 			{
 				game.run();
 				repaint();
