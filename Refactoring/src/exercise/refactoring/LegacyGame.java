@@ -383,7 +383,7 @@ public class LegacyGame {
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (l = 0; l < 6; l++) {
             for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
-                resetAllMarksAlongAxesForFirstHalfOfBoard();
+                gameBoard.resetAllMarksAlongAxesForFirstHalfOfBoard(this);
 
                 position = checkFor5AlongHorizAxis(playerMark, x, j, l, position);
 
@@ -410,7 +410,7 @@ public class LegacyGame {
             }
 
             for (j = 0; j < 6; j++) {
-                resetAllMarksAlongAxesForFirstHalfOfBoard();
+                gameBoard.resetAllMarksAlongAxesForFirstHalfOfBoard(this);
 
                 for (k = 0; k < 5; k++) {
                     position = checkFor5AlongDiagDownRightAxis(playerMark, x, j, k, l, position);
@@ -671,11 +671,6 @@ public class LegacyGame {
         responseTo3Or4InaRowOpportunity(playerMark, 0, Mode.SETFLAGS);
     }
 
-    public void resetAllMarksAlongAxesForFirstHalfOfBoard() {
-        for (int k = 0; k < 4; k++)
-            marksByAxisByPlayerForChecking[k] = 0;
-    }
-
     public void copyIntoStagingBoardFromOddBoardGroupAtDepth(int depth) {
         for (int k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++)
             GameBoard.stagingBoard[k] = GameBoard.perhapsaTemporaryBoardHolder[depth][k];
@@ -708,7 +703,7 @@ public class LegacyGame {
         moveNumber.increment();
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (winner() == GameBoardMark.EMPTY) {
-            lastMove = new ComputerMove(this, rawPlayerMove).getNextComputerMove().getRaw();
+            lastMove = new ComputerMove(this, rawPlayerMove, gameBoard).getNextComputerMove().getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = 0;
         }

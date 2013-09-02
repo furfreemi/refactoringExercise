@@ -92,4 +92,9 @@ public class GameBoard {
     public GameBoardMark gameMarkAtMainBoardPosition(int position) {
         return GameBoardMark.valueOf(mainBoard()[position]);
     }
+
+    public void resetAllMarksAlongAxesForFirstHalfOfBoard(LegacyGame legacyGame) {
+        for (int k = 0; k < 4; k++)
+            legacyGame.marksByAxisByPlayerForChecking[k] = 0;
+    }
 }
