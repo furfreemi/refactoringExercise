@@ -8,7 +8,7 @@ public class LegacyGame {
 
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();
-    private final ComputerMove computerMove = new ComputerMove(this);
+    final ComputerMove computerMove = new ComputerMove(this);
 
     public int gameState = 0;
     public MoveSequence moveNumber = new MoveSequence();
@@ -18,7 +18,7 @@ public class LegacyGame {
     static final int NONE = 100;
     static final int OCCUPIED = 1;
 
-    private int marksByAxisByPlayerForChecking[] = new int[8];
+    int[] marksByAxisByPlayerForChecking = new int[8];
     private int perhapsaTemporaryBoardHolder[][] = new int[MAX_DEPTH][TOTAL_SQUARES_PER_BOARD];
     int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
     private int tempTableForChecks[] = new int[TOTAL_SQUARES_PER_BOARD];
@@ -442,50 +442,6 @@ public class LegacyGame {
         }
     }
 
-    public GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark playerMark) {
-        int zero = 0;
-
-        int upToSquaresPerSide, upToFive, upToSix;
-        int position = 0;
-        int position2 = 0;
-
-        for (upToSix = 0; upToSix < 6; upToSix++) {
-            for (upToSquaresPerSide = 0; upToSquaresPerSide < GameBoard.SQUARES_PER_SIDE; upToSquaresPerSide++) {
-                resetAllMarksAlongAxesForFirstHalfOfBoard();
-
-                position = checkFor5AlongHorizAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
-
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1) {
-                    return new GamePosition(position);
-                }
-
-                position = checkFor5AlongVertAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
-
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1) {
-                    return new GamePosition(position);
-                }
-            }
-
-            for (upToSquaresPerSide = 0; upToSquaresPerSide < 6; upToSquaresPerSide++) {
-                resetAllMarksAlongAxesForFirstHalfOfBoard();
-
-                for (upToFive = 0; upToFive < 5; upToFive++) {
-                    position = checkFor5AlongDiagDownRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position);
-                    position2 = checkFor5AlongDiagUpRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position2);
-                }
-
-                if (marksByAxisByPlayerForChecking[0] == 4 && marksByAxisByPlayerForChecking[1] == 1) {
-                    return new GamePosition(position);
-                }
-
-                if (marksByAxisByPlayerForChecking[2] == 4 && marksByAxisByPlayerForChecking[3] == 1) {
-                    return new GamePosition(position2);
-                }
-            }
-        }
-        return GamePosition.nonePosition();
-    }
-
     public int blockSeriesOfFourOrMore(GameBoardMark playerMark, int x, Mode type) {
         int j, k, l;
         int position = 0, position2 = 0;
@@ -895,26 +851,6 @@ public class LegacyGame {
         return NONE;
     }
 
-    public int closeGapInSeries() {
-        int upToSeven, upToNine, position, otherPosition;
-
-        for (upToSeven = 1; upToSeven < 7; upToSeven++) {
-            for (upToNine = 1; upToNine < oneLessThanCountInRow; upToNine++) {
-                position = upToSeven + GameBoard.SQUARES_PER_SIDE * upToNine;
-                otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
-
-                if (gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
-                    return (position + 1);
-                }
-
-                if (gameBoard.hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(otherPosition)) {
-                    return (otherPosition + GameBoard.SQUARES_PER_SIDE);
-                }
-            }
-        }
-        return NONE;
-    }
-
 
     public void setFlagsForLaterProcessing(GameBoardMark playerMark) {
         int k;
@@ -1040,15 +976,4 @@ public class LegacyGame {
         }
     }
 
-    public boolean isFirstMove() {
-        return moveNumber.isFirstMove();
-    }
-
-    public boolean moveNumberIs(int comparisonMoveNumber) {
-        return moveNumber.isMove(comparisonMoveNumber);
-    }
-
-    public boolean moveNumberIsOver(int moveNumber) {
-        return this.moveNumber.isOver(moveNumber);
-    }
 }
