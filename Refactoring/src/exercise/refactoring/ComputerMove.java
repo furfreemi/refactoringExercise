@@ -17,7 +17,7 @@ public class ComputerMove {
             return rawPlayerMove.firstComputerMove();
         }
 
-        position.setPosition(closeGapInSeries(legacyGame));
+        position.setPosition(closeGapInSeries(legacyGame.gameBoard));
         if ((moveNumber.isMove(2))) {
             return position;
         }
@@ -114,7 +114,7 @@ public class ComputerMove {
         }
 
         if (moveNumber.isOver(2)) {
-            position.setPosition(closeGapInSeries(legacyGame));
+            position.setPosition(closeGapInSeries(legacyGame.gameBoard));
             if (position.isNotNone()) {
                 return position;
             }
@@ -153,7 +153,7 @@ public class ComputerMove {
         return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
-    public int closeGapInSeries(LegacyGame legacyGame) {
+    public int closeGapInSeries(GameBoard gameBoard) {
         int upToSeven, upToNine, position, otherPosition;
 
         for (upToSeven = 1; upToSeven < 7; upToSeven++) {
@@ -161,11 +161,11 @@ public class ComputerMove {
                 position = upToSeven + GameBoard.SQUARES_PER_SIDE * upToNine;
                 otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
 
-                if (legacyGame.gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
+                if (gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
                     return (position + 1);
                 }
 
-                if (legacyGame.gameBoard.hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(otherPosition)) {
+                if (gameBoard.hasOccupiedUnoccupiedOccupiedDiagonalPatternStartingAt(otherPosition)) {
                     return (otherPosition + GameBoard.SQUARES_PER_SIDE);
                 }
             }
