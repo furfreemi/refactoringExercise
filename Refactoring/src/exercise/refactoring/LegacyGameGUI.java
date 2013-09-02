@@ -55,7 +55,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 	}
 
 	public void paint(Graphics g) {
-		if (game.moveNumber == -1) {
+		if (game.moveNumber.isDefault()) {
 			setBackground(Color.white);
 			if (!loadedImages) {
 				g.drawRect(40, 110, 220, 215);
@@ -124,7 +124,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		System.out.println("player y = " + y);
 
 		if (! game.gameBoard.hasEmptyValueAt(0, playerMove)
-				|| game.gameState != 0 || game.moveNumber > 49) // polje
+				|| game.gameState != 0 || game.moveNumber.isOver(49)) // polje
 		{
 			return true;
 		}

@@ -11,7 +11,7 @@ public class LegacyGame {
     private final ComputerMove computerMove = new ComputerMove(this);
 
     public int gameState = 0;
-    public int moveNumber = -1;
+    public MoveSequence moveNumber = new MoveSequence();
     public int lastMove = NONE;
 
     private static final int MAX_DEPTH = 7;
@@ -958,7 +958,7 @@ public class LegacyGame {
     }
 
     public void respondToMouseUp(int playerMove, RawPlayerMove rawPlayerMove) {
-        moveNumber++;
+        moveNumber.increment();
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (winner() == GameBoardMark.EMPTY) {
             lastMove = computerMove.makeComputerMove(rawPlayerMove).getRaw();
@@ -976,7 +976,7 @@ public class LegacyGame {
 
     public void run() {
         resetMainGameBoard(0);
-        moveNumber = 0;
+        moveNumber.setToGameStart();
         gameState = 0;
     }
 
@@ -1041,14 +1041,14 @@ public class LegacyGame {
     }
 
     public boolean isFirstMove() {
-        return moveNumber == 1;
+        return moveNumber.isFirstMove();
     }
 
-    public boolean moveNumberIs(int moveNumber) {
-        return this.moveNumber == moveNumber;
+    public boolean moveNumberIs(int comparisonMoveNumber) {
+        return moveNumber.isMove(comparisonMoveNumber);
     }
 
     public boolean moveNumberIsOver(int moveNumber) {
-        return this.moveNumber > moveNumber;
+        return this.moveNumber.isOver(moveNumber);
     }
 }
