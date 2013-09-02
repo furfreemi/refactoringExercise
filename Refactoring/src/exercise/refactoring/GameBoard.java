@@ -95,6 +95,6 @@ public class GameBoard {
 
     public void resetAllMarksAlongAxesForFirstHalfOfBoard(LegacyGame legacyGame) {
         for (int k = 0; k < 4; k++)
-            legacyGame.marksByAxis.marksByAxisByPlayerForChecking[k] = 0;
+            legacyGame.marksByAxis.marks[k] = 0;
     }
 }

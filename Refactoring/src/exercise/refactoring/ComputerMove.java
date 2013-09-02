@@ -190,13 +190,13 @@ public class ComputerMove {
 
                 position = legacyGame.checkFor5AlongHorizAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                if (legacyGame.marksByAxis.marksByAxisByPlayerForChecking[0] == 4 && legacyGame.marksByAxis.marksByAxisByPlayerForChecking[1] == 1) {
+                if (legacyGame.marksByAxis.marks[0] == 4 && legacyGame.marksByAxis.marks[1] == 1) {
                     return position;
                 }
 
                 position = legacyGame.checkFor5AlongVertAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                if (legacyGame.marksByAxis.marksByAxisByPlayerForChecking[2] == 4 && legacyGame.marksByAxis.marksByAxisByPlayerForChecking[3] == 1) {
+                if (legacyGame.marksByAxis.marks[2] == 4 && legacyGame.marksByAxis.marks[3] == 1) {
                     return position;
                 }
             }
@@ -209,11 +209,11 @@ public class ComputerMove {
                     position2 = legacyGame.checkFor5AlongDiagUpRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position2);
                 }
 
-                if (legacyGame.marksByAxis.marksByAxisByPlayerForChecking[0] == 4 && legacyGame.marksByAxis.marksByAxisByPlayerForChecking[1] == 1) {
+                if (legacyGame.marksByAxis.marks[0] == 4 && legacyGame.marksByAxis.marks[1] == 1) {
                     return position;
                 }
 
-                if (legacyGame.marksByAxis.marksByAxisByPlayerForChecking[2] == 4 && legacyGame.marksByAxis.marksByAxisByPlayerForChecking[3] == 1) {
+                if (legacyGame.marksByAxis.marks[2] == 4 && legacyGame.marksByAxis.marks[3] == 1) {
                     return position2;
                 }
             }
