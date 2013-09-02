@@ -1,7 +1,7 @@
 package exercise.refactoring;
 
 public class ComputerMove {
-    public static final int lastPositionOnSecondToLastLine = 89;
+    private static final int lastPositionOnSecondToLastLine = 89;
     private final LegacyGame legacyGame;
     private final MoveSequence moveNumber;
 
@@ -10,7 +10,7 @@ public class ComputerMove {
         this.moveNumber = legacyGame.moveNumber;
     }
 
-    public GamePosition makeComputerMove(RawPlayerMove rawPlayerMove) {
+    GamePosition makeComputerMove(RawPlayerMove rawPlayerMove) {
         GamePosition position = new GamePosition();
 
         if (moveNumber.isFirstMove()) {
@@ -153,7 +153,7 @@ public class ComputerMove {
         return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
-    public int closeGapInSeries(GameBoard gameBoard) {
+    private int closeGapInSeries(GameBoard gameBoard) {
         int upToSeven, upToNine, position, otherPosition;
 
         for (upToSeven = 1; upToSeven < 7; upToSeven++) {
@@ -173,7 +173,7 @@ public class ComputerMove {
         return LegacyGame.NONE;
     }
 
-    public GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private GamePosition blockSeriesOfFourOrMoreInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
         int zero = 0;
 
         int upToSquaresPerSide, upToFive, upToSix;
@@ -217,7 +217,7 @@ public class ComputerMove {
         return GamePosition.nonePosition();
     }
 
-    public int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark, LegacyGame legacyGame) {
         int j, k, l;
         int place = 0;
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
@@ -265,7 +265,7 @@ public class ComputerMove {
         return (LegacyGame.NONE);
     }
 
-    public int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark, LegacyGame legacyGame) {
         legacyGame.copyBoardToCheck(0);
 
         for (int k = 0; k < LegacyGame.TOTAL_SQUARES_PER_BOARD; k++) {
@@ -280,7 +280,7 @@ public class ComputerMove {
         return (LegacyGame.NONE);
     }
 
-    public int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark, LegacyGame legacyGame) {
         int k;
         int gameBoardLevelToCheck = GameBoard.mainBoardIndex;
 
@@ -298,7 +298,7 @@ public class ComputerMove {
         return (LegacyGame.NONE);
     }
 
-    public int check2o3c(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int check2o3c(GameBoardMark playerMark, LegacyGame legacyGame) {
         int k;
 
         for (k = 0; k < LegacyGame.TOTAL_SQUARES_PER_BOARD; k++) {
@@ -315,7 +315,7 @@ public class ComputerMove {
         return LegacyGame.NONE;
     }
 
-    public int checkCross(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int checkCross(GameBoardMark playerMark, LegacyGame legacyGame) {
         int k, l, x;
 
         for (k = 1; k < 7; k++) {
@@ -327,7 +327,7 @@ public class ComputerMove {
         return LegacyGame.NONE;
     }
 
-    public int checkBox(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private int checkBox(GameBoardMark playerMark, LegacyGame legacyGame) {
         for (int k = 1; k < 8; k++) {
             for (int l = 1; l < 8; l++) {
                 int cnt = 0;
@@ -346,7 +346,7 @@ public class ComputerMove {
         return LegacyGame.NONE;
     }
 
-    public GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark, LegacyGame legacyGame) {
+    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark, LegacyGame legacyGame) {
         int alsoUpToFive, upToFour, upToFive;
         int place = 0;
 
@@ -391,7 +391,7 @@ public class ComputerMove {
         return GamePosition.nonePosition();
     }
 
-    public int findSpot(GameBoard gameBoard) {
+    private int findSpot(GameBoard gameBoard) {
         int position;
         int i;
         i = GameBoardMark.EMPTY.index;
