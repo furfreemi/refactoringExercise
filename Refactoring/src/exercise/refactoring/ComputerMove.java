@@ -154,7 +154,7 @@ public class ComputerMove {
     }
 
     private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, int[] stagingBoard, int position) {
-        return stagingBoard[position] == LegacyGame.OCCUPIED && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
+        return stagingBoard[position] == LegacyGame.occupiedflag && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
     private GamePosition closeGapInSeries(GameBoard gameBoard) {
@@ -281,7 +281,7 @@ public class ComputerMove {
                 gameBoard.setPositionToEmpty(1, k);
             }
         }
-        return (LegacyGame.NONE);
+        return (GameBoard.oneMoreThanLastPositionOnBoard);
     }
 
     private int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -299,7 +299,7 @@ public class ComputerMove {
                 gameBoard.setPositionToEmpty(1, k);
             }
         }
-        return (LegacyGame.NONE);
+        return (GameBoard.oneMoreThanLastPositionOnBoard);
     }
 
     private int check2o3c(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -316,7 +316,7 @@ public class ComputerMove {
 
             gameBoard.setValueAt(GameBoard.mainBoardIndex, k, GameBoardMark.EMPTY);
         }
-        return LegacyGame.NONE;
+        return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
     private int checkCross(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -328,7 +328,7 @@ public class ComputerMove {
                 if (gameBoard.mainBoard()[x] == playerMark.index && gameBoard.mainBoard()[x + 2] == playerMark.index && gameBoard.mainBoard()[x + 20] == playerMark.index && gameBoard.mainBoard()[x + 22] == playerMark.index && gameBoard.mainBoard()[x + 11] == 0) return (x + 11);
             }
         }
-        return LegacyGame.NONE;
+        return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
     private int checkBox(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -347,7 +347,7 @@ public class ComputerMove {
                 if (cnt == 3 && pos != -1) return pos;
             }
         }
-        return LegacyGame.NONE;
+        return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
     private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark, LegacyGame legacyGame) {
@@ -402,7 +402,7 @@ public class ComputerMove {
         do {
             position = (int) (Math.random() * GameBoard.TOTAL_SQUARES_PER_BOARD);
             if (gameBoard.mainBoard()[position] != GameBoardMark.EMPTY.index) continue;
-            if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = LegacyGame.OCCUPIED;
+            if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = LegacyGame.occupiedflag;
         } while (i == GameBoardMark.EMPTY.index);
         return position;
     }

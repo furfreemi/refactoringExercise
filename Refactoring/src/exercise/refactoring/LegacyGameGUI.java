@@ -79,7 +79,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 					if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.X_MARK_FOR_PLAYER.index))
 						g.drawImage(xMark, c * 30, r * 30 + 40, this);
 					else if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) {
-						if (r * GameBoard.SQUARES_PER_SIDE + c == game.lastMove.getRaw())
+						if (r * GameBoard.SQUARES_PER_SIDE + c == game.mostRecentComputerMove.getRaw())
 							g.drawImage(filledOMark, c * 30, r * 30 + 40, this);
 						else
 							g.drawImage(oMark, c * 30, r * 30 + 40, this);

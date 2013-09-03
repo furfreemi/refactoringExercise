@@ -16,7 +16,7 @@ public class GamePosition {
     }
 
     public boolean isNotNone() {
-        return position != LegacyGame.NONE;
+        return position != GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
     public int getRaw() {
@@ -24,7 +24,7 @@ public class GamePosition {
     }
 
     public static GamePosition nonePosition() {
-        return new GamePosition(LegacyGame.NONE); // NONE = 100 - i.e. one more than possible, since we start from 0
+        return new GamePosition(GameBoard.oneMoreThanLastPositionOnBoard); // NONE = 100 - i.e. one more than possible, since we start from 0
     }
 
     public boolean isOverOne() {
@@ -32,6 +32,6 @@ public class GamePosition {
     }
 
     public boolean isNone() {
-        return position == LegacyGame.NONE;
+        return position == GameBoard.oneMoreThanLastPositionOnBoard;
     }
 }

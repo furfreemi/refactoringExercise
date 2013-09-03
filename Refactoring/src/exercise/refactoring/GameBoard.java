@@ -14,6 +14,7 @@ public class GameBoard {
     static int[][] perhapsaTemporaryBoardHolder = new int[MAX_DEPTH_FOR_TEMP_BOARD][TOTAL_SQUARES_PER_BOARD];
     static int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
     static int[] tempTableForChecks = new int[TOTAL_SQUARES_PER_BOARD];
+    public static int oneMoreThanLastPositionOnBoard = 100;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][TOTAL_SQUARES_PER_BOARD];
