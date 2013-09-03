@@ -8,9 +8,9 @@ public enum Directions {
         this.index = index;
     }
 
-    public static Directions valueOf(int index){
-        for (Directions directions : Directions.values()){
-            if (directions.index == index){
+    public static Directions valueOf(int index) {
+        for (Directions directions : Directions.values()) {
+            if (directions.index == index) {
                 return directions;
             }
         }

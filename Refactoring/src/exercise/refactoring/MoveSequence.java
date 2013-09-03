@@ -4,7 +4,7 @@ public class MoveSequence {
     private int moveNumber;
     private final int defaultMoveNumber = -1;
 
-    public void MoveSequence(){
+    public void MoveSequence() {
         this.moveNumber = defaultMoveNumber;
     }
 
@@ -20,7 +20,7 @@ public class MoveSequence {
         return moveNumber == 1;
     }
 
-    public boolean isMove(int comparisonMoveNumber){
+    public boolean isMove(int comparisonMoveNumber) {
         return moveNumber == comparisonMoveNumber;
     }
 

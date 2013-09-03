@@ -15,9 +15,9 @@ public class MarksForChecking {
     }
 
     public void resetAllValuesToZero() {
-        for(Directions directions : Directions.values()){
+        for (Directions directions : Directions.values()) {
             HashMap<GameBoardMark, Integer> playerMarkToInteger = new HashMap<GameBoardMark, Integer>();
-            for(GameBoardMark mark : GameBoardMark.values()){
+            for (GameBoardMark mark : GameBoardMark.values()) {
                 playerMarkToInteger.put(mark, 0);
             }
             marksForChecking.put(directions, playerMarkToInteger);

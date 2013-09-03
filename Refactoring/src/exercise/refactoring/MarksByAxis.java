@@ -31,8 +31,8 @@ public class MarksByAxis {
     }
 
     public boolean valueAtPositionPairsMatch(MarksByAxisPositionPair... positionPairs) {
-        for(MarksByAxisPositionPair positionPair : positionPairs){
-            if (getValueAtPosition(positionPair.position) != positionPair.desiredValue){
+        for (MarksByAxisPositionPair positionPair : positionPairs) {
+            if (getValueAtPosition(positionPair.position) != positionPair.desiredValue) {
                 return false;
             }
         }
