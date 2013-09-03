@@ -190,7 +190,7 @@ public class ComputerMove {
 
                 position = legacyGame.checkFor5AlongHorizAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                if (legacyGame.marksByAxis.getValueAtPosition(0) == 4 && legacyGame.marksByAxis.getValueAtPosition(1) == 1) {
+                if (legacyGame.marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 4), new MarksByAxisPositionPair(1, 1))) {
                     return position;
                 }
 

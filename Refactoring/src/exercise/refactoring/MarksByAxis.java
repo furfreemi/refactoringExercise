@@ -2,7 +2,6 @@ package exercise.refactoring;
 
 public class MarksByAxis {
     private int[] marks;
-//    int[] marks;
 
     public MarksByAxis() {
         this.marks = new int[8];
@@ -33,5 +32,14 @@ public class MarksByAxis {
 
     public GameBoardMark getValueAtPosition(GameBoardMark position) {
         return GameBoardMark.valueOf(getValueAtPosition(position.index));
+    }
+
+    public boolean valueAtPositionPairsMatch(MarksByAxisPositionPair... positionPairs) {
+        for(MarksByAxisPositionPair positionPair : positionPairs){
+            if (getValueAtPosition(positionPair.position) != positionPair.desiredValue){
+                return false;
+            }
+        }
+        return true;
     }
 }
