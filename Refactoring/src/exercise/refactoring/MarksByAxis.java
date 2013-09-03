@@ -30,10 +30,6 @@ public class MarksByAxis {
         return marks[position];
     }
 
-    public GameBoardMark getValueAtPosition(GameBoardMark position) {
-        return GameBoardMark.valueOf(getValueAtPosition(position.index));
-    }
-
     public boolean valueAtPositionPairsMatch(MarksByAxisPositionPair... positionPairs) {
         for(MarksByAxisPositionPair positionPair : positionPairs){
             if (getValueAtPosition(positionPair.position) != positionPair.desiredValue){

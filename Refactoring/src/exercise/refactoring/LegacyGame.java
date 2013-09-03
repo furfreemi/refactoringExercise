@@ -589,14 +589,14 @@ public class LegacyGame {
     public boolean anyDiagUp4MatchToMark(Mode type, GamePosition place) {
         boolean match = false;
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-        if (!type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(2) == 3 && marksByAxis.getValueAtPosition(3) == 1) {
+        if (!type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 3), new MarksByAxisPositionPair(3, 1))) {
             tempRowForChecks[3] = 1;
             if (type.equals(Mode.CHECK)) {
                 match = true;
             }
             if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = OCCUPIED;
         }
-        if (type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(2) == 2 && marksByAxis.getValueAtPosition(3) == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 2), new MarksByAxisPositionPair(3, 2))) {
             match = true;
         }
         return match;
@@ -605,14 +605,14 @@ public class LegacyGame {
     public boolean anyDiagDown4MatchToMark(Mode type, GamePosition place) {
         boolean match = false;
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-        if (!type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(0) == 3 && marksByAxis.getValueAtPosition(1) == 1) {
+        if (!type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 1))) {
             tempRowForChecks[2] = 1;
             if (type.equals(Mode.CHECK)) {
                 match = true;
             }
             if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = OCCUPIED;
         }
-        if (type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(0) == 2 && marksByAxis.getValueAtPosition(1) == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) {
             match = true;
         }
         return match;
@@ -621,7 +621,7 @@ public class LegacyGame {
     public boolean anyVert4MatchToMark(Mode type, GamePosition place) {
         boolean match = false;
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-        if (!type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(2) == 3 && marksByAxis.getValueAtPosition(3) == 1) {
+        if (!type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 3), new MarksByAxisPositionPair(3, 1))) {
             tempRowForChecks[1] = 1;
             if (type.equals(Mode.CHECK)) {
 
@@ -629,7 +629,7 @@ public class LegacyGame {
             }
             if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = OCCUPIED;
         }
-        if (type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(2) == 2 && marksByAxis.getValueAtPosition(3) == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 2), new MarksByAxisPositionPair(3, 2))) {
             match = true;
         }
         return match;
@@ -637,7 +637,7 @@ public class LegacyGame {
 
     public boolean anyHoriz4MatchToMark(Mode type, GamePosition gamePosition) {
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-        if (!type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(0) == 3 && marksByAxis.getValueAtPosition(1) == 1) {
+        if (!type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 1))) {
             tempRowForChecks[0] = 1;
             if (type.equals(Mode.CHECK)) {
                 return true;
@@ -645,7 +645,7 @@ public class LegacyGame {
             if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[gamePosition.getRaw()] = OCCUPIED;
         }
 
-        if (type.equals(Mode.CLEAN) && marksByAxis.getValueAtPosition(0) == 2 && marksByAxis.getValueAtPosition(1) == 2) {
+        if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) {
             return true;
         }
         return false;

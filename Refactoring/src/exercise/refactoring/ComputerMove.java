@@ -196,7 +196,7 @@ public class ComputerMove {
 
                 position = legacyGame.checkFor5AlongVertAxis(playerMark, zero, upToSquaresPerSide, upToSix, position);
 
-                if (legacyGame.marksByAxis.getValueAtPosition(2) == 4 && legacyGame.marksByAxis.getValueAtPosition(3) == 1) {
+                if (legacyGame.marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 4), new MarksByAxisPositionPair(3, 1))) {
                     return position;
                 }
             }
@@ -209,11 +209,11 @@ public class ComputerMove {
                     position2 = legacyGame.checkFor5AlongDiagUpRightAxis(playerMark, zero, upToSquaresPerSide, upToFive, upToSix, position2);
                 }
 
-                if (legacyGame.marksByAxis.getValueAtPosition(0) == 4 && legacyGame.marksByAxis.getValueAtPosition(1) == 1) {
+                if (legacyGame.marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 4), new MarksByAxisPositionPair(1, 1))) {
                     return position;
                 }
 
-                if (legacyGame.marksByAxis.getValueAtPosition(2) == 4 && legacyGame.marksByAxis.getValueAtPosition(3) == 1) {
+                if (legacyGame.marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 4), new MarksByAxisPositionPair(3, 1))) {
                     return position2;
                 }
             }
