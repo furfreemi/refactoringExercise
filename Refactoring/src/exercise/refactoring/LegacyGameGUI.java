@@ -2,6 +2,9 @@ package exercise.refactoring;
 
 import java.applet.Applet;
 import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class LegacyGameGUI extends Applet implements Runnable {
     private static final long serialVersionUID = 4873261510528018302L;
@@ -119,7 +122,13 @@ public class LegacyGameGUI extends Applet implements Runnable {
     }
 
     private void loadAllGameGraphics(MediaTracker tracker) {
-        String graphicsDirectory = "../graphics/";
+        String graphicsDirectory = "./graphics/";
+        System.out.println(getCodeBase());
+        try {
+            System.out.println(getCodeBase().toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
         xMark = getImage(getCodeBase(), graphicsDirectory + "xMark.jpg");
         oMark = getImage(getCodeBase(), graphicsDirectory + "oMark.jpg");
@@ -138,6 +147,15 @@ public class LegacyGameGUI extends Applet implements Runnable {
         tracker.addImage(losingImage, 0);
         tracker.addImage(yourTurnImage, 0);
         tracker.addImage(newGameImage, 0);
+    }
+
+    public URL getCodeBase(){
+        try {
+            return new URL("file:/usr/local/tmp/refactoring_graphics/");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
