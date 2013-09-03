@@ -23,8 +23,8 @@ public class GameBoard {
         return board[mainBoardIndex];
     }
 
-    public void markMove(int position, int playerMark) {
-        mainBoard()[position] = playerMark;
+    public void markMove(GamePosition position, int playerMark) {
+        mainBoard()[position.getRaw()] = playerMark;
     }
 
     public GameBoardMark getValueAt(int i, int j) {

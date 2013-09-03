@@ -79,7 +79,7 @@ public class LegacyGameGUI extends Applet implements Runnable {
 					if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.X_MARK_FOR_PLAYER.index))
 						g.drawImage(xMark, c * 30, r * 30 + 40, this);
 					else if (game.gameBoard.valueOnMainBoardAtPositionMatches(r * GameBoard.SQUARES_PER_SIDE + c, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index)) {
-						if (r * GameBoard.SQUARES_PER_SIDE + c == game.lastMove)
+						if (r * GameBoard.SQUARES_PER_SIDE + c == game.lastMove.getRaw())
 							g.drawImage(filledOMark, c * 30, r * 30 + 40, this);
 						else
 							g.drawImage(oMark, c * 30, r * 30 + 40, this);
@@ -90,13 +90,13 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		}
 
 		g.drawImage(newGameImage, 0, 0, this);
-		if (game.gameState == 0)
+		if (game.hasNoWinner())
 			g.drawImage(yourTurnImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
-		else if (game.gameState == 2)
+		else if (game.wonByPlayer())
 			g.drawImage(winningImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
-		else if (game.gameState == 3)
+		else if (game.wonByComputer())
 			g.drawImage(losingImage, GameBoard.TOTAL_SQUARES_PER_BOARD, 0,
 					this);
 	}
@@ -124,11 +124,11 @@ public class LegacyGameGUI extends Applet implements Runnable {
 		System.out.println("player y = " + y);
 
 		if (! game.gameBoard.hasEmptyValueAt(0, playerMove)
-				|| game.gameState != 0 || game.moveNumber.isOver(49)) // polje
+				|| game.hasAWinner() || game.moveNumber.isOver(49)) // polje
 		{
 			return true;
 		}
-		game.respondToMouseUp(playerMove, new RawPlayerMove(x, y));
+		game.respondToMouseUp(new GamePosition(playerMove), new RawPlayerMove(x, y));
 
 		repaint();
 		return true;

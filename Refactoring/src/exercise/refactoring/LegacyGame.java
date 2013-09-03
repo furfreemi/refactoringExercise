@@ -6,7 +6,7 @@ public class LegacyGame {
     final MarksByAxis marksByAxis = new MarksByAxis();
     public GameState gameState = GameState.NoWinner;
     public MoveSequence moveNumber = new MoveSequence();
-    public int lastMove = NONE;
+    public GamePosition lastMove = null;
 
 
     static final int NONE = 100;
@@ -696,11 +696,11 @@ public class LegacyGame {
             gameBoard.setValueAt(boardLevel, k, GameBoardMark.EMPTY);
     }
 
-    public void respondToMouseUp(int playerMove, RawPlayerMove rawPlayerMove) {
+    public void respondToMouseUp(GamePosition playerMove, RawPlayerMove rawPlayerMove) {
         moveNumber.increment();
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (winner() == GameBoardMark.EMPTY) {
-            lastMove = new ComputerMove(this, rawPlayerMove, gameBoard).getNextComputerMove().getRaw();
+            lastMove = new ComputerMove(this, rawPlayerMove, gameBoard).getNextComputerMove();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = GameState.NoWinner;
         }
@@ -779,4 +779,19 @@ public class LegacyGame {
         }
     }
 
+    public boolean hasNoWinner() {
+        return gameState == GameState.NoWinner;
+    }
+
+    public boolean wonByPlayer() {
+        return gameState == GameState.PlayerWon;
+    }
+
+    public boolean wonByComputer() {
+        return gameState == GameState.ComputerWon;
+    }
+
+    public boolean hasAWinner() {
+        return gameState != GameState.NoWinner;
+    }
 }
