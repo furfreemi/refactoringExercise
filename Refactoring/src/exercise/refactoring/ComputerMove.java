@@ -154,7 +154,7 @@ public class ComputerMove {
     }
 
     private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, int[] stagingBoard, int position) {
-        return stagingBoard[position] == LegacyGame.occupiedflag && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
+        return stagingBoard[position] == LegacyGame.occupiedflag.index && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
     private GamePosition closeGapInSeries(GameBoard gameBoard) {
@@ -402,9 +402,15 @@ public class ComputerMove {
         do {
             position = (int) (Math.random() * GameBoard.TOTAL_SQUARES_PER_BOARD);
             if (gameBoard.mainBoard()[position] != GameBoardMark.EMPTY.index) continue;
-            if ((position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index))) i = LegacyGame.occupiedflag;
+            if (spotFinderCondition(gameBoard, position)) {
+                i = LegacyGame.occupiedflag.index;
+            }
         } while (i == GameBoardMark.EMPTY.index);
         return position;
+    }
+
+    private boolean spotFinderCondition(GameBoard gameBoard, int position) {
+        return (position > 0 && gameBoard.mainBoard()[position - 1] != GameBoardMark.EMPTY.index) || (position > GameBoard.SQUARES_PER_SIDE && (gameBoard.mainBoard()[position - 11] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position - GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index)) || (position < 99 && gameBoard.mainBoard()[position + 1] != GameBoardMark.EMPTY.index) || (position < 88 && (gameBoard.mainBoard()[position + GameBoard.oneLessThanCountInRow] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + GameBoard.SQUARES_PER_SIDE] != GameBoardMark.EMPTY.index || gameBoard.mainBoard()[position + 11] != GameBoardMark.EMPTY.index));
     }
 
     public GamePosition getNextComputerMove() {
