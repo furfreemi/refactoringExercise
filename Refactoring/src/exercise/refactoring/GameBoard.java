@@ -1,6 +1,7 @@
 package exercise.refactoring;
 
 public class GameBoard {
+    public static final int oneLessThanCountInRow = GameBoard.SQUARES_PER_SIDE - 1;
     private final int numberOfBoards = 2;
     private int board[][];
     public static final int SQUARES_PER_SIDE = 10;
