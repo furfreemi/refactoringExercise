@@ -2,17 +2,15 @@ package exercise.refactoring;
 
 public class ComputerMove {
     private static final int lastPositionOnSecondToLastLine = 89;
-    private final Game game;
     private final MoveSequence moveNumber;
     private final GamePosition nextComputerMove;
     private final GameBoard gameBoard;
     final MarksByAxis marksByAxis = new MarksByAxis();
     static final GameBoardMark occupiedflag = GameBoardMark.OCCUPIED;
 
-    public ComputerMove(Game game, RawPlayerMove rawPlayerMove, GameBoard gameBoard) {
-        this.game = game;
+    public ComputerMove(MoveSequence moveNumber, RawPlayerMove rawPlayerMove, GameBoard gameBoard) {
         this.gameBoard = gameBoard;
-        this.moveNumber = game.moveNumber;
+        this.moveNumber = moveNumber;
         this.nextComputerMove = makeComputerMove(rawPlayerMove);
     }
 
@@ -40,36 +38,36 @@ public class ComputerMove {
             }
         }
 
-        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game);
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
         if ((moveNumber.isOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game));
+        position.setPosition(tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((moveNumber.isOver(5) && position.isNotNone())) {
             return position;
         }
 
         setFlagsForLaterProcessing(GameBoardMark.X_MARK_FOR_PLAYER);
 
-        position.setPosition(tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game));
+        position.setPosition(tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((moveNumber.isOver(4) && position.isNotNone())) {
             return position;
         }
 
-        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.X_MARK_FOR_PLAYER, game);
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark.X_MARK_FOR_PLAYER);
         if ((moveNumber.isOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER, game));
+        position.setPosition(tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((moveNumber.isOver(5) && position.isNotNone())) {
             return position;
         }
 
         setFlagsForLaterProcessing(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
 
-        position.setPosition(tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER, game));
+        position.setPosition(tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((moveNumber.isOver(4) && position.isNotNone())) {
             return position;
         }
@@ -88,32 +86,32 @@ public class ComputerMove {
             }
         }
 
-        position.setPosition(check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game));
+        position.setPosition(check2o3c(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
         if ((moveNumber.isOver(2) && position.isNotNone())) {
             return position;
         }
 
-        position.setPosition(check2o3c(GameBoardMark.X_MARK_FOR_PLAYER, game));
+        position.setPosition(check2o3c(GameBoardMark.X_MARK_FOR_PLAYER));
         if ((moveNumber.isOver(20) && position.isNotNone())) {
             return position;
         }
 
         if (moveNumber.isOver(3)) {
-            position.setPosition(checkCross(GameBoardMark.X_MARK_FOR_PLAYER, game));
+            position.setPosition(checkCross(GameBoardMark.X_MARK_FOR_PLAYER));
             if (position.isNotNone()) {
                 return position;
             }
         }
 
         if (moveNumber.isOver(3)) {
-            position.setPosition(checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game));
+            position.setPosition(checkCross(GameBoardMark.ZERO_MARK_FOR_COMPUTER));
             if (position.isNotNone()) {
                 return position;
             }
         }
 
         if (moveNumber.isOver(2)) {
-            position.setPosition(checkBox(GameBoardMark.X_MARK_FOR_PLAYER, game));
+            position.setPosition(checkBox(GameBoardMark.X_MARK_FOR_PLAYER));
             if (position.isNotNone()) {
                 return position;
             }
@@ -126,17 +124,17 @@ public class ComputerMove {
             }
         }
 
-        position = createTwoAxesOrCreateOneAndBlockAnother(game);
+        position = createTwoAxesOrCreateOneAndBlockAnother();
         if (position.isNotNone()) {
             return position;
         }
 
-        position = responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER, game);
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark.ZERO_MARK_FOR_COMPUTER);
         if (position.isNotNone()) {
             return position;
         }
 
-        position = responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark.X_MARK_FOR_PLAYER, game);
+        position = responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark.X_MARK_FOR_PLAYER);
         if (position.isNotNone()) {
             return position;
         }
@@ -145,7 +143,7 @@ public class ComputerMove {
         return position;
     }
 
-    private GamePosition createTwoAxesOrCreateOneAndBlockAnother(Game game) {
+    private GamePosition createTwoAxesOrCreateOneAndBlockAnother() {
         seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
 
         for (int position = GameBoard.oneMoreThanSquaresPerSide; position < lastPositionOnSecondToLastLine; position++)
@@ -221,7 +219,7 @@ public class ComputerMove {
         return GamePosition.nonePosition();
     }
 
-    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark, Game game) {
+    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCheckMode(GameBoardMark playerMark) {
         int j, k, l;
         GamePosition place = new GamePosition();
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
@@ -269,7 +267,7 @@ public class ComputerMove {
         return GamePosition.nonePosition();
     }
 
-    private int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark, Game game) {
+    private int tryToFindPositionGivingSeriesOf4OnTwoOrMoreAxes(GameBoardMark playerMark) {
         copyBoardToCheck(0);
 
         for (int k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++) {
@@ -284,7 +282,7 @@ public class ComputerMove {
         return (GameBoard.oneMoreThanLastPositionOnBoard);
     }
 
-    private int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark, Game game) {
+    private int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark) {
         int k;
         int gameBoardLevelToCheck = GameBoard.mainBoardIndex;
 
@@ -302,7 +300,7 @@ public class ComputerMove {
         return (GameBoard.oneMoreThanLastPositionOnBoard);
     }
 
-    private int check2o3c(GameBoardMark playerMark, Game game) {
+    private int check2o3c(GameBoardMark playerMark) {
         int k;
 
         for (k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++) {
@@ -319,7 +317,7 @@ public class ComputerMove {
         return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
-    private int checkCross(GameBoardMark playerMark, Game game) {
+    private int checkCross(GameBoardMark playerMark) {
         int k, l, x;
 
         for (k = 1; k < 7; k++) {
@@ -331,7 +329,7 @@ public class ComputerMove {
         return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
-    private int checkBox(GameBoardMark playerMark, Game game) {
+    private int checkBox(GameBoardMark playerMark) {
         for (int k = 1; k < 8; k++) {
             for (int l = 1; l < 8; l++) {
                 int cnt = 0;
@@ -350,7 +348,7 @@ public class ComputerMove {
         return GameBoard.oneMoreThanLastPositionOnBoard;
     }
 
-    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark, Game game) {
+    private GamePosition responseTo3Or4InaRowOpportunityOnMainBoardInCleanMode(GameBoardMark playerMark) {
         int alsoUpToFive, upToFour, upToFive;
         GamePosition place = new GamePosition();
 
