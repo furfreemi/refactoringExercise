@@ -90,7 +90,7 @@ public class LegacyGame {
         for (j = 0; j < 10; j++) {
             for (l = 0; l < 6; l++) {
                 marksByAxis.setPositionsToZero(0, 1, 2);
-                for (k = 0; k < 5; k++){
+                for (k = 0; k < 5; k++) {
                     marksByAxis.incrementValueAtPositionAndReturnValue(gameBoard.getValueAt(x, j * 10 + l + k).index);
                 }
                 if (getDOublt(playerMark)) {
@@ -175,10 +175,10 @@ public class LegacyGame {
         flag = GameBoardMark.EMPTY.index;
         for (l = 0; l < 6; l++) {
             for (j = 0; j < 6; j++) {
-                for (k = 0; k < 3; k++){
+                for (k = 0; k < 3; k++) {
                     marksByAxis.setPositionsToZero(k);
                 }
-                for (k = 0; k < 5; k++){
+                for (k = 0; k < 5; k++) {
                     marksByAxis.incrementValueAtPosition(gameBoard.getValueAt(x, l * 10 + j - k * oneLessThanCountInRow + 40));
                 }
                 if (getDOublt(playerMark)) {
@@ -273,7 +273,7 @@ public class LegacyGame {
                     position = gameBoard.getValueAt(x, j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 40).index;
                     if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                     if (position == GameBoardMark.EMPTY.index) {
-                        tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 40;
+                        setValueInTempRowForChecksToCalculatedValue(j, k, l, tempRowForChecks);
                         marksByAxis.incrementValueAtPositionAndReturnValue(1);
                     }
                 }
@@ -281,6 +281,10 @@ public class LegacyGame {
                     GameBoard.stagingBoard[tempRowForChecks[l]] = OCCUPIED;
             }
         }
+    }
+
+    private void setValueInTempRowForChecksToCalculatedValue(int j, int k, int l, int[] tempRowForChecks) {
+        tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k - l * oneLessThanCountInRow + 40;
     }
 
     public void seto4cc(GameBoardMark playerMark) {
@@ -683,11 +687,8 @@ public class LegacyGame {
     }
 
     void clearMarksByAxisArray() {
-        int k;
-        for (k = 0; k < 4; k++) {
-            int result;
-            result = marksByAxis.getValueAtPosition(k);
-            result = GameBoardMark.EMPTY.index;
+        for (int k = 0; k < 4; k++) {
+            marksByAxis.setPositionsToZero(k);
         }
     }
 
