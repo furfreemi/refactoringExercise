@@ -25,6 +25,7 @@ public class GameBoard {
     }
 
     public void markMove(GamePosition position, int playerMark) {
+        System.out.println("Position: " + position.getRaw() + " playerMark: " + playerMark);
         mainBoard()[position.getRaw()] = playerMark;
     }
 

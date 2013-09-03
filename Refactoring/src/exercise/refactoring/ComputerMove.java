@@ -24,7 +24,7 @@ public class ComputerMove {
         }
 
         position = closeGapInSeries(gameBoard);
-        if ((moveNumber.isMove(2))) {
+        if (moveNumber.isMove(2) && position.isNotNone()) {
             return position;
         }
 
@@ -160,12 +160,10 @@ public class ComputerMove {
     }
 
     private GamePosition closeGapInSeries(GameBoard gameBoard) {
-        int upToSeven, upToNine, position, otherPosition;
-
-        for (upToSeven = 1; upToSeven < 7; upToSeven++) {
-            for (upToNine = 1; upToNine < GameBoard.oneLessThanCountInRow; upToNine++) {
-                position = upToSeven + GameBoard.SQUARES_PER_SIDE * upToNine;
-                otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
+        for (int upToSeven = 1; upToSeven < 7; upToSeven++) {
+            for (int upToNine = 1; upToNine < GameBoard.oneLessThanCountInRow; upToNine++) {
+                int position = upToSeven + GameBoard.SQUARES_PER_SIDE * upToNine;
+                int otherPosition = upToNine + upToSeven * GameBoard.SQUARES_PER_SIDE;
 
                 if (gameBoard.hasOccupiedUnoccupiedOccupiedPatternStartingAt(position)) {
                     return new GamePosition(position + 1);

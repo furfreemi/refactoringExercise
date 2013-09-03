@@ -35,6 +35,7 @@ public class Game {
         gameBoard.markMove(playerMove, GameBoardMark.X_MARK_FOR_PLAYER.index);
         if (winner() == GameBoardMark.EMPTY) {
             mostRecentComputerMove = new ComputerMove(this, rawPlayerMove, gameBoard).getNextComputerMove();
+            System.out.println("Location of most recent computer move: " + mostRecentComputerMove.getRaw());
             gameBoard.markMove(mostRecentComputerMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
             gameState = GameState.NoWinner;
         }
