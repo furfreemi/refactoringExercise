@@ -1,6 +1,6 @@
 package exercise.refactoring;
 
-public class LegacyGame {
+public class Game {
 
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();

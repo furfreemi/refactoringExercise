@@ -7,11 +7,11 @@ import static org.junit.Assert.assertEquals;
 
 public class WinMethodCharacterizationTest {
 
-    private LegacyGame game;
+    private Game game;
 
     @Before
     public void setUp() {
-        game = new LegacyGame();
+        game = new Game();
     }
 
     @Test

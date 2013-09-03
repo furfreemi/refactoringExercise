@@ -19,13 +19,13 @@ public class LegacyGameGUI extends Applet implements Runnable {
     Image yourTurnImage;
     Image newGameImage;
 
-    private LegacyGame game;
+    private Game game;
 
     public void init() {
 
         tracker = new MediaTracker(this);
         loadAllGameGraphics(tracker);
-        game = new LegacyGame();
+        game = new Game();
         game.resetMainGameBoard(0);
     }
 
