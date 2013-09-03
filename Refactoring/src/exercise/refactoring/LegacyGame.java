@@ -4,7 +4,7 @@ public class LegacyGame {
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();
     final MarksByAxis marksByAxis = new MarksByAxis();
-    public int gameState = 0;
+    public GameState gameState = GameState.NoWinner;
     public MoveSequence moveNumber = new MoveSequence();
     public int lastMove = NONE;
 
@@ -702,21 +702,21 @@ public class LegacyGame {
         if (winner() == GameBoardMark.EMPTY) {
             lastMove = new ComputerMove(this, rawPlayerMove, gameBoard).getNextComputerMove().getRaw();
             gameBoard.markMove(lastMove, GameBoardMark.ZERO_MARK_FOR_COMPUTER.index);
-            gameState = 0;
+            gameState = GameState.NoWinner;
         }
         if (winner() == GameBoardMark.ZERO_MARK_FOR_COMPUTER) {
-            gameState = 3;
+            gameState = GameState.ComputerWon;
         }
 
         if (winner() == GameBoardMark.X_MARK_FOR_PLAYER) {
-            gameState = 2;
+            gameState = GameState.PlayerWon;
         }
     }
 
     public void run() {
         resetMainGameBoard(0);
         moveNumber.setToGameStart();
-        gameState = 0;
+        gameState = GameState.NoWinner;
     }
 
     public boolean checkForPlayerWin() {
