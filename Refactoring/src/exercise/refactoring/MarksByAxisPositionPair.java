@@ -8,4 +8,9 @@ public class MarksByAxisPositionPair {
         this.position = position;
         this.desiredValue = desiredValue;
     }
+
+    public MarksByAxisPositionPair(GameBoardMark playerMark, int desiredValue) {
+        this.position = playerMark.index;
+        this.desiredValue = desiredValue;
+    }
 }
