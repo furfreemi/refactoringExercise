@@ -4,12 +4,12 @@ public class LegacyGame {
 
     public final GameBoard gameBoard = new GameBoard();
     final MarksForChecking marksForChecking = new MarksForChecking();
-    final MarksByAxis marksByAxis = new MarksByAxis();
+
     public GameState gameState = GameState.NoWinner;
     public MoveSequence moveNumber = new MoveSequence();
     public GamePosition mostRecentComputerMove = null;
 
-    static final GameBoardMark occupiedflag = GameBoardMark.OCCUPIED;
+
 
     //    used by gui
     public boolean hasNoWinner() {

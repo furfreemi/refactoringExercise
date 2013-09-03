@@ -90,9 +90,9 @@ public class GameBoard {
         return GameBoardMark.valueOf(mainBoard()[position]);
     }
 
-    public void resetAllMarksAlongAxesForFirstHalfOfBoard(LegacyGame legacyGame) {
+    public void resetAllMarksAlongAxesForFirstHalfOfBoard(MarksByAxis marksByAxis) {
         for (int k = 0; k < 4; k++) {
-            legacyGame.marksByAxis.setPositionsToZero(k);
+            marksByAxis.setPositionsToZero(k);
         }
 //        legacyGame.marksByAxis.setPositionsToZero(0, 1, 2, 3);
     }
