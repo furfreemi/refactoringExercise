@@ -1,8 +1,8 @@
 package exercise.refactoring;
 
 public class MarksByAxis {
-//    private int[] marks;
-    int[] marks;
+    private int[] marks;
+//    int[] marks;
 
     public MarksByAxis() {
         this.marks = new int[8];
@@ -16,6 +16,11 @@ public class MarksByAxis {
 
     public void incrementValueAtPosition(int position) {
         marks[position] += 1;
+    }
+
+    public int incrementValueAtPositionAndReturnValue(int position) {
+        marks[position] += 1;
+        return marks[position];
     }
 
     public void incrementValueAtPosition(GameBoardMark gameBoardMark) {

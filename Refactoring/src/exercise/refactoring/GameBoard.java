@@ -72,12 +72,7 @@ public class GameBoard {
     }
 
     public boolean positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(int position) {
-        return playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide)
-                || playerXOccupiesMainBoardPosition(position - SQUARES_PER_SIDE)
-                || playerXOccupiesMainBoardPosition(position - 1)
-                || playerXOccupiesMainBoardPosition(position + 1)
-                || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide)
-                || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE);
+        return playerXOccupiesMainBoardPosition(position - oneMoreThanSquaresPerSide) || playerXOccupiesMainBoardPosition(position - SQUARES_PER_SIDE) || playerXOccupiesMainBoardPosition(position - 1) || playerXOccupiesMainBoardPosition(position + 1) || playerXOccupiesMainBoardPosition(position + oneMoreThanSquaresPerSide) || playerXOccupiesMainBoardPosition(position + SQUARES_PER_SIDE);
     }
 
     public void setBoardTwoToDuplicateOfMainBoard() {
@@ -94,7 +89,9 @@ public class GameBoard {
     }
 
     public void resetAllMarksAlongAxesForFirstHalfOfBoard(LegacyGame legacyGame) {
-        for (int k = 0; k < 4; k++)
-            legacyGame.marksByAxis.marks[k] = 0;
+        for (int k = 0; k < 4; k++) {
+            legacyGame.marksByAxis.setPositionsToZero(k);
+        }
+//        legacyGame.marksByAxis.setPositionsToZero(0, 1, 2, 3);
     }
 }
