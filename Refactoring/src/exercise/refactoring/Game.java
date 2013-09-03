@@ -9,9 +9,6 @@ public class Game {
     public MoveSequence moveNumber = new MoveSequence();
     public GamePosition mostRecentComputerMove = null;
 
-
-
-    //    used by gui
     public boolean hasNoWinner() {
         return gameState == GameState.NoWinner;
     }
@@ -56,7 +53,6 @@ public class Game {
         gameState = GameState.NoWinner;
     }
 
-    //    not used by GUI
     public GameBoardMark winner() {
         if (checkForComputerWin()) return GameBoardMark.ZERO_MARK_FOR_COMPUTER;
         if (checkForPlayerWin()) return GameBoardMark.X_MARK_FOR_PLAYER;
