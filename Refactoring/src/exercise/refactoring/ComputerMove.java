@@ -684,51 +684,51 @@ public class ComputerMove {
     }
 
     public void seto4cc(GameBoardMark playerMark) {
-        int j, k, l;
-        int position;
-
-        for (j = 0; j < GameBoard.TOTAL_SQUARES_PER_BOARD; j++) {
-            StagingBoard.setValueAtPositionToEmpty(j);
-        }
-        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
-
-        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
-            for (k = 0; k < 5; k++) {
-                position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 5)) {
-                    marksByAxis.setPositionsToZero(0, 1);
-                    for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
-                        if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
-                        if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k + l;
-                            marksByAxis.incrementValueAtPositionAndReturnValue(1);
-                        }
-                    }
-                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
-                }
-            }
-        }
-
-        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
-            for (k = 0; k < 5; k++) {
-                position = k * GameBoard.SQUARES_PER_SIDE + j;
-                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 50)) {
-                    marksByAxis.setPositionsToZero(0, 1);
-                    for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
-                        if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
-                        if (position == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
-                            marksByAxis.incrementValueAtPositionAndReturnValue(1);
-                        }
-                    }
-                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
-                }
-            }
-        }
+//        int j, k, l;
+//        int position;
+//
+//        for (j = 0; j < GameBoard.TOTAL_SQUARES_PER_BOARD; j++) {
+//            StagingBoard.setValueAtPositionToEmpty(j);
+//        }
+//        int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
+//
+//        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
+//            for (k = 0; k < 5; k++) {
+//                position = j * GameBoard.SQUARES_PER_SIDE + k;
+//                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 5)) {
+//                    marksByAxis.setPositionsToZero(0, 1);
+//                    for (l = 1; l < 5; l++) {
+//                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
+//                        if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
+//                        if (position == GameBoardMark.EMPTY.index) {
+//                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k + l;
+//                            marksByAxis.incrementValueAtPositionAndReturnValue(1);
+//                        }
+//                    }
+//                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
+//                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
+//                }
+//            }
+//        }
+//
+//        for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
+//            for (k = 0; k < 5; k++) {
+//                position = k * GameBoard.SQUARES_PER_SIDE + j;
+//                if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 50)) {
+//                    marksByAxis.setPositionsToZero(0, 1);
+//                    for (l = 1; l < 5; l++) {
+//                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
+//                        if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
+//                        if (position == GameBoardMark.EMPTY.index) {
+//                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
+//                            marksByAxis.incrementValueAtPositionAndReturnValue(1);
+//                        }
+//                    }
+//                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
+//                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
+//                }
+//            }
+//        }
 
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
@@ -752,7 +752,7 @@ public class ComputerMove {
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50 + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (l = 1; l < 5; l++) {
                         position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k - l * GameBoard.oneLessThanCountInRow + 50).index;
