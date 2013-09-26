@@ -1,27 +1,24 @@
 package exercise.refactoring;
 
 public class GameBoard {
+    public static final int SQUARES_PER_SIDE = 10;
     public static final int oneLessThanCountInRow = GameBoard.SQUARES_PER_SIDE - 1;
+    public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
+    public static final int indexOfMainBoard = 0;
+    public static final int indexOfBoardTwo = 2;
+    public static final int TOTAL_SQUARES_PER_BOARD = 100;
+    public static final int MAX_DEPTH_FOR_TEMP_BOARD = 7;
+    public static final int oneMoreThanLastPositionOnBoard = TOTAL_SQUARES_PER_BOARD;
+
     private final int numberOfBoards = 3;
     private int board[][];
-    public static final int SQUARES_PER_SIDE = 10;
-    public static int mainBoardIndex = 0;
-    public static final int oneMoreThanSquaresPerSide = GameBoard.SQUARES_PER_SIDE + 1;
-    public static int boardTwoIndex = 2;
-    static final int TOTAL_SQUARES_PER_BOARD = 100;
-
-    static final int MAX_DEPTH_FOR_TEMP_BOARD = 7;
-    static int[][] perhapsaTemporaryBoardHolder = new int[MAX_DEPTH_FOR_TEMP_BOARD][TOTAL_SQUARES_PER_BOARD];
-    static int[] stagingBoard = new int[TOTAL_SQUARES_PER_BOARD];
-    static int[] tempTableForChecks = new int[TOTAL_SQUARES_PER_BOARD];
-    public static int oneMoreThanLastPositionOnBoard = 100;
 
     public GameBoard() {
         this.board = new int[numberOfBoards][TOTAL_SQUARES_PER_BOARD];
     }
 
     int[] mainBoard() {
-        return board[mainBoardIndex];
+        return board[indexOfMainBoard];
     }
 
     public void markMove(GamePosition position, int playerMark) {
@@ -82,9 +79,8 @@ public class GameBoard {
         board[2] = mainBoard().clone();
     }
 
-
     boolean hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(int position, int diff) {
-        return hasEmptyValueAt(boardTwoIndex, position) && hasEmptyValueAt(boardTwoIndex, position + diff);
+        return hasEmptyValueAt(indexOfBoardTwo, position) && hasEmptyValueAt(indexOfBoardTwo, position + diff);
     }
 
     public GameBoardMark gameMarkAtMainBoardPosition(int position) {
@@ -95,6 +91,5 @@ public class GameBoard {
         for (int k = 0; k < 4; k++) {
             marksByAxis.setPositionsToZero(k);
         }
-//        legacyGame.marksByAxis.setPositionsToZero(0, 1, 2, 3);
     }
 }

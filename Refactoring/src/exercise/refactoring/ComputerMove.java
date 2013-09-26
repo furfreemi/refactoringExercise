@@ -6,7 +6,6 @@ public class ComputerMove {
     private final GamePosition nextComputerMove;
     private final GameBoard gameBoard;
     final MarksByAxis marksByAxis = new MarksByAxis();
-    static final GameBoardMark occupiedflag = GameBoardMark.OCCUPIED;
 
     public ComputerMove(MoveSequence moveNumber, RawPlayerMove rawPlayerMove, GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -147,14 +146,14 @@ public class ComputerMove {
         seto4cc(GameBoardMark.X_MARK_FOR_PLAYER);
 
         for (int position = GameBoard.oneMoreThanSquaresPerSide; position < lastPositionOnSecondToLastLine; position++)
-            if (positionIsOccupiedOnStagingBoardAndDesirable(gameBoard, gameBoard.stagingBoard, position)) {
+            if (positionIsOccupiedOnStagingBoardAndDesirable(gameBoard, new StagingBoard(), position)) {
                 return new GamePosition(position);
             }
         return GamePosition.nonePosition();
     }
 
-    private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, int[] stagingBoard, int position) {
-        return stagingBoard[position] == occupiedflag.index && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
+    private boolean positionIsOccupiedOnStagingBoardAndDesirable(GameBoard gameBoard, StagingBoard stagingBoard, int position) {
+        return stagingBoard.isOccupiedAtPosition(position) && gameBoard.positionIsDesirableForCreateTwoAxesOrCreateOneAndBlockAnother(position);
     }
 
     private GamePosition closeGapInSeries(GameBoard gameBoard) {
@@ -284,7 +283,7 @@ public class ComputerMove {
 
     private int tryToMake3WithGap_FromVert4IntersectingWithHoriz4(GameBoardMark playerMark) {
         int k;
-        int gameBoardLevelToCheck = GameBoard.mainBoardIndex;
+        int gameBoardLevelToCheck = GameBoard.indexOfMainBoard;
 
         for (k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++)
             gameBoard.setValueAt(1, k, gameBoard.getValueAt(gameBoardLevelToCheck, k));
@@ -306,13 +305,13 @@ public class ComputerMove {
         for (k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++) {
             if (!gameBoard.hasEmptyValueOnMainBoardAt(k)) continue;
 
-            gameBoard.setValueAt(GameBoard.mainBoardIndex, k, playerMark);
+            gameBoard.setValueAt(GameBoard.indexOfMainBoard, k, playerMark);
 
-            if (responseTo3Or4InaRowOpportunity(playerMark, GameBoard.mainBoardIndex, Mode.COUNT).isOverOne()) {
+            if (responseTo3Or4InaRowOpportunity(playerMark, GameBoard.indexOfMainBoard, Mode.COUNT).isOverOne()) {
                 return k;
             }
 
-            gameBoard.setValueAt(GameBoard.mainBoardIndex, k, GameBoardMark.EMPTY);
+            gameBoard.setValueAt(GameBoard.indexOfMainBoard, k, GameBoardMark.EMPTY);
         }
         return GameBoard.oneMoreThanLastPositionOnBoard;
     }
@@ -401,7 +400,7 @@ public class ComputerMove {
             position = (int) (Math.random() * GameBoard.TOTAL_SQUARES_PER_BOARD);
             if (gameBoard.mainBoard()[position] != GameBoardMark.EMPTY.index) continue;
             if (spotFinderCondition(gameBoard, position)) {
-                i = occupiedflag.index;
+                i = GameBoardMark.OCCUPIED.index;
             }
         } while (i == GameBoardMark.EMPTY.index);
         return position;
@@ -442,7 +441,7 @@ public class ComputerMove {
         setc4c(playerMark);
 
         for (int k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++) {
-            if (GameBoard.stagingBoard[k] == GameBoardMark.EMPTY.index || auxilliaryBoard[k] != GameBoardMark.EMPTY.index) continue;
+            if (StagingBoard.isEmptyAtPosition(k) || auxilliaryBoard[k] != GameBoardMark.EMPTY.index) continue;
             copyStagingBoardIntoOddGroupOfBoardsAtDepth(depth);
 
             auxilliaryBoard[k] = playerMark.index;
@@ -493,23 +492,23 @@ public class ComputerMove {
                     if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY;
                         for (k = 0; k < 5; k++) {
-                            if (gameBoard.hasEmptyValueAt(x, j * 10 + l + k) && GameBoard.tempTableForChecks[j * 10 + l + k] == occupiedflag.index) {
-                                flag2 = occupiedflag;
+                            if (gameBoard.hasEmptyValueAt(x, j * 10 + l + k) && TemporaryChecksTable.tempTableForChecks[j * 10 + l + k] == GameBoardMark.OCCUPIED.index) {
+                                flag2 = GameBoardMark.OCCUPIED;
                             }
                         }
                         if (flag2 == GameBoardMark.EMPTY) {
                             zbir++;
-                            flag = occupiedflag;
+                            flag = GameBoardMark.OCCUPIED;
                             break;
                         }
                     } else {
                         zbir++;
-                        flag = occupiedflag;
+                        flag = GameBoardMark.OCCUPIED;
                         break;
                     }
                 }
             }
-            if (flag == occupiedflag) break;
+            if (flag == GameBoardMark.OCCUPIED) break;
         }
         flag = GameBoardMark.EMPTY;
 
@@ -522,20 +521,20 @@ public class ComputerMove {
                     if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY;
                         for (k = 0; k < 5; k++)
-                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 10) && GameBoard.tempTableForChecks[l * 10 + j + k * 10] == occupiedflag.index) flag2 = occupiedflag;
+                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 10) && TemporaryChecksTable.tempTableForChecks[l * 10 + j + k * 10] == GameBoardMark.OCCUPIED.index) flag2 = GameBoardMark.OCCUPIED;
                         if (flag2 == GameBoardMark.EMPTY) {
                             zbir++;
-                            flag = occupiedflag;
+                            flag = GameBoardMark.OCCUPIED;
                             break;
                         }
                     } else {
                         zbir++;
-                        flag = occupiedflag;
+                        flag = GameBoardMark.OCCUPIED;
                         break;
                     }
                 }
             }
-            if (flag == occupiedflag) break;
+            if (flag == GameBoardMark.OCCUPIED) break;
         }
         flag = GameBoardMark.EMPTY;
         for (l = 0; l < 6; l++) {
@@ -550,23 +549,23 @@ public class ComputerMove {
                     if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY;
                         for (k = 0; k < 5; k++) {
-                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 11) && GameBoard.tempTableForChecks[l * 10 + j + k * 11] == occupiedflag.index) {
-                                flag2 = occupiedflag;
+                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j + k * 11) && TemporaryChecksTable.tempTableForChecks[l * 10 + j + k * 11] == GameBoardMark.OCCUPIED.index) {
+                                flag2 = GameBoardMark.OCCUPIED;
                             }
                         }
                         if (flag2 == GameBoardMark.EMPTY) {
                             zbir++;
-                            flag = occupiedflag;
+                            flag = GameBoardMark.OCCUPIED;
                             break;
                         }
                     } else {
                         zbir++;
-                        flag = occupiedflag;
+                        flag = GameBoardMark.OCCUPIED;
                         break;
                     }
                 }
             }
-            if (flag == occupiedflag) break;
+            if (flag == GameBoardMark.OCCUPIED) break;
         }
         flag = GameBoardMark.EMPTY;
         for (l = 0; l < 6; l++) {
@@ -581,23 +580,23 @@ public class ComputerMove {
                     if (type == Mode.SAFE.rawMode) {
                         flag2 = GameBoardMark.EMPTY;
                         for (k = 0; k < 5; k++) {
-                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j - k * GameBoard.oneLessThanCountInRow + 40) && GameBoard.tempTableForChecks[l * 10 + j - k * GameBoard.oneLessThanCountInRow + 40] == occupiedflag.index) {
-                                flag2 = occupiedflag;
+                            if (gameBoard.hasEmptyValueAt(x, l * 10 + j - k * GameBoard.oneLessThanCountInRow + 40) && TemporaryChecksTable.tempTableForChecks[l * 10 + j - k * GameBoard.oneLessThanCountInRow + 40] == GameBoardMark.OCCUPIED.index) {
+                                flag2 = GameBoardMark.OCCUPIED;
                             }
                         }
                         if (flag2 == GameBoardMark.EMPTY) {
                             zbir++;
-                            flag = occupiedflag;
+                            flag = GameBoardMark.OCCUPIED;
                             break;
                         }
                     } else {
                         zbir++;
-                        flag = occupiedflag;
+                        flag = GameBoardMark.OCCUPIED;
                         break;
                     }
                 }
             }
-            if (flag == occupiedflag) break;
+            if (flag == GameBoardMark.OCCUPIED) break;
         }
         return zbir;
     }
@@ -611,7 +610,7 @@ public class ComputerMove {
         int position, x = 2; // TODO make this Position object
 
         for (j = 0; j < GameBoard.TOTAL_SQUARES_PER_BOARD; j++) {
-            GameBoard.stagingBoard[j] = GameBoardMark.EMPTY.index;
+            StagingBoard.setValueAtPositionToEmpty(j);
         }
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
         for (j = 0; j < GameBoard.SQUARES_PER_SIDE; j++) {
@@ -626,7 +625,7 @@ public class ComputerMove {
                     }
                 }
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                    GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                    StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
             }
         }
 
@@ -642,7 +641,7 @@ public class ComputerMove {
                     }
                 }
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                    GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                    StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
             }
         }
 
@@ -658,7 +657,7 @@ public class ComputerMove {
                     }
                 }
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                    GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                    StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
             }
         }
 
@@ -673,8 +672,9 @@ public class ComputerMove {
                         marksByAxis.incrementValueAtPositionAndReturnValue(1);
                     }
                 }
-                if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                    GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++){
+                    StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
+                }
             }
         }
     }
@@ -688,7 +688,7 @@ public class ComputerMove {
         int position;
 
         for (j = 0; j < GameBoard.TOTAL_SQUARES_PER_BOARD; j++) {
-            GameBoard.stagingBoard[j] = GameBoardMark.EMPTY.index;
+            StagingBoard.setValueAtPositionToEmpty(j);
         }
         int tempRowForChecks[] = new int[GameBoard.SQUARES_PER_SIDE];
 
@@ -698,7 +698,7 @@ public class ComputerMove {
                 if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
+                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k + l).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k + l;
@@ -706,7 +706,7 @@ public class ComputerMove {
                         }
                     }
                     if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
         }
@@ -717,7 +717,7 @@ public class ComputerMove {
                 if (gameBoard.hasEmptyValueAtPositionOnBoardTwoAndPositionWithDiff(position, 50)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
+                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxis.getValueAtPosition(1)] = k * GameBoard.SQUARES_PER_SIDE + j + l * GameBoard.SQUARES_PER_SIDE;
@@ -725,7 +725,7 @@ public class ComputerMove {
                         }
                     }
                     if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
         }
@@ -733,10 +733,10 @@ public class ComputerMove {
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position) && gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 55)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 55)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k + l * 11).index;
+                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k + l * 11).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k + l * 11;
@@ -744,7 +744,7 @@ public class ComputerMove {
                         }
                     }
                     if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
         }
@@ -752,10 +752,10 @@ public class ComputerMove {
         for (j = 0; j < 5; j++) {
             for (k = 0; k < 5; k++) {
                 position = j * GameBoard.SQUARES_PER_SIDE + k;
-                if (gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.boardTwoIndex, position + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (l = 1; l < 5; l++) {
-                        position = gameBoard.getValueAt(GameBoard.boardTwoIndex, j * GameBoard.SQUARES_PER_SIDE + k - l * GameBoard.oneLessThanCountInRow + 50).index;
+                        position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k - l * GameBoard.oneLessThanCountInRow + 50).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
                             tempRowForChecks[marksByAxis.getValueAtPosition(1)] = j * GameBoard.SQUARES_PER_SIDE + k - l * GameBoard.oneLessThanCountInRow + 50;
@@ -763,7 +763,7 @@ public class ComputerMove {
                         }
                     }
                     if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
-                        GameBoard.stagingBoard[tempRowForChecks[l]] = occupiedflag.index;
+                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
         }
@@ -783,8 +783,8 @@ public class ComputerMove {
 
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) {
                     if (type.equals(Mode.SETFLAGS)) {
-                        GameBoard.tempTableForChecks[tempRowForChecks[0]] = occupiedflag.index;
-                        GameBoard.tempTableForChecks[tempRowForChecks[1]] = occupiedflag.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[0]] = GameBoardMark.OCCUPIED.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[1]] = GameBoardMark.OCCUPIED.index;
                     }
                     if (type.equals(Mode.CLEAN)) return new GamePosition(tempRowForChecks[0]);
                 }
@@ -795,8 +795,8 @@ public class ComputerMove {
 
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 3), new MarksByAxisPositionPair(3, 2))) {
                     if (type.equals(Mode.SETFLAGS)) {
-                        GameBoard.tempTableForChecks[tempRowForChecks[0]] = occupiedflag.index;
-                        GameBoard.tempTableForChecks[tempRowForChecks[1]] = occupiedflag.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[0]] = GameBoardMark.OCCUPIED.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[1]] = GameBoardMark.OCCUPIED.index;
                     }
                     if (type.equals(Mode.CLEAN)) return new GamePosition(tempRowForChecks[0]);
                 }
@@ -813,8 +813,8 @@ public class ComputerMove {
 
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 3), new MarksByAxisPositionPair(1, 2))) {
                     if (type.equals(Mode.SETFLAGS)) {
-                        GameBoard.tempTableForChecks[tempRowForChecks[0]] = occupiedflag.index;
-                        GameBoard.tempTableForChecks[tempRowForChecks[1]] = occupiedflag.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[0]] = GameBoardMark.OCCUPIED.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[1]] = GameBoardMark.OCCUPIED.index;
                     }
                     if (type.equals(Mode.CLEAN)) return new GamePosition(tempRowForChecks[0]);
                 }
@@ -822,8 +822,8 @@ public class ComputerMove {
 
                 if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 3), new MarksByAxisPositionPair(3, 2))) {
                     if (type.equals(Mode.SETFLAGS)) {
-                        GameBoard.tempTableForChecks[tempRowForChecks[0]] = occupiedflag.index;
-                        GameBoard.tempTableForChecks[tempRowForChecks[1]] = occupiedflag.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[0]] = GameBoardMark.OCCUPIED.index;
+                        TemporaryChecksTable.tempTableForChecks[tempRowForChecks[1]] = GameBoardMark.OCCUPIED.index;
                     }
                     if (type.equals(Mode.CLEAN)) return new GamePosition(tempRowForChecks[0]);
                 }
@@ -998,7 +998,7 @@ public class ComputerMove {
             if (type.equals(Mode.CHECK)) {
                 match = true;
             }
-            if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = occupiedflag.index;
+            if (type.equals(Mode.SETFLAGS)) TemporaryChecksTable.tempTableForChecks[place.getRaw()] = GameBoardMark.OCCUPIED.index;
         }
         if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 2), new MarksByAxisPositionPair(3, 2))) {
             match = true;
@@ -1014,7 +1014,7 @@ public class ComputerMove {
             if (type.equals(Mode.CHECK)) {
                 match = true;
             }
-            if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = occupiedflag.index;
+            if (type.equals(Mode.SETFLAGS)) TemporaryChecksTable.tempTableForChecks[place.getRaw()] = GameBoardMark.OCCUPIED.index;
         }
         if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) {
             match = true;
@@ -1031,7 +1031,7 @@ public class ComputerMove {
 
                 match = true;
             }
-            if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[place.getRaw()] = occupiedflag.index;
+            if (type.equals(Mode.SETFLAGS)) TemporaryChecksTable.tempTableForChecks[place.getRaw()] = GameBoardMark.OCCUPIED.index;
         }
         if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(2, 2), new MarksByAxisPositionPair(3, 2))) {
             match = true;
@@ -1046,7 +1046,7 @@ public class ComputerMove {
             if (type.equals(Mode.CHECK)) {
                 return true;
             }
-            if (type.equals(Mode.SETFLAGS)) GameBoard.tempTableForChecks[gamePosition.getRaw()] = occupiedflag.index;
+            if (type.equals(Mode.SETFLAGS)) TemporaryChecksTable.tempTableForChecks[gamePosition.getRaw()] = GameBoardMark.OCCUPIED.index;
         }
 
         if (type.equals(Mode.CLEAN) && marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) {
@@ -1060,19 +1060,19 @@ public class ComputerMove {
         int k;
 
         for (k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++)
-            GameBoard.tempTableForChecks[k] = GameBoardMark.EMPTY.index;
+            TemporaryChecksTable.tempTableForChecks[k] = GameBoardMark.EMPTY.index;
         blockSeriesOfFourOrMore(playerMark, 0, Mode.SETFLAGS);
         responseTo3Or4InaRowOpportunity(playerMark, 0, Mode.SETFLAGS);
     }
 
     public void copyIntoStagingBoardFromOddBoardGroupAtDepth(int depth) {
         for (int k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++)
-            GameBoard.stagingBoard[k] = GameBoard.perhapsaTemporaryBoardHolder[depth][k];
+            StagingBoard.setValueAt(k, TemporaryBoardHolder.getValueAt(depth, k));
     }
 
     public void copyStagingBoardIntoOddGroupOfBoardsAtDepth(int depth) {
         for (int k = 0; k < GameBoard.TOTAL_SQUARES_PER_BOARD; k++) {
-            GameBoard.perhapsaTemporaryBoardHolder[depth][k] = GameBoard.stagingBoard[k];
+            TemporaryBoardHolder.setValueAt(depth, k, StagingBoard.getValueAt(k));
         }
     }
 
