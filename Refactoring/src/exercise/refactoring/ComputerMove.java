@@ -730,12 +730,12 @@ public class ComputerMove {
 //            }
 //        }
 
-        for (j = 0; j < 5; j++) {
-            for (k = 0; k < 5; k++) {
-                position = j * GameBoard.SQUARES_PER_SIDE + k;
+        for (int j = 0; j < 5; j++) {
+            for (int k = 0; k < 5; k++) {
+                int position = j * GameBoard.SQUARES_PER_SIDE + k;
                 if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 55)) {
                     marksByAxis.setPositionsToZero(0, 1);
-                    for (l = 1; l < 5; l++) {
+                    for (int l = 1; l < 5; l++) {
                         position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k + l * 11).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
@@ -743,18 +743,18 @@ public class ComputerMove {
                             marksByAxis.incrementValueAtPositionAndReturnValue(1);
                         }
                     }
-                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
+                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (int l = 0; l < 2; l++)
                         StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
         }
 
-        for (j = 0; j < 5; j++) {
-            for (k = 0; k < 5; k++) {
-                position = j * GameBoard.SQUARES_PER_SIDE + k;
+        for (int j = 0; j < 5; j++) {
+            for (int k = 0; k < 5; k++) {
+                int position = j * GameBoard.SQUARES_PER_SIDE + k;
                 if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, position + 50 + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
-                    for (l = 1; l < 5; l++) {
+                    for (int l = 1; l < 5; l++) {
                         position = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, j * GameBoard.SQUARES_PER_SIDE + k - l * GameBoard.oneLessThanCountInRow + 50).index;
                         if (position == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (position == GameBoardMark.EMPTY.index) {
@@ -762,7 +762,7 @@ public class ComputerMove {
                             marksByAxis.incrementValueAtPositionAndReturnValue(1);
                         }
                     }
-                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (l = 0; l < 2; l++)
+                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (int l = 0; l < 2; l++)
                         StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[l]);
                 }
             }
