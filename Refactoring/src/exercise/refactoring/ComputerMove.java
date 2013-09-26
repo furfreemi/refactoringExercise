@@ -732,12 +732,7 @@ public class ComputerMove {
 
         newMethod(playerMark, tempRowForChecks, 1, 0, 50, 11);
 
-        int sign = -1;
-        int foo = 50;
-        int bar = 0;
-        int baz = GameBoard.oneLessThanCountInRow;
-
-        newMethod(playerMark, tempRowForChecks, sign, foo, bar, baz);
+        newMethod(playerMark, tempRowForChecks, -1, 50, 0, GameBoard.oneLessThanCountInRow);
     }
 
     private void newMethod(GameBoardMark playerMark, int[] tempRowForChecks, int sign, int foo, int bar, int baz) {
