@@ -750,16 +750,20 @@ public class ComputerMove {
         }
 
         int plusMinus = -1;
+        int foo = 50;
+        int bar = 0;
+        int baz = GameBoard.oneLessThanCountInRow;
+
         for (int b1 = 0; b1 < 5; b1++) {
             for (int b2 = 0; b2 < 5; b2++) {
                 int positionB = b1 * GameBoard.SQUARES_PER_SIDE + b2;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 0 + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + foo) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + bar + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (int b3 = 1; b3 < 5; b3++) {
-                        positionB = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * GameBoard.oneLessThanCountInRow + 50).index;
+                        positionB = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * baz + foo).index;
                         if (positionB == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (positionB == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * GameBoard.oneLessThanCountInRow + 50;
+                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * baz + foo;
                             marksByAxis.incrementValueAtPositionAndReturnValue(1);
                         }
                     }
