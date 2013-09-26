@@ -733,7 +733,7 @@ public class ComputerMove {
         for (int a1 = 0; a1 < 5; a1++) {
             for (int a2 = 0; a2 < 5; a2++) {
                 int positionA = a1 * GameBoard.SQUARES_PER_SIDE + a2;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 50 + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 0) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 50 + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (int a3 = 1; a3 < 5; a3++) {
                         positionA = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, a1 * GameBoard.SQUARES_PER_SIDE + a2 + 1 * a3 * 11 + 0).index;
