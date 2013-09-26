@@ -733,7 +733,7 @@ public class ComputerMove {
         for (int a1 = 0; a1 < 5; a1++) {
             for (int a2 = 0; a2 < 5; a2++) {
                 int positionA = a1 * GameBoard.SQUARES_PER_SIDE + a2;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 55)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 50 + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (int a3 = 1; a3 < 5; a3++) {
                         positionA = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, a1 * GameBoard.SQUARES_PER_SIDE + a2 + a3 * 11).index;
@@ -752,7 +752,7 @@ public class ComputerMove {
         for (int b1 = 0; b1 < 5; b1++) {
             for (int b2 = 0; b2 < 5; b2++) {
                 int positionB = b1 * GameBoard.SQUARES_PER_SIDE + b2;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 50 + 5)) {
+                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 50) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + 0 + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (int b3 = 1; b3 < 5; b3++) {
                         positionB = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, b1 * GameBoard.SQUARES_PER_SIDE + b2 - b3 * GameBoard.oneLessThanCountInRow + 50).index;
