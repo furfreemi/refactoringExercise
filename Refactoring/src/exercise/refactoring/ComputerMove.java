@@ -730,40 +730,27 @@ public class ComputerMove {
             }
         }
 
-        for (int a1 = 0; a1 < 5; a1++) {
-            for (int a2 = 0; a2 < 5; a2++) {
-                int positionA = a1 * GameBoard.SQUARES_PER_SIDE + a2;
-                if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 0) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionA + 50 + 5)) {
-                    marksByAxis.setPositionsToZero(0, 1);
-                    for (int a3 = 1; a3 < 5; a3++) {
-                        positionA = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, a1 * GameBoard.SQUARES_PER_SIDE + a2 + 1 * a3 * 11 + 0).index;
-                        if (positionA == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
-                        if (positionA == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = a1 * GameBoard.SQUARES_PER_SIDE + a2 + 1 * a3 * 11 + 0;
-                            marksByAxis.incrementValueAtPositionAndReturnValue(1);
-                        }
-                    }
-                    if (marksByAxis.valueAtPositionPairsMatch(new MarksByAxisPositionPair(0, 2), new MarksByAxisPositionPair(1, 2))) for (int a4 = 0; a4 < 2; a4++)
-                        StagingBoard.setValueAtPositionToOccupied(tempRowForChecks[a4]);
-                }
-            }
-        }
+        newMethod(playerMark, tempRowForChecks, 1, 0, 50, 11);
 
-        int plusMinus = -1;
+        int sign = -1;
         int foo = 50;
         int bar = 0;
         int baz = GameBoard.oneLessThanCountInRow;
 
+        newMethod(playerMark, tempRowForChecks, sign, foo, bar, baz);
+    }
+
+    private void newMethod(GameBoardMark playerMark, int[] tempRowForChecks, int sign, int foo, int bar, int baz) {
         for (int b1 = 0; b1 < 5; b1++) {
             for (int b2 = 0; b2 < 5; b2++) {
                 int positionB = b1 * GameBoard.SQUARES_PER_SIDE + b2;
                 if (gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + foo) && gameBoard.hasEmptyValueAt(GameBoard.indexOfBoardTwo, positionB + bar + 5)) {
                     marksByAxis.setPositionsToZero(0, 1);
                     for (int b3 = 1; b3 < 5; b3++) {
-                        positionB = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * baz + foo).index;
+                        positionB = gameBoard.getValueAt(GameBoard.indexOfBoardTwo, b1 * GameBoard.SQUARES_PER_SIDE + b2 + sign * b3 * baz + foo).index;
                         if (positionB == playerMark.index) marksByAxis.incrementValueAtPositionAndReturnValue(0);
                         if (positionB == GameBoardMark.EMPTY.index) {
-                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = b1 * GameBoard.SQUARES_PER_SIDE + b2 + plusMinus * b3 * baz + foo;
+                            tempRowForChecks[marksByAxis.getValueAtPosition(1)] = b1 * GameBoard.SQUARES_PER_SIDE + b2 + sign * b3 * baz + foo;
                             marksByAxis.incrementValueAtPositionAndReturnValue(1);
                         }
                     }
