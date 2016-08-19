@@ -1,45 +1,15 @@
-apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'idea'
-apply from: 'https://github.com/valkolovos/gradle_cobertura/raw/master/repo/gradle_cobertura/gradle_cobertura/1.0/coberturainit.gradle'
+apply plugin: 'jacoco'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
-configurations {
-    provided
-}
-
-def projects = ['Refactoring']
-
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
-
-        java {
-            srcDirs = projects.collect { project -> project + '/src' }
-        }
-    }
-
-    test {
-        java {
-            srcDirs = projects.collect { project -> project + '/test' }
-        }
-    }
-}
-
-cobertura {
-    coverageSourceDirs = srcDirs = projects.collect { project -> project + '/src' }
-}
-
-idea {
-    module {
-        scopes.PROVIDED.plus += configurations.provided
-    }
-}
+defaultTasks 'clean', 'test'
 
 dependencies {
-    compile group: 'org.mockito', name: 'mockito-all', version: '1.8.4';
-    compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3';
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile 'org.mockito:mockito-all:2.+'
+    compile 'org.hamcrest:hamcrest-all:1.+';
+    compile 'junit:junit:4+'
 }

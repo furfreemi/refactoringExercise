@@ -18,7 +18,7 @@ public class WinMethodCharacterizationTest {
 	public void computerCanWinWithSixInARowHorizontal() {
 	   game.gameBoard = new int[][]{
 		{
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 2, 2, 2, 2, 2, 2, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
