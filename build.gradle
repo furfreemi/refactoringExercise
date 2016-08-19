@@ -1,9 +1,15 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-//apply from: 'https://github.com/valkolovos/gradle_cobertura/raw/master/repo/gradle_cobertura/gradle_cobertura/1.0/coberturainit.gradle'
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: "idea"
+apply plugin: "application"
+apply plugin: "jacoco"
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 configurations {
@@ -11,6 +17,8 @@ configurations {
 }
 
 def projects = ['Refactoring']
+
+defaultTasks 'clean', 'test'
 
 sourceSets {
     main {
